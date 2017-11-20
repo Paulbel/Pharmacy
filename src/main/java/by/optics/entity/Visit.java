@@ -1,0 +1,12 @@
+package by.optics.entity;
+
+public class Visit {
+    private int id;
+    private Client client;
+    private Doctor doctor;
+    private double leftDioptr;
+    private double rightDioptr;
+    private String diagnosis;
+    private String date;
+
+}
