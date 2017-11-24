@@ -3,33 +3,28 @@ package by.optics.service.impl;
 import by.optics.dao.DAOFactory;
 import by.optics.dao.UserDAO;
 import by.optics.dao.exception.DAOException;
-import by.optics.entity.Client;
-import by.optics.entity.User;
-import by.optics.service.ClientService;
+import by.optics.entity.user.User;
+import by.optics.service.UserDataValidator;
 import by.optics.service.UserService;
 import by.optics.service.exception.ServiceException;
 import by.optics.service.exception.WrongPasswordException;
+import com.sun.xml.internal.ws.developer.MemberSubmissionAddressing;
 
 public class UserServiceImpl implements UserService{
 
 
     @Override
     public User signIn(String login, String password) throws ServiceException {
-        DAOFactory daoFactory = DAOFactory.getInstance();
-        UserDAO userDAO = daoFactory.getUserDAO();
-        User user;
         try {
-            User foundUser = userDAO.findUser(login);
-
-            //TODO validation
-            if(!foundUser.getPassword().equals(password)){
-                throw new WrongPasswordException();
-            }
-            user = foundUser;
+            DAOFactory daoFactory = DAOFactory.getInstance();
+            UserDAO userDAO = daoFactory.getUserDAO();
+            User foundUser = userDAO.findUserByLogin(login);
+            UserDataValidator validator = new UserDataValidator();
+            validator.checkPassword(foundUser,password);
+            return foundUser;
         } catch (DAOException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e.getMessage(),e);
         }
-        return user;
     }
 
 

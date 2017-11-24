@@ -1,4 +1,6 @@
-package by.optics.entity;
+package by.optics.entity.user;
+
+import by.optics.entity.Visit;
 
 import java.util.List;
 

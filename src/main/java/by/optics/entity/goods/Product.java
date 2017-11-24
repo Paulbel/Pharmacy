@@ -1,6 +1,6 @@
-package by.optics.entity;
+package by.optics.entity.goods;
 
-public abstract class Goods {
+public abstract class Product {
     protected int price;
     protected String name;
     protected String description;

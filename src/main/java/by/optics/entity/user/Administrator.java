@@ -1,4 +1,4 @@
-package by.optics.entity;
+package by.optics.entity.user;
 
 import java.util.List;
 

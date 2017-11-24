@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="fonts.css" type="text/css" charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="MainPageStyles.css">
 
-    <fmt:setLocale value="en"/>
+    <fmt:setLocale value="${sessionScope.local}"/>
     <fmt:setBundle basename="local" var = "loc"/>
     <fmt:message bundle="${loc}" key="local.signIn" var="signin"/>
     <fmt:message bundle="${loc}" key="local.registration" var="registration"/>
@@ -31,6 +31,10 @@
     <fmt:message bundle="${loc}" key="local.password" var="password"/>
     <fmt:message bundle="${loc}" key="local.login" var="login"/>
     <fmt:message bundle="${loc}" key="local.repeatPassword" var="repeatPassword"/>
+    <fmt:message bundle="${loc}" key="local.cancel" var="cancel"/>
+    <fmt:message bundle="${loc}" key="local.ru" var="ru"/>
+    <fmt:message bundle="${loc}" key="local.en" var="en"/>
+    <fmt:message bundle="${loc}" key="local.language" var="language"/>
 
 
 </head>
@@ -45,21 +49,21 @@
         <div class="container">
             <input type="hidden" name="command" value="signIn"/>
 
-            <label><b>Username</b></label>
+            <label><b><c:out value="${login}"/></b></label>
             <input type="text" name="login" value=""/>
             <br/>
 
-            <label><b>Password</b></label>
+            <label><b><c:out value="${password}"/></b></label>
             <input type="password" name="password" value=""/>
             <br/>
         </div>
 
         <div class="container">
-            <button type="button" onclick="document.getElementById('signInForm').style.display='none'" class="cancelbtn">
-                Cancel
+
+            <input type="submit" value="<c:out value="${signin}"/>"/><br/>
+            <button type="reset" onclick="document.getElementById('signInForm').style.display='none'" class="cancelbtn">
+                <c:out value="${cancel}"/>
             </button>
-            <span class="psw">Forgot <a href="#">password?</a></span>
-            <input type="submit" value="Отправить"/><br/>
         </div>
     </form>
 </div>
@@ -95,7 +99,7 @@
             <input type="password" name="repeatedPassword" value=""/>
             <br/>
 
-            <label><b><c:out value="${name}"/></b></label>
+            <label><b><c:out value="${phone}"/></b></label>
             <input type="text" name="phone" value=""/>
             <br/>
 
@@ -105,11 +109,12 @@
         </div>
 
         <div class="container">
-            <button type="button" onclick="document.getElementById('registrationForm').style.display='none'" class="cancelbtn">
-                Cancel
+
+            <input type="submit" value="<c:out value="${registration}"/>"/><br/>
+            <button type="reset" onclick="document.getElementById('registrationForm').style.display='none'" class="cancelbtn">
+                <c:out value="${cancel}"/>
             </button>
 
-            <input type="submit" value="Отправить"/><br/>
         </div>
     </form>
 </div>
@@ -119,27 +124,10 @@
 
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <a class="navbar-brand" href="#" ю><c:out value="${opticsname}"/></a>
+            <a class="navbar-brand" href="#"><c:out value="${opticsname}"/></a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-<%--            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Ссылка</a></li>
-                <li><a href="#">Ссылка</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Действие</a></li>
-                        <li><a href="#">Другое действие</a></li>
-                        <li><a href="#">Что-то еще</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Отдельная ссылка</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Еще одна отдельная ссылка</a></li>
-                    </ul>
-                </li>
-            </ul>--%>
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <c:if test="${not empty sessionScope.user}">
@@ -163,6 +151,13 @@
                             <li><a href="FrontController?command=signOut"><c:out value="${signout}" /></a></li>
                         </c:otherwise>
                         </c:choose>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"><c:out value="${language}" /><b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="FrontController?command=changeLanguage&local=ru"><c:out value="${ru}"/></a></li>
+                        <li><a href="FrontController?command=changeLanguage&local=en"><c:out value="${en}"/></a></li>
                     </ul>
                 </li>
 

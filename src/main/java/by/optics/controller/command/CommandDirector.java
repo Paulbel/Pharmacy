@@ -1,5 +1,7 @@
 package by.optics.controller.command;
 
+import by.optics.controller.ControllerConstant;
+import by.optics.controller.command.impl.ChangeLanguageCommand;
 import by.optics.controller.command.impl.RegistrationCommand;
 import by.optics.controller.command.impl.SignInCommand;
 import by.optics.controller.command.impl.SignOutCommand;
@@ -11,9 +13,10 @@ public final class CommandDirector {
     private static Map<String,Command> map = new HashMap<>();
 
     static {
-        map.put("registration", new RegistrationCommand());
-        map.put("signIn", new SignInCommand());
-        map.put("signOut", new SignOutCommand());
+        map.put(ControllerConstant.REGISTRATION_COMMAND, new RegistrationCommand());
+        map.put(ControllerConstant.SIGN_IN_COMMAND, new SignInCommand());
+        map.put(ControllerConstant.SIGN_OUT_COMMAND, new SignOutCommand());
+        map.put(ControllerConstant.CHANGE_LANGUAGE_COMMAND, new ChangeLanguageCommand());
     }
 
     public static Command getCommand(String commandName){

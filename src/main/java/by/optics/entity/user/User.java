@@ -1,4 +1,4 @@
-package by.optics.entity;
+package by.optics.entity.user;
 
 public class User {
     protected String name;
@@ -9,14 +9,6 @@ public class User {
     protected String phoneNumber;
     protected String email;
     protected boolean isBanned;
-
-    public boolean isBanned() {
-        return isBanned;
-    }
-
-    public void setBanned(boolean banned) {
-        isBanned = banned;
-    }
 
     public String getName() {
         return name;
@@ -72,5 +64,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isBanned() {
+        return isBanned;
+    }
+
+    public void setBanned(boolean banned) {
+        isBanned = banned;
     }
 }

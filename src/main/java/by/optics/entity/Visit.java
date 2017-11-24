@@ -1,5 +1,8 @@
 package by.optics.entity;
 
+import by.optics.entity.user.Client;
+import by.optics.entity.user.Doctor;
+
 public class Visit {
     private int id;
     private Client client;

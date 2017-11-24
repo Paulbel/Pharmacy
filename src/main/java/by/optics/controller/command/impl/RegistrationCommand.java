@@ -1,8 +1,8 @@
 package by.optics.controller.command.impl;
 
-import by.optics.controller.ControllerConstants;
+import by.optics.controller.ControllerConstant;
 import by.optics.controller.command.Command;
-import by.optics.entity.User;
+import by.optics.entity.user.User;
 import by.optics.service.ServiceFactory;
 import by.optics.service.UserService;
 
@@ -13,13 +13,13 @@ import java.io.IOException;
 public class RegistrationCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) {
-        String name = request.getParameter(ControllerConstants.NAME);
-        String surname = request.getParameter(ControllerConstants.SURNAME);
-        String patronymic = request.getParameter(ControllerConstants.PATRONYMIC);
-        String login = request.getParameter(ControllerConstants.LOGIN);
-        String password = request.getParameter(ControllerConstants.PASSWORD);
-        String phone = request.getParameter(ControllerConstants.PHONE);
-        String email = request.getParameter(ControllerConstants.EMAIL);
+        String name = request.getParameter(ControllerConstant.NAME_ATTRIBUTE);
+        String surname = request.getParameter(ControllerConstant.SURNAME_ATTRIBUTE);
+        String patronymic = request.getParameter(ControllerConstant.PATRONYMIC_ATTRIBUTE);
+        String login = request.getParameter(ControllerConstant.LOGIN_ATTRIBUTE);
+        String password = request.getParameter(ControllerConstant.PASSWORD_ATTRIBUTE);
+        String phone = request.getParameter(ControllerConstant.PHONE_ATTRIBUTE);
+        String email = request.getParameter(ControllerConstant.EMAIL_ATTRIBUTE);
 
         User user = new User();
 
@@ -36,7 +36,7 @@ public class RegistrationCommand implements Command {
         UserService service = factory.getUserService();
         service.registration(user);
         try {
-            response.sendRedirect("index.jsp");
+            response.sendRedirect(ControllerConstant.MAIN_PAGE_URI);
         } catch (IOException e) {
             e.printStackTrace();
         }
