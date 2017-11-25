@@ -1,14 +1,12 @@
 package by.optics.entity.user;
 
-import java.util.List;
 
 public class Administrator extends User {
-    private List<User> bannedList;
 
     @Override
     public String toString() {
         return "Administrator{" +
-                "bannedList=" + bannedList +
+                "bannedList=" +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", patronymic='" + patronymic + '\'' +
@@ -17,11 +15,5 @@ public class Administrator extends User {
                 '}';
     }
 
-    public List<User> getBannedList() {
-        return bannedList;
-    }
 
-    public void setBannedList(List<User> bannedList) {
-        this.bannedList = bannedList;
-    }
 }

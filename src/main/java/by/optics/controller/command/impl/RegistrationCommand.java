@@ -5,6 +5,7 @@ import by.optics.controller.command.Command;
 import by.optics.entity.user.User;
 import by.optics.service.ServiceFactory;
 import by.optics.service.UserService;
+import by.optics.service.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +13,7 @@ import java.io.IOException;
 
 public class RegistrationCommand implements Command {
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String name = request.getParameter(ControllerConstant.NAME_ATTRIBUTE);
         String surname = request.getParameter(ControllerConstant.SURNAME_ATTRIBUTE);
         String patronymic = request.getParameter(ControllerConstant.PATRONYMIC_ATTRIBUTE);

@@ -1,4 +1,4 @@
-package by.optics.entity.goods;
+package by.optics.entity.product;
 
 public abstract class Product {
     protected int price;

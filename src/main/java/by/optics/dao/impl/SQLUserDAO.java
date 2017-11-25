@@ -1,7 +1,7 @@
 package by.optics.dao.impl;
 
 import by.optics.dao.DAOConstant;
-import by.optics.entity.user.Role;
+import by.optics.dao.UserRole;
 import by.optics.dao.SQLConnectionCreator;
 import by.optics.dao.UserDAO;
 import by.optics.dao.exception.DAOException;
@@ -10,14 +10,46 @@ import by.optics.entity.user.Client;
 import by.optics.entity.user.Doctor;
 import by.optics.entity.user.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static by.optics.dao.DAOConstant.*;
 
 public class SQLUserDAO implements UserDAO {
+
+    public int findNumberOfUsersWithLogin(String login) throws DAOException {
+        try (Connection connection = SQLConnectionCreator.createConnection()) {
+            PreparedStatement statement = connection.prepareStatement(DAOConstant.COUNT_USERS_WITH_LOGIN);
+
+            statement.setString(COUNT_USERS_WITH_LOGIN_INDEX, login);
+            ResultSet set = statement.executeQuery();
+            set.next();
+
+            return set.getInt(DAOConstant.COUNT_USERS_WITH_TOTAL);
+        } catch (SQLException |
+                ClassNotFoundException e) {
+            throw new DAOException("Cannot connect to database!", e);
+        }
+    }
+
+    @Override
+    public List<User> getAllUsers() throws DAOException {
+        try (Connection connection = SQLConnectionCreator.createConnection()) {
+            List<User> userList = new ArrayList<>();
+            Statement statement = connection.createStatement();
+            ResultSet set = statement.executeQuery(DAOConstant.FIND_ALL_USERS);
+            while (set.next()) {
+                userList.add(createUserFromResultSet(set));
+            }
+
+            return userList;
+        } catch (SQLException |
+                ClassNotFoundException e) {
+            throw new DAOException("Cannot connect to database!", e);
+        }
+    }
+
 
     public void registration(User user) throws DAOException {
         try (Connection connection = SQLConnectionCreator.createConnection()) {
@@ -28,9 +60,10 @@ public class SQLUserDAO implements UserDAO {
             statement.setString(ADD_USER_PATRONYMIC_INDEX, user.getPatronymic());
             statement.setString(ADD_USER_LOGIN_INDEX, user.getLogin());
             statement.setString(ADD_USER_PASSWORD_INDEX, user.getPassword());
-            statement.setBoolean(ADD_USER_IS_BANNED_INDEX,user.isBanned());
-            statement.setString(ADD_USER_PHONE_INDEX,user.getPhoneNumber());
-            statement.setString(ADD_USER_ROLE_INDEX,String.valueOf(Role.USER));
+            statement.setBoolean(ADD_USER_IS_BANNED_INDEX, user.isBanned());
+            statement.setString(ADD_USER_PHONE_INDEX, user.getPhoneNumber());
+            statement.setString(ADD_USER_ROLE_INDEX, String.valueOf(UserRole.USER));
+            statement.setString(ADD_USER_EMAIL_INDEX, user.getEmail());
             statement.executeUpdate();
 
         } catch (SQLException |
@@ -58,8 +91,9 @@ public class SQLUserDAO implements UserDAO {
         String login = resultSet.getString(DAOConstant.USERS_TABLE_LOGIN);
         String password = resultSet.getString(DAOConstant.USERS_TABLE_PASSWORD);
         boolean isBanned = resultSet.getBoolean(DAOConstant.USERS_TABLE_IS_BANNED);
-        Role role = Role.valueOf(resultSet.getString(DAOConstant.USERS_TABLE_ROLE));
+        UserRole role = UserRole.valueOf(resultSet.getString(DAOConstant.USERS_TABLE_ROLE));
         String phone = resultSet.getString(DAOConstant.USERS_TABLE_PHONE);
+        String email = resultSet.getString(DAOConstant.USERS_TABLE_EMAIL);
         User user = createUserWithSelectedRole(role);
 
         user.setLogin(login);
@@ -69,10 +103,11 @@ public class SQLUserDAO implements UserDAO {
         user.setPassword(password);
         user.setBanned(isBanned);
         user.setPhoneNumber(phone);
+        user.setEmail(email);
         return user;
     }
 
-    private User createUserWithSelectedRole(Role role) {
+    private User createUserWithSelectedRole(UserRole role) {
         User user = null;
         switch (role) {
             case ADMIN:
@@ -83,6 +118,9 @@ public class SQLUserDAO implements UserDAO {
                 break;
             case DOCTOR:
                 user = new Doctor();
+                break;
+            case USER:
+                user = new User();
                 break;
         }
         return user;

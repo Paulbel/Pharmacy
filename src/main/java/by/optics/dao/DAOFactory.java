@@ -14,5 +14,7 @@ public class DAOFactory {
     public static DAOFactory getInstance() {
         return instance;
     }
-    private DAOFactory(){}
+
+    private DAOFactory() {
+    }
 }

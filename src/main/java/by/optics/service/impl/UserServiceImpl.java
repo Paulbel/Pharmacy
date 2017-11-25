@@ -4,13 +4,11 @@ import by.optics.dao.DAOFactory;
 import by.optics.dao.UserDAO;
 import by.optics.dao.exception.DAOException;
 import by.optics.entity.user.User;
-import by.optics.service.UserDataValidator;
 import by.optics.service.UserService;
 import by.optics.service.exception.ServiceException;
-import by.optics.service.exception.WrongPasswordException;
-import com.sun.xml.internal.ws.developer.MemberSubmissionAddressing;
+import by.optics.service.validator.UserDataValidator;
 
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
 
     @Override
@@ -20,23 +18,24 @@ public class UserServiceImpl implements UserService{
             UserDAO userDAO = daoFactory.getUserDAO();
             User foundUser = userDAO.findUserByLogin(login);
             UserDataValidator validator = new UserDataValidator();
-            validator.checkPassword(foundUser,password);
+            validator.checkPassword(foundUser, password);
             return foundUser;
         } catch (DAOException e) {
-            throw new ServiceException(e.getMessage(),e);
+            throw new ServiceException(e.getMessage(), e);
         }
     }
 
 
     @Override
-    public void registration(User user) {
-        //TODO validation that checks parameters and if user with this login and email exists
+    public void registration(User user) throws ServiceException {
+        UserDataValidator validator = new UserDataValidator();
+        validator.checkUnique(user);
         DAOFactory daoFactory = DAOFactory.getInstance();
         UserDAO userDAO = daoFactory.getUserDAO();
         try {
             userDAO.registration(user);
         } catch (DAOException e) {
-            e.printStackTrace();
+            throw new ServiceException(e.getMessage(), e);
         }
     }
 }

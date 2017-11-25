@@ -5,7 +5,6 @@ import by.optics.entity.Visit;
 import java.util.List;
 
 public class Doctor extends User {
-    private String phoneNumber;
 
     @Override
     public String toString() {

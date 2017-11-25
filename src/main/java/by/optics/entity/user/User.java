@@ -10,6 +10,11 @@ public class User {
     protected String email;
     protected boolean isBanned;
 
+
+    public User() {
+
+    }
+
     public String getName() {
         return name;
     }
