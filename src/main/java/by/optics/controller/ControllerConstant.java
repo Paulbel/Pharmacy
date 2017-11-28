@@ -20,8 +20,11 @@ public final class ControllerConstant {
     public static final String ENTER_CABINET_COMMAND = "enter_cabinet";
     public static final String SHOW_USERS_COMMAND = "show_users";
     public static final String REGISTRATION_COMMAND = "registration";
+    public static final String CHANGE_BANNED_STATE_COMMAND = "change_banned";
     public static final String SIGN_IN_COMMAND = "sign_in";
     public static final String SIGN_OUT_COMMAND = "sign_out";
+    public static final String USER_TO_BAN = "user_to_ban";
+    public static final String USER_TO_UNBAN = "user_to_unban";
     public static final String CHANGE_LANGUAGE_COMMAND = "change_language";
 
     public static final String ADMIN_CABINET_URI = "WEB-INF/admin_cabinet.jsp";
