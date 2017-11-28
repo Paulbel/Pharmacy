@@ -1,4 +1,4 @@
-package by.optics.service.validator;
+package by.optics.service.validator.impl;
 
 import by.optics.dao.DAOFactory;
 import by.optics.dao.UserDAO;
@@ -6,13 +6,13 @@ import by.optics.dao.exception.DAOException;
 
 import by.optics.entity.user.Role;
 import by.optics.entity.user.User;
-import by.optics.service.UserDataValidator;
 import by.optics.service.exception.AccessDeniedException;
 import by.optics.service.exception.ServiceException;
 import by.optics.service.exception.UserExistsException;
 import by.optics.service.exception.WrongPasswordException;
+import by.optics.service.validator.UserDataValidator;
 
-public class UserDataValidatorImpl implements UserDataValidator{
+public class UserDataValidatorImpl implements UserDataValidator {
     public void checkPassword(User user, String password) throws WrongPasswordException {
         String userPassword = user.getPassword();
         if(!userPassword.equals(password)){

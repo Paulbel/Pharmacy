@@ -24,9 +24,10 @@ public class SQLUserDAO implements UserDAO {
             set.next();
 
             return set.getInt(DAOConstant.COUNT_USERS_WITH_TOTAL);
-        } catch (SQLException |
-                ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new DAOException("Cannot connect to database!", e);
+        } catch (ClassNotFoundException e) {
+            throw new DAOException("Cannot find driver!", e);
         }
     }
 
@@ -41,9 +42,10 @@ public class SQLUserDAO implements UserDAO {
             }
 
             return userList;
-        } catch (SQLException |
-                ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new DAOException("Cannot connect to database!", e);
+        } catch (ClassNotFoundException e) {
+            throw new DAOException("Cannot find driver!", e);
         }
     }
 
@@ -61,9 +63,10 @@ public class SQLUserDAO implements UserDAO {
             statement.setString(ADD_USER_EMAIL_INDEX, user.getEmail());
             statement.executeUpdate();
 
-        } catch (SQLException |
-                ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new DAOException("Cannot connect to database!", e);
+        } catch (ClassNotFoundException e) {
+            throw new DAOException("Cannot find driver!", e);
         }
     }
 
@@ -74,8 +77,10 @@ public class SQLUserDAO implements UserDAO {
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             return createUserFromResultSet(resultSet);
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new DAOException("Cannot connect to database!", e);
+        } catch (ClassNotFoundException e) {
+            throw new DAOException("Cannot find driver!", e);
         }
     }
 
@@ -87,8 +92,10 @@ public class SQLUserDAO implements UserDAO {
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             return createUserFromResultSet(resultSet);
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new DAOException("Cannot connect to database!", e);
+        } catch (ClassNotFoundException e) {
+            throw new DAOException("Cannot find driver!", e);
         }
     }
 
@@ -100,8 +107,10 @@ public class SQLUserDAO implements UserDAO {
             statement.setBoolean(BAN_USER_BY_ID_CONDITION_INDEX, condition);
             statement.setInt(BAN_USER_BY_ID_ID_INDEX, id);
             statement.executeUpdate();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new DAOException("Cannot connect to database!", e);
+        } catch (ClassNotFoundException e) {
+            throw new DAOException("Cannot find driver!", e);
         }
     }
 
@@ -113,8 +122,10 @@ public class SQLUserDAO implements UserDAO {
             statement.setString(CHANGE_ROLE_BY_ID_ROLE_INDEX, role.name());
             statement.setInt(CHANGE_ROLE_BY_ID_ID_INDEX, id);
             statement.executeUpdate();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new DAOException("Cannot connect to database!", e);
+        } catch (ClassNotFoundException e) {
+            throw new DAOException("Cannot find driver!", e);
         }
     }
 

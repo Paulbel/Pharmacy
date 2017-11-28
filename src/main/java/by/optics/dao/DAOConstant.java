@@ -69,8 +69,6 @@ public final class DAOConstant {
 
     public static final int BAN_USER_BY_ID_ID_INDEX = 2;
     public static final int BAN_USER_BY_ID_CONDITION_INDEX = 1;
-    public static final int BANNED_CONDITION = 1;
-    public static final int NOT_BANNED_CONDITION = 0;
 
     public static final String BAN_USER_BY_ID =
             "UPDATE " + USER_TABLE +

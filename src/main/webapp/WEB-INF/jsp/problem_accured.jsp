@@ -7,6 +7,6 @@
 </head>
 <body>
 <h1>Problem accured!</h1>
-<h4><c:out value="${requestScope.problem}"/></h4>
+<h4><c:out value="${requestScope.exception_message}"/></h4>
 </body>
 </html>

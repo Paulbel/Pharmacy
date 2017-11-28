@@ -7,13 +7,14 @@ import by.optics.service.ServiceFactory;
 import by.optics.service.UserService;
 import by.optics.service.exception.ServiceException;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class RegistrationCommand implements Command {
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         String name = request.getParameter(ControllerConstant.NAME_ATTRIBUTE);
         String surname = request.getParameter(ControllerConstant.SURNAME_ATTRIBUTE);
         String patronymic = request.getParameter(ControllerConstant.PATRONYMIC_ATTRIBUTE);
@@ -35,10 +36,6 @@ public class RegistrationCommand implements Command {
         ServiceFactory factory = ServiceFactory.getInstance();
         UserService service = factory.getUserService();
         service.registration(user);
-        try {
-            response.sendRedirect(ControllerConstant.MAIN_PAGE_URI);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        response.sendRedirect(ControllerConstant.MAIN_PAGE_URI);
     }
 }

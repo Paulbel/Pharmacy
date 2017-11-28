@@ -27,5 +27,6 @@ public class ShowAllUsersCommand implements Command {
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerConstant.ADMIN_CABINET_URI);
         dispatcher.forward(request, response);
+
     }
 }

@@ -6,7 +6,7 @@ import by.optics.dao.exception.DAOException;
 import by.optics.entity.user.User;
 import by.optics.service.UserService;
 import by.optics.service.exception.ServiceException;
-import by.optics.service.validator.UserDataValidatorImpl;
+import by.optics.service.validator.impl.UserDataValidatorImpl;
 
 public class UserServiceImpl implements UserService {
 

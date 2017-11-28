@@ -16,9 +16,6 @@ public final class ControllerConstant {
     public static final String ROLE_ATTRIBUTE = "role";
 
     public static final String MAIN_PAGE_URI = "index.jsp";
-    public static final String USER = "user";
-    public static final String ADMIN = "admin";
-    public static final String DOCTOR = "doctor";
     public static final String ENTER_CABINET_COMMAND = "enter_cabinet";
     public static final String SHOW_USERS_COMMAND = "show_users";
     public static final String REGISTRATION_COMMAND = "registration";
@@ -30,13 +27,10 @@ public final class ControllerConstant {
     public static final String USER_TO_UNBAN = "user_to_unban";
     public static final String CHANGE_LANGUAGE_COMMAND = "change_language";
     public static final String GIVE_ROLE_COMMAND = "give_role";
+    public static final String EXCEPTION_MESSAGE = "exception_message";
 
-
-
-
-
-    public static final String ADMIN_CABINET_URI = "WEB-INF/admin_cabinet.jsp";
-    public static final String PROBLEM_URI = "WEB-INF/problem_accured.jsp";
+    public static final String ADMIN_CABINET_URI = "WEB-INF/jsp/admin_cabinet.jsp";
+    public static final String PROBLEM_URI = "WEB-INF/jsp/problem_accured.jsp";
 
     private ControllerConstant() {
     }

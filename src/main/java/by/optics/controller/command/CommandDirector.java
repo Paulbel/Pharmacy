@@ -26,7 +26,6 @@ public final class CommandDirector {
     }
 
     private CommandDirector() {
-
     }
 
 }

@@ -6,7 +6,7 @@ import by.optics.dao.exception.DAOException;
 import by.optics.entity.user.Role;
 import by.optics.entity.user.User;
 import by.optics.service.AdministratorService;
-import by.optics.service.UserDataValidator;
+import by.optics.service.validator.UserDataValidator;
 import by.optics.service.ValidatorFactory;
 import by.optics.service.exception.ServiceException;
 
@@ -17,10 +17,11 @@ public class AdministratorServiceImpl implements AdministratorService {
 
     @Override
     public void banUser(int administratorId, int userId) throws ServiceException {
-        checkBanUnbanAccessRights(administratorId, userId);
-        DAOFactory daoFactory = DAOFactory.getInstance();
-        UserDAO userDAO = daoFactory.getUserDAO();
         try {
+            checkBanUnbanAccessRights(administratorId, userId);
+            DAOFactory daoFactory = DAOFactory.getInstance();
+            UserDAO userDAO = daoFactory.getUserDAO();
+
             userDAO.setBanned(userId, true);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
@@ -29,10 +30,10 @@ public class AdministratorServiceImpl implements AdministratorService {
 
     @Override
     public void unbanUser(int administratorId, int userId) throws ServiceException {
-        checkBanUnbanAccessRights(administratorId, userId);
-        DAOFactory daoFactory = DAOFactory.getInstance();
-        UserDAO userDAO = daoFactory.getUserDAO();
         try {
+            checkBanUnbanAccessRights(administratorId, userId);
+            DAOFactory daoFactory = DAOFactory.getInstance();
+            UserDAO userDAO = daoFactory.getUserDAO();
             userDAO.setBanned(userId, false);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
@@ -49,9 +50,9 @@ public class AdministratorServiceImpl implements AdministratorService {
 
     @Override
     public List<User> showUsers(int id) throws ServiceException {
-        DAOFactory daoFactory = DAOFactory.getInstance();
-        UserDAO userDAO = daoFactory.getUserDAO();
         try {
+            DAOFactory daoFactory = DAOFactory.getInstance();
+            UserDAO userDAO = daoFactory.getUserDAO();
             return userDAO.getAllUsers();
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);

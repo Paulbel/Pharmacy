@@ -1,4 +1,4 @@
-package by.optics.service;
+package by.optics.service.validator;
 
 import by.optics.entity.user.Role;
 import by.optics.entity.user.User;

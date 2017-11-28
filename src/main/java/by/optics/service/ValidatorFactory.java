@@ -1,6 +1,7 @@
 package by.optics.service;
 
-import by.optics.service.validator.UserDataValidatorImpl;
+import by.optics.service.validator.UserDataValidator;
+import by.optics.service.validator.impl.UserDataValidatorImpl;
 
 public class ValidatorFactory {
     public static final ValidatorFactory instance = new ValidatorFactory();
