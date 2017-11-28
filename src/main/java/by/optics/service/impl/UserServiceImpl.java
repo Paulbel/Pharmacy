@@ -6,7 +6,7 @@ import by.optics.dao.exception.DAOException;
 import by.optics.entity.user.User;
 import by.optics.service.UserService;
 import by.optics.service.exception.ServiceException;
-import by.optics.service.validator.UserDataValidator;
+import by.optics.service.validator.UserDataValidatorImpl;
 
 public class UserServiceImpl implements UserService {
 
@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
             DAOFactory daoFactory = DAOFactory.getInstance();
             UserDAO userDAO = daoFactory.getUserDAO();
             User foundUser = userDAO.findUserByLogin(login);
-            UserDataValidator validator = new UserDataValidator();
+            UserDataValidatorImpl validator = new UserDataValidatorImpl();
             validator.checkPassword(foundUser, password);
             return foundUser;
         } catch (DAOException e) {
@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void registration(User user) throws ServiceException {
-        UserDataValidator validator = new UserDataValidator();
+        UserDataValidatorImpl validator = new UserDataValidatorImpl();
         validator.checkUnique(user);
         DAOFactory daoFactory = DAOFactory.getInstance();
         UserDAO userDAO = daoFactory.getUserDAO();

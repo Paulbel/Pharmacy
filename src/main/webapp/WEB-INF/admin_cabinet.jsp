@@ -54,7 +54,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><c:out value="${cabinet}"/><b
                             class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="FrontController?command=signOut"><c:out value="${signout}"/></a></li>
+                        <li><a href="FrontController?command=sign_out"><c:out value="${signout}"/></a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -77,21 +77,67 @@
             <td><c:out value="${item.surname}"/></td>
             <td>
                 <c:choose>
-                    <c:when test="${item.banned eq false}">
-                        <form action="FrontController" method="post">
-                            <input type="hidden" name="command" value="change_banned"/>
-                            <input type="hidden" name="user_to_ban" value="${item.id}"/>
-                            <input type="submit" value="ban"/>
+                    <c:when test="${item.role == 'USER'}">
+                        <c:choose>
+                            <c:when test="${(item.banned eq false)}">
+                                <form action="FrontController" method="post">
+                                    <input type="hidden" name="command" value="ban_user"/>
+                                    <input type="hidden" name="user_to_ban" value="${item.id}"/>
+                                    <input type="submit" value="ban"/>
+                                </form>
+                            </c:when>
+                            <c:otherwise>
+                                <form action="FrontController" method="post">
+                                    <input type="hidden" name="command" value="unban_user"/>
+                                    <input type="hidden" name="user_to_unban" value="${item.id}"/>
+                                    <input type="submit" value="unban"/>
+                                </form>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:when>
+                    <c:otherwise>
+                        <p>no rights</p>
+                    </c:otherwise>
+                </c:choose>
+            </td>
+            <td>
+
+                <c:choose>
+                    <c:when test="${item.role == 'USER'}">
+                        <form action="FrontController" method="get">
+                            <p>
+                                <input type="hidden" name="command" value="give_role">
+                                <input type="hidden" name="user_id" value="${item.id}">
+                                <select name="role">
+                                    <option selected>User</option>
+                                    <option value="DOCTOR">Doctor</option>
+                                    <option value="ADMIN">Admin</option>
+                                </select>
+                                <input type="submit" value="Change">
+                            </p>
+                        </form>
+                    </c:when>
+                    <c:when test="${item.role == 'DOCTOR'}">
+                        <form action="FrontController" method="get">
+                            <p>
+                                <input type="hidden" name="command" value="give_role">
+                                <input type="hidden" name="user_id" value="${item.id}">
+                                <select name="role">
+                                    <option value="USER">User</option>
+                                    <option selected value="DOCTOR">Doctor</option>
+                                    <option value="ADMIN">Admin</option>
+                                </select>
+                                <input type="submit" value="Change">
+                            </p>
                         </form>
                     </c:when>
                     <c:otherwise>
-                        <form action="FrontController" method="post">
-                            <input type="hidden" name="command" value="change_banned"/>
-                            <input type="hidden" name="user_to_unban" value="${item.id}"/>
-                            <input type="submit" value="unban"/>
-                        </form>
+                        <c:out value="${item.role}"/>
                     </c:otherwise>
                 </c:choose>
+
+
+
             </td>
         </tr>
     </c:forEach>

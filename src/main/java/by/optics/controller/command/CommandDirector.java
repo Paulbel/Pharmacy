@@ -16,6 +16,9 @@ public final class CommandDirector {
         map.put(ControllerConstant.CHANGE_LANGUAGE_COMMAND, new ChangeLanguageCommand());
         map.put(ControllerConstant.SHOW_USERS_COMMAND, new ShowAllUsersCommand());
         map.put(ControllerConstant.ENTER_CABINET_COMMAND, new EnterCabinetCommand());
+        map.put(ControllerConstant.BAN_USER_COMMAND, new BanUserCommand());
+        map.put(ControllerConstant.UNBAN_USER_COMMAND, new UnbanUserCommand());
+        map.put(ControllerConstant.GIVE_ROLE_COMMAND, new GiveRoleCommand());
     }
 
     public static Command getCommand(String commandName) {

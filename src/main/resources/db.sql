@@ -11,6 +11,8 @@ CREATE TABLE USER (
   email VARCHAR(30),
   PRIMARY KEY (id)
 );
+com.mysql.jdbc.JDBC42PreparedStatement@56ef9176: SELECT name,surname,patronymic,password,login ,role,is_banned, pnone, email FROM user WHERE id=6;
+SELECT name,surname,patronymic,password,login ,role,is_banned,pnone, email FROM user WHERE login='pavel';
 SELECT * FROM user WHERE login='vas';
 SELECT role from user where id= 1;
 

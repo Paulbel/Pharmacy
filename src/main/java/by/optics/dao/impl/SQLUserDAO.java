@@ -1,11 +1,9 @@
 package by.optics.dao.impl;
 
 import by.optics.dao.DAOConstant;
-
 import by.optics.dao.SQLConnectionCreator;
 import by.optics.dao.UserDAO;
 import by.optics.dao.exception.DAOException;
-
 import by.optics.entity.user.Role;
 import by.optics.entity.user.User;
 
@@ -84,8 +82,8 @@ public class SQLUserDAO implements UserDAO {
 
     public User findUserById(int id) throws DAOException {
         try (Connection connection = SQLConnectionCreator.createConnection()) {
-            PreparedStatement statement = connection.prepareStatement(DAOConstant.FIND_USER_ROLE);
-            statement.setInt(DAOConstant.FIND_USER_ROLE_ID_INDEX, id);
+            PreparedStatement statement = connection.prepareStatement(DAOConstant.FIND_USER_BY_ID);
+            statement.setInt(DAOConstant.FIND_USER_BY_ID_ID_INDEX, id);
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             return createUserFromResultSet(resultSet);
@@ -93,6 +91,33 @@ public class SQLUserDAO implements UserDAO {
             throw new DAOException("Cannot connect to database!", e);
         }
     }
+
+    @Override
+    public void setBanned(int id, boolean condition) throws DAOException {
+        try (Connection connection = SQLConnectionCreator.createConnection()) {
+            PreparedStatement statement = connection.prepareStatement(BAN_USER_BY_ID);
+
+            statement.setBoolean(BAN_USER_BY_ID_CONDITION_INDEX, condition);
+            statement.setInt(BAN_USER_BY_ID_ID_INDEX, id);
+            statement.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new DAOException("Cannot connect to database!", e);
+        }
+    }
+
+    @Override
+    public void setRole(int id, Role role) throws DAOException {
+        try (Connection connection = SQLConnectionCreator.createConnection()) {
+            PreparedStatement statement = connection.prepareStatement(CHANGE_ROLE_BY_ID);
+
+            statement.setString(CHANGE_ROLE_BY_ID_ROLE_INDEX, role.name());
+            statement.setInt(CHANGE_ROLE_BY_ID_ID_INDEX, id);
+            statement.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new DAOException("Cannot connect to database!", e);
+        }
+    }
+
 
     private User createUserFromResultSet(ResultSet resultSet) throws SQLException {
         String name = resultSet.getString(DAOConstant.USER_TABLE_NAME);
@@ -104,8 +129,10 @@ public class SQLUserDAO implements UserDAO {
         Role role = Role.valueOf(resultSet.getString(DAOConstant.USER_TABLE_ROLE));
         String phone = resultSet.getString(DAOConstant.USER_TABLE_PHONE);
         String email = resultSet.getString(DAOConstant.USER_TABLE_EMAIL);
+        int id = resultSet.getInt(USER_TABLE_ID);
         User user = new User();
 
+        user.setId(id);
         user.setLogin(login);
         user.setName(name);
         user.setSurname(surname);
