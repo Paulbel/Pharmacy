@@ -24,7 +24,6 @@ public class RegistrationCommand implements Command {
 
         User user = new User();
 
-        user.setLogin(login);
         user.setName(name);
         user.setSurname(surname);
         user.setPatronymic(patronymic);

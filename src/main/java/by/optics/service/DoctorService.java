@@ -1,8 +1,8 @@
 package by.optics.service;
 
-import by.optics.entity.user.Client;
-import by.optics.entity.user.Doctor;
+
+import by.optics.entity.user.User;
 
 public interface DoctorService {
-    void inspect(Client client, Doctor doctor);
+    void inspect(User client, User doctor);
 }

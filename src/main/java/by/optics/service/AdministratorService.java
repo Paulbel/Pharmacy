@@ -6,7 +6,7 @@ import by.optics.service.exception.ServiceException;
 import java.util.List;
 
 public interface AdministratorService {
-    void banUser(String login);
+    void banUser(int administratorId, String login);
 
-    List<User> showUsers() throws ServiceException;
+    List<User> showUsers(int administratorId) throws ServiceException;
 }

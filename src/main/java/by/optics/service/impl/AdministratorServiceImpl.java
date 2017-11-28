@@ -11,13 +11,15 @@ import java.util.List;
 
 public class AdministratorServiceImpl implements AdministratorService {
 
+
+
     @Override
-    public void banUser(String login) {
+    public void banUser(int administratorId, String login) {
 
     }
 
     @Override
-    public List<User> showUsers() throws ServiceException {
+    public List<User> showUsers(int id) throws ServiceException {
         DAOFactory daoFactory = DAOFactory.getInstance();
         UserDAO userDAO = daoFactory.getUserDAO();
         try {

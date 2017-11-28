@@ -13,4 +13,6 @@ public interface UserDAO {
     int findNumberOfUsersWithLogin(String login) throws DAOException;
 
     List<User> getAllUsers() throws DAOException;
+
+    User findUserById(int id) throws DAOException;
 }

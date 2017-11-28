@@ -1,18 +1,37 @@
 package by.optics.entity.user;
 
-public class User {
-    protected String name;
-    protected String surname;
-    protected String patronymic;
-    protected String login;
-    protected String password;
-    protected String phoneNumber;
-    protected String email;
-    protected boolean isBanned;
+import java.io.Serializable;
 
+public class User implements Serializable{
+    private int id;
+    private String name;
+    private String surname;
+    private String patronymic;
+    private String login;
+    private String password;
+    private String phoneNumber;
+    private String email;
+    private boolean isBanned;
+    private Role role;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public User() {
 
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getName() {
@@ -78,4 +97,7 @@ public class User {
     public void setBanned(boolean banned) {
         isBanned = banned;
     }
+
+
+
 }

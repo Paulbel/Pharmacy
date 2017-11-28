@@ -47,7 +47,7 @@
 
     <form class="modal-content animate" action="FrontController" method="post">
         <div class="container">
-            <input type="hidden" name="command" value="signIn"/>
+            <input type="hidden" name="command" value="sign_in"/>
 
             <label><b><c:out value="${login}"/></b></label>
             <input type="text" name="login" value=""/>
@@ -130,10 +130,10 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <c:if test="${not empty sessionScope.user}">
+                    <c:if test="${not empty sessionScope.user_id}">
                         <a>
-                            <c:out value="${sessionScope.user.name}"/>
-                            <c:out value="${sessionScope.user.surname}"/>
+                            <c:out value="${sessionScope.name}"/>
+                            <c:out value="${sessionScope.surname}"/>
                         </a>
                     </c:if>
                 </li>
@@ -141,14 +141,14 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><c:out value="${cabinet}"/><b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <c:choose>
-                        <c:when test="${empty sessionScope.user}">
+                        <c:when test="${empty sessionScope.user_id}">
                             <li>
                                 <a href="#" onclick="document.getElementById('signInForm').style.display='block'"><c:out value="${signin}" /></a>
                                 <a href="#" onclick="document.getElementById('registrationForm').style.display='block'"><c:out value="${registration}"/></a>
                             </li>
                         </c:when>
                         <c:otherwise>
-                            <li><a href="FrontController?command=signOut"><c:out value="${signout}" /></a></li>
+                            <li><a href="FrontController?command=sign_out"><c:out value="${signout}" /></a></li>
                         </c:otherwise>
                         </c:choose>
                     </ul>
@@ -156,8 +156,8 @@
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown"><c:out value="${language}" /><b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="FrontController?command=changeLanguage&local=ru"><c:out value="${ru}"/></a></li>
-                        <li><a href="FrontController?command=changeLanguage&local=en"><c:out value="${en}"/></a></li>
+                        <li><a href="FrontController?command=change_language&local=ru"><c:out value="${ru}"/></a></li>
+                        <li><a href="FrontController?command=change_language&local=en"><c:out value="${en}"/></a></li>
                     </ul>
                 </li>
 
@@ -166,6 +166,6 @@
     </div>
 </nav>
 
-
+</h>
 </body>
 </html>
