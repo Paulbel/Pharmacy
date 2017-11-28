@@ -8,7 +8,6 @@ import by.optics.service.ServiceFactory;
 import by.optics.service.UserService;
 import by.optics.service.exception.ServiceException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

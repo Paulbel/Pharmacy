@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class FrontController extends HttpServlet {
+    private static final long serialVersionUID = -2081650491757405193L;
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         executeCommand(request, response);
     }
@@ -28,6 +30,7 @@ public class FrontController extends HttpServlet {
             command.execute(request, response);
         } catch (ServiceException e) {
             RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerConstant.PROBLEM_URI);
+            request.setAttribute(ControllerConstant.EXCEPTION_MESSAGE,e.getMessage());
             dispatcher.forward(request, response);
         }
     }
