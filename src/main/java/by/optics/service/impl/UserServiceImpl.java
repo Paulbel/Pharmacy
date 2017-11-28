@@ -1,8 +1,10 @@
 package by.optics.service.impl;
 
+import by.optics.dao.AdminDAO;
 import by.optics.dao.DAOFactory;
 import by.optics.dao.UserDAO;
 import by.optics.dao.exception.DAOException;
+import by.optics.entity.Role;
 import by.optics.entity.user.User;
 import by.optics.service.UserService;
 import by.optics.service.exception.ServiceException;
@@ -36,6 +38,21 @@ public class UserServiceImpl implements UserService {
             userDAO.registration(user);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public Role getUsersRole(int userId) throws ServiceException {
+        try {
+            DAOFactory daoFactory = DAOFactory.getInstance();
+            AdminDAO adminDAO = daoFactory.getAdminDAO();
+            Role role = Role.USER;
+            if (adminDAO.userIsAdmin(userId)) {
+                role = Role.ADMIN;
+            }
+            return role;
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage(),e);
         }
     }
 }

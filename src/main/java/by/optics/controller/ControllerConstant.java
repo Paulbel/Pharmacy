@@ -1,6 +1,7 @@
 package by.optics.controller;
 
 public final class ControllerConstant {
+    public static final String USER_ID_ATTRIBUTE = "user_id";
     public static final String LOGIN_ATTRIBUTE = "login";
     public static final String PASSWORD_ATTRIBUTE = "password";
     public static final String NAME_ATTRIBUTE = "name";
@@ -13,6 +14,11 @@ public final class ControllerConstant {
     public static final String USERS_ATTRIBUTE = "users";
     public static final String COMMAND_ATTRIBUTE = "command";
 
+
+    public static final String USER_TO_BAN = "userToBan";
+    public static final String USER_TO_UNBAN = "userToUnban";
+    public static final String UNBAN_USER_COMMAND = "unban";
+    public static final String BAN_USER_COMMAND = "ban";
     public static final String MAIN_PAGE_URI = "index.jsp";
     public static final String USER = "user";
     public static final String SHOW_USERS_COMMAND = "showUsers";

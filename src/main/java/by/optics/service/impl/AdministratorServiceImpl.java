@@ -11,9 +11,19 @@ import java.util.List;
 
 public class AdministratorServiceImpl implements AdministratorService {
 
-    @Override
-    public void banUser(String login) {
 
+    @Override
+    public void banUser(int id) throws DAOException {
+        DAOFactory daoFactory = DAOFactory.getInstance();
+        UserDAO userDAO = daoFactory.getUserDAO();
+        userDAO.setBanned(id,true);
+    }
+
+    @Override
+    public void unBanUser(int id) throws DAOException {
+        DAOFactory daoFactory = DAOFactory.getInstance();
+        UserDAO userDAO = daoFactory.getUserDAO();
+        userDAO.setBanned(id,false);
     }
 
     @Override

@@ -9,7 +9,6 @@ public class Doctor extends User {
     @Override
     public String toString() {
         return "Doctor{" +
-                "phoneNumber='" + phoneNumber + '\'' +
                 ", visits=" + visits +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +

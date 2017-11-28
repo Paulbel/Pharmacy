@@ -6,7 +6,8 @@ import java.util.List;
 
 public class Client extends User {
     private List<Visit> visits;
-
+    protected String phoneNumber;
+    protected String email;
 
     @Override
     public String toString() {

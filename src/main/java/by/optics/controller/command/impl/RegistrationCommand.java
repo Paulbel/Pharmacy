@@ -2,6 +2,7 @@ package by.optics.controller.command.impl;
 
 import by.optics.controller.ControllerConstant;
 import by.optics.controller.command.Command;
+import by.optics.entity.user.Client;
 import by.optics.entity.user.User;
 import by.optics.service.ServiceFactory;
 import by.optics.service.UserService;
@@ -19,8 +20,6 @@ public class RegistrationCommand implements Command {
         String patronymic = request.getParameter(ControllerConstant.PATRONYMIC_ATTRIBUTE);
         String login = request.getParameter(ControllerConstant.LOGIN_ATTRIBUTE);
         String password = request.getParameter(ControllerConstant.PASSWORD_ATTRIBUTE);
-        String phone = request.getParameter(ControllerConstant.PHONE_ATTRIBUTE);
-        String email = request.getParameter(ControllerConstant.EMAIL_ATTRIBUTE);
 
         User user = new User();
 
@@ -30,8 +29,6 @@ public class RegistrationCommand implements Command {
         user.setPatronymic(patronymic);
         user.setPassword(password);
         user.setLogin(login);
-        user.setEmail(email);
-        user.setPhoneNumber(phone);
 
         ServiceFactory factory = ServiceFactory.getInstance();
         UserService service = factory.getUserService();

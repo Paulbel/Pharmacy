@@ -130,10 +130,10 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <c:if test="${not empty sessionScope.user}">
+                    <c:if test="${not empty sessionScope.user_id}">
                         <a>
-                            <c:out value="${sessionScope.user.name}"/>
-                            <c:out value="${sessionScope.user.surname}"/>
+                            <c:out value="${sessionScope.name}"/>
+                            <c:out value="${sessionScope.patronymic}"/>
                         </a>
                     </c:if>
                 </li>
@@ -141,7 +141,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><c:out value="${cabinet}"/><b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <c:choose>
-                        <c:when test="${empty sessionScope.user}">
+                        <c:when test="${empty sessionScope.user_id}">
                             <li>
                                 <a href="#" onclick="document.getElementById('signInForm').style.display='block'"><c:out value="${signin}" /></a>
                                 <a href="#" onclick="document.getElementById('registrationForm').style.display='block'"><c:out value="${registration}"/></a>
