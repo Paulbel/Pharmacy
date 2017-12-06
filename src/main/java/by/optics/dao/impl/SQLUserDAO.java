@@ -15,6 +15,8 @@ import static by.optics.dao.DAOConstant.*;
 
 public class SQLUserDAO implements UserDAO {
 
+    // не совсем поняла назначение метода - получилось как Найти количество пользователей с логином ( с определенным логином)
+    // а их что, может быть несколько?
     public int findNumberOfUsersWithLogin(String login) throws DAOException {
         try (Connection connection = SQLConnectionCreator.createConnection()) {
             PreparedStatement statement = connection.prepareStatement(DAOConstant.COUNT_USERS_WITH_LOGIN);
@@ -50,7 +52,8 @@ public class SQLUserDAO implements UserDAO {
     }
 
 
-    public void registration(User user) throws DAOException {
+    public void registration(User user) throws DAOException {// нужно будет предусмотреть возможно параллельного выполнения этого метода разными клиентами
+        // т.е. решить стандартную задачу попытки одновреденного добавления -изменения ит.д. одних и тех же данных
         try (Connection connection = SQLConnectionCreator.createConnection()) {
             PreparedStatement statement = connection.prepareStatement(DAOConstant.ADD_USER);
 
