@@ -23,7 +23,7 @@ public class User implements Serializable{
         this.id = id;
     }
 
-    public User() {
+    public User() {// аккуратнее размещай методы, зачем конструктор после сеттеров поставил?
 
     }
 
