@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public final class SQLConnectionCreator {
     private static SQLConnectionCreator connectionCreator = new SQLConnectionCreator();
-    private static final String HOST = "localhost";
+    private static final String HOST = "localhost";// эти данные лучше читать и properties-файлов
     private static final String LOGIN = "root";
     private static final String PASSWORD = "root";
     private static final String PORT = "3306";
@@ -16,12 +16,13 @@ public final class SQLConnectionCreator {
 
 
     public static Connection createConnection() throws SQLException, ClassNotFoundException {
-        if (!driverLoaded) {
+        if (!driverLoaded) {// при твоей реализации тебе бы помог статический блок инициализации
             Class.forName(DRIVER_PATH);
             driverLoaded = true;
         }
         Connection connection = DriverManager.getConnection("jdbc:mysql://" + HOST + ":" + PORT + "/" +
-                DB_NAME + "?autoReconnect=true&useSSL=false", LOGIN, PASSWORD);
+                DB_NAME + "?autoReconnect=true&useSSL=false", LOGIN, PASSWORD);// строчку в этом методе можно создать один раз
+        // она же не будет отличаться от вызова к вызову
 
         return connection;
     }
