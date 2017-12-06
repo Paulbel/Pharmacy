@@ -20,7 +20,9 @@ public class UserDataValidatorImpl implements UserDataValidator {
         }
     }
 
-    public void checkUnique(User user) throws ServiceException {
+    public void checkUnique(User user) throws ServiceException {// проверка валидности параметров - это не работа с дао
+        // если теле надо проверить, что таких данных в базе еще нет - это уже логика
+        // так чо ты не там методы написал
         try {
             DAOFactory factory = DAOFactory.getInstance();
             UserDAO userDAO = factory.getUserDAO();
@@ -30,7 +32,7 @@ public class UserDataValidatorImpl implements UserDataValidator {
                 throw new UserExistsException("User with login "+login+" already exists!");
             }
         } catch (DAOException e) {
-            throw new ServiceException(e.getMessage(),e);
+            throw new ServiceException(e.getMessage(),e);// опять 25? ну что  за (e.getMessage(),e)
         }
     }
 
@@ -48,5 +50,5 @@ public class UserDataValidatorImpl implements UserDataValidator {
         }
 
     }
-    public UserDataValidatorImpl(){}
+    public UserDataValidatorImpl(){}// соблюдай порядок размедения методов в классе
 }

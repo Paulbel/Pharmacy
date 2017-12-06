@@ -49,7 +49,7 @@ public class AdministratorServiceImpl implements AdministratorService {
     }
 
     @Override
-    public List<User> showUsers(int id) throws ServiceException {
+    public List<User> showUsers(int id) throws ServiceException {// лучше не используй слово show, его можно заменить на take
         try {
             DAOFactory daoFactory = DAOFactory.getInstance();
             UserDAO userDAO = daoFactory.getUserDAO();
@@ -65,7 +65,7 @@ public class AdministratorServiceImpl implements AdministratorService {
             ValidatorFactory factory = ValidatorFactory.getInstance();
             UserDataValidator validator = factory.getUserDataValidator();
 
-            switch (role) {
+            switch (role) {// попробуй здесь избавиться от свича
                 case DOCTOR:
                     validator.checkAccessRight(userId, Role.USER);
                     break;
@@ -78,7 +78,7 @@ public class AdministratorServiceImpl implements AdministratorService {
             UserDAO userDAO = daoFactory.getUserDAO();
             userDAO.setRole(userId, role);
         } catch (DAOException e) {
-            throw new ServiceException(e.getMessage(), e);
+            throw new ServiceException(e.getMessage(), e);//&&&&&&&&&&&&&&&&&&&&&&&
         }
     }
 

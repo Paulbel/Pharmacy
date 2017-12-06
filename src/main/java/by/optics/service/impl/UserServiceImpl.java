@@ -17,25 +17,25 @@ public class UserServiceImpl implements UserService {
             DAOFactory daoFactory = DAOFactory.getInstance();
             UserDAO userDAO = daoFactory.getUserDAO();
             User foundUser = userDAO.findUserByLogin(login);
-            UserDataValidatorImpl validator = new UserDataValidatorImpl();
+            UserDataValidatorImpl validator = new UserDataValidatorImpl();// зачем столько раз создаем объект?
             validator.checkPassword(foundUser, password);
             return foundUser;
         } catch (DAOException e) {
-            throw new ServiceException(e.getMessage(), e);
+            throw new ServiceException(e.getMessage(), e);//??????
         }
     }
 
 
     @Override
     public void registration(User user) throws ServiceException {
-        UserDataValidatorImpl validator = new UserDataValidatorImpl();
+        UserDataValidatorImpl validator = new UserDataValidatorImpl();;// и здесь опять пложишь объекты
         validator.checkUnique(user);
         DAOFactory daoFactory = DAOFactory.getInstance();
         UserDAO userDAO = daoFactory.getUserDAO();
         try {
             userDAO.registration(user);
         } catch (DAOException e) {
-            throw new ServiceException(e.getMessage(), e);
+            throw new ServiceException(e.getMessage(), e);//??????
         }
     }
 }
