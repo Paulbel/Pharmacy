@@ -16,6 +16,9 @@ import java.io.IOException;
 
 public class GiveRoleCommand implements Command {
     @Override
+    // я бы не рекомендовала ServiceException выбрасывать из команды в контроллер
+    // команда вполне сама может справиться с этой работой
+    // также рассмотри возможности использовать forward и sendRedirect в команде -  так ты можешь гибче принимать решения что и куда отправлять
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         HttpSession session = request.getSession();
         int adminId = (Integer) session.getAttribute(ControllerConstant.USER_ID_ATTRIBUTE);
