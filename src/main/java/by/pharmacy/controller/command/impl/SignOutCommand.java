@@ -12,10 +12,12 @@ public class SignOutCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
+
         session.removeAttribute(ControllerConstant.ROLE_ATTRIBUTE);
         session.removeAttribute(ControllerConstant.NAME_ATTRIBUTE);
         session.removeAttribute(ControllerConstant.PATRONYMIC_ATTRIBUTE);
         session.removeAttribute(ControllerConstant.USER_ID_ATTRIBUTE);
+
         response.sendRedirect(ControllerConstant.MAIN_PAGE_URI);
     }
 }
