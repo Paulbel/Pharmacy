@@ -73,64 +73,18 @@
     <tr>
         <th>id</th>
         <th>name</th>
-        <th>surname</th>
-        <th>role</th>
-        <th>set role</th>
+        <th>dosage</th>
+        <th>amount</th>
+        <th>price</th>
     </tr>
-    <c:forEach items="${requestScope.users}" var="item">
+    <c:forEach items="${requestScope.drugs}" var="item">
 
         <tr>
-
             <td><c:out value="${item.id}"/></td>
             <td><c:out value="${item.name}"/></td>
-            <td><c:out value="${item.surname}"/></td>
-            <td><c:out value="${item.role}"/></td>
-            <td>
-                <c:choose>
-                    <c:when test="${item.role == 'USER'}">
-                        <form action="FrontController" method="get">
-                            <p>
-                                <input type="hidden" name="command" value="give_role">
-                                <input type="hidden" name="user_id" value="${item.id}">
-                                <select name="role">
-                                    <option value="DOCTOR">Doctor</option>
-                                    <option value="PHARMACIST">Pharmacist</option>
-                                </select>
-                                <input type="submit" value="Change">
-                            </p>
-                        </form>
-                    </c:when>
-                    <c:when test="${item.role == 'DOCTOR'}">
-                        <form action="FrontController" method="get">
-                            <p>
-                                <input type="hidden" name="command" value="give_role">
-                                <input type="hidden" name="user_id" value="${item.id}">
-                                <select name="role">
-                                    <option value="USER">Client</option>
-                                    <option value="PHARMACIST">Pharmacist</option>
-                                </select>
-                                <input type="submit" value="Change">
-                            </p>
-                        </form>
-                    </c:when>
-                    <c:when test="${item.role == 'PHARMACIST'}">
-                        <form action="FrontController" method="get">
-                            <p>
-                                <input type="hidden" name="command" value="give_role">
-                                <input type="hidden" name="user_id" value="${item.id}">
-                                <select name="role">
-                                    <option value="USER">Client</option>
-                                    <option value="DOCTOR">Doctor</option>
-                                </select>
-                                <input type="submit" value="Change">
-                            </p>
-                        </form>
-                    </c:when>
-                    <c:otherwise>
-                        <c:out value="${item.role}"/>
-                    </c:otherwise>
-                </c:choose>
-            </td>
+            <td><c:out value="${item.dosage}"/></td>
+            <td><c:out value="${item.amount}"/></td>
+            <td><c:out value="${item.price}"/></td>
         </tr>
     </c:forEach>
 </table>
