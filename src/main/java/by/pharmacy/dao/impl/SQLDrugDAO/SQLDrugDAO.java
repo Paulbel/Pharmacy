@@ -1,10 +1,11 @@
-package by.pharmacy.dao.impl;
+package by.pharmacy.dao.impl.SQLDrugDAO;
 
 import by.pharmacy.dao.DrugDAO;
-import by.pharmacy.dao.SQLConnectionCreator;
+import by.pharmacy.dao.connectionPool.ConnectionPool;
+import by.pharmacy.dao.connectionPool.exception.ConnectionPoolException;
 import by.pharmacy.dao.exception.DAOException;
-import by.pharmacy.entity.Language;
 import by.pharmacy.entity.Drug;
+import by.pharmacy.entity.Language;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,24 +16,31 @@ public class SQLDrugDAO implements DrugDAO {
 
     @Override
     public List<Drug> getAll(Language language) throws DAOException {
-        try (Connection connection = SQLConnectionCreator.createConnection()) {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        try {
+
             List<Drug> drugs = new ArrayList<>();
             PreparedStatement statement = connection.prepareStatement(SQLDrugDAOConstant.GET_ALL_DRUG);
             String languageName = language.name().toLowerCase();
-            statement.setString(SQLDrugDAOConstant.GET_ALL_DRUG_LANGUAGE_INDEX,languageName);
+            statement.setString(SQLDrugDAOConstant.GET_ALL_DRUG_LANGUAGE_INDEX, languageName);
             ResultSet set = statement.executeQuery();
-            while (set.next()){
+            while (set.next()) {
                 drugs.add(createDrugFromResultSet(set));
             }
             return drugs;
         } catch (SQLException e) {
             throw new DAOException(e);
+        } finally {
+            connectionPool.closeConnection(connection);
         }
     }
 
     @Override
     public void addDrug(Drug drug, Language language) throws DAOException {
-        try (Connection connection = SQLConnectionCreator.createConnection()) {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        try {
             connection.setAutoCommit(false);
             PreparedStatement statement = connection.prepareStatement(SQLDrugDAOConstant.FIND_LANGUAGE_CODE_BY_NAME);
             String languageName = language.name().toLowerCase();
@@ -52,25 +60,29 @@ public class SQLDrugDAO implements DrugDAO {
             stat.setBoolean(SQLDrugDAOConstant.ADD_DRUG_NEED_PRESCRIPTION_INDEX, drug.isNeedPresciption());
 
             stat.executeUpdate();
-            connection.setSavepoint();
-            ResultSet set1 = stat.getGeneratedKeys();
+            connection.setSavepoint();//TODO:transaction
+            set = stat.getGeneratedKeys();
 
-            set1.next();
-            int id = set1.getInt(1);
+            if (set.next()) {
+                int id = set.getInt(SQLDrugDAOConstant.DRUG_TABLE_ID);
+                statement = connection.prepareStatement(SQLDrugDAOConstant.ADD_DRUG_DESCRIPTION);
 
-
-            statement = connection.prepareStatement(SQLDrugDAOConstant.ADD_DRUG_DESCRIPTION);
-
-            statement.setInt(SQLDrugDAOConstant.ADD_DRUG_DESCRIPTION_DRUG_ID_INDEX, id);
-            statement.setString(SQLDrugDAOConstant.ADD_DRUG_DESCRIPTION_LANG_CODE_INDEX, code);
-            statement.setString(SQLDrugDAOConstant.ADD_DRUG_DESCRIPTION_NAME_INDEX, drug.getName());
-            statement.setString(SQLDrugDAOConstant.ADD_DRUG_DESCRIPTION_DESCRIPTION_INDEX, drug.getDescription());
-            statement.setString(SQLDrugDAOConstant.ADD_DRUG_DESCRIPTION_COMPOSITION_INDEX, drug.getComposition());
-            statement.executeUpdate();
-
+                statement.setInt(SQLDrugDAOConstant.ADD_DRUG_DESCRIPTION_DRUG_ID_INDEX, id);
+                statement.setString(SQLDrugDAOConstant.ADD_DRUG_DESCRIPTION_LANG_CODE_INDEX, code);
+                statement.setString(SQLDrugDAOConstant.ADD_DRUG_DESCRIPTION_NAME_INDEX, drug.getName());
+                statement.setString(SQLDrugDAOConstant.ADD_DRUG_DESCRIPTION_DESCRIPTION_INDEX, drug.getDescription());
+                statement.setString(SQLDrugDAOConstant.ADD_DRUG_DESCRIPTION_COMPOSITION_INDEX, drug.getComposition());
+                statement.executeUpdate();
+            }else {
+                throw new DAOException("Key wasn't incremented");
+            }
         } catch (SQLException e) {
             throw new DAOException("Cannot connect to database!", e);
 
+        } catch (ConnectionPoolException e) {
+            throw new DAOException(e.getMessage(), e);
+        } finally {
+            connectionPool.closeConnection(connection);
         }
 
     }
@@ -79,7 +91,6 @@ public class SQLDrugDAO implements DrugDAO {
     public Drug getDrug(int id, Language language) throws DAOException {
         return null;
     }
-
 
 
     private Drug createDrugFromResultSet(ResultSet resultSet) throws SQLException {
@@ -92,7 +103,8 @@ public class SQLDrugDAO implements DrugDAO {
         String description = resultSet.getString(SQLDrugDAOConstant.DRUG_TRANSLATE_TABLE_DESCRIPTION);
         boolean needPrescription = resultSet.getBoolean(SQLDrugDAOConstant.DRUG_TABLE_NEED_PRESCRIPTION);
         double price = resultSet.getDouble(SQLDrugDAOConstant.DRUG_TABLE_PRICE);
-        Drug drug =new Drug();
+        //TODO:manufacturer logic
+        Drug drug = new Drug();
         drug.setId(id);
         drug.setName(name);
         drug.setComposition(composition);

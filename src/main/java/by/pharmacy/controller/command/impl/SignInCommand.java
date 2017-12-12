@@ -19,6 +19,7 @@ public class SignInCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
             ServiceFactory serviceFactory = ServiceFactory.getInstance();
             UserService userService = serviceFactory.getUserService();
+
             String login = request.getParameter(ControllerConstant.LOGIN_ATTRIBUTE);
             String password = request.getParameter(ControllerConstant.PASSWORD_ATTRIBUTE);
 
@@ -31,9 +32,6 @@ public class SignInCommand implements Command {
             session.setAttribute(ControllerConstant.ROLE_ATTRIBUTE, String.valueOf(user.getRole()));
             Command command = CommandDirector.getCommand(ControllerConstant.ENTER_CABINET_COMMAND);
             command.execute(request, response);
-
-
-
 
     }
 }

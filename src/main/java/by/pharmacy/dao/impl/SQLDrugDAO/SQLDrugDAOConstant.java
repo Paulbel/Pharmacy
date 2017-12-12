@@ -1,4 +1,4 @@
-package by.pharmacy.dao.impl;
+package by.pharmacy.dao.impl.SQLDrugDAO;
 
 public final class SQLDrugDAOConstant {
 

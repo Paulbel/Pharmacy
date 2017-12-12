@@ -8,9 +8,5 @@ public interface UserDataValidator {
     public void checkPassword(User user, String password) throws ServiceException;
 
 
-    public void checkUnique(User user) throws ServiceException;
-
-
-
     public void checkAccessRight(int id, Role role) throws ServiceException;
 }

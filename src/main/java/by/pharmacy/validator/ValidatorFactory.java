@@ -1,6 +1,5 @@
-package by.pharmacy.service;
+package by.pharmacy.validator;
 
-import by.pharmacy.validator.UserDataValidator;
 import by.pharmacy.validator.impl.UserDataValidatorImpl;
 
 public class ValidatorFactory {

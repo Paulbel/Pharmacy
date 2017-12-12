@@ -29,8 +29,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void registration(User user) throws ServiceException {
         try {
-            UserDataValidatorImpl validator = new UserDataValidatorImpl();
-            validator.checkUnique(user);
             DAOFactory daoFactory = DAOFactory.getInstance();
             UserDAO userDAO = daoFactory.getUserDAO();
             userDAO.registration(user);

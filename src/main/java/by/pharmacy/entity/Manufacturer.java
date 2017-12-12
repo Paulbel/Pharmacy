@@ -1,6 +1,10 @@
 package by.pharmacy.entity;
 
-public class Manufacturer {
+import java.io.Serializable;
+
+public class Manufacturer implements Serializable{
+    private static final long serialVersionUID = 6414551082577559509L;
+
     private int id;
     private String name;
     private String phoneNumber;

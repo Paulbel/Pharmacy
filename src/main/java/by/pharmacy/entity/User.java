@@ -2,7 +2,7 @@ package by.pharmacy.entity;
 
 import java.io.Serializable;
 
-public class User implements Serializable{
+public class User implements Serializable {
     private static final long serialVersionUID = -4844171327987831179L;
     private int id;
     private String name;
@@ -14,16 +14,15 @@ public class User implements Serializable{
     private String email;
     private Role role;
 
+    public User() {
+    }
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public User() {
-
     }
 
     public Role getRole() {
@@ -89,7 +88,6 @@ public class User implements Serializable{
     public void setEmail(String email) {
         this.email = email;
     }
-
 
 
     @Override

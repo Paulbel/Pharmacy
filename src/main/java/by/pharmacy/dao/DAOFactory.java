@@ -1,7 +1,7 @@
 package by.pharmacy.dao;
 
-import by.pharmacy.dao.impl.SQLDrugDAO;
-import by.pharmacy.dao.impl.SQLUserDAO;
+import by.pharmacy.dao.impl.SQLDrugDAO.SQLDrugDAO;
+import by.pharmacy.dao.impl.SQLUserDAO.SQLUserDAO;
 
 
 public class DAOFactory {

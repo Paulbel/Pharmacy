@@ -7,7 +7,7 @@ import by.pharmacy.entity.Role;
 import by.pharmacy.entity.User;
 import by.pharmacy.service.AdministratorService;
 import by.pharmacy.validator.UserDataValidator;
-import by.pharmacy.service.ValidatorFactory;
+import by.pharmacy.validator.ValidatorFactory;
 import by.pharmacy.service.exception.ServiceException;
 
 import java.util.List;

@@ -1,8 +1,11 @@
 package by.pharmacy.entity;
 
-import by.pharmacy.entity.Manufacturer;
 
-public class Drug {
+import java.io.Serializable;
+
+public class Drug implements Serializable{
+    private static final long serialVersionUID = 4340011690482548403L;
+
     private int id;
     private String name;
     private String composition;
@@ -13,6 +16,9 @@ public class Drug {
     private boolean needPresciption;
     private double price;
     private Manufacturer manufacturer;
+
+    public Drug() {
+    }
 
     public int getId() {
         return id;
@@ -80,7 +86,7 @@ public class Drug {
 
     public Manufacturer getManufacturer() {
         Manufacturer manufacturer = new Manufacturer();
-        manufacturer.setId(1);
+        manufacturer.setId(1);//TODO: manufacturer logic in DrugDAO.getAll()
         return manufacturer;
     }
 

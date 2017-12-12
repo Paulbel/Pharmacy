@@ -1,6 +1,6 @@
-package by.pharmacy.dao.impl;
+package by.pharmacy.dao.impl.SQLUserDAO;
 
-import by.pharmacy.dao.SQLConnectionCreator;
+import by.pharmacy.dao.connectionPool.ConnectionPool;
 import by.pharmacy.dao.UserDAO;
 import by.pharmacy.dao.exception.DAOException;
 import by.pharmacy.entity.Role;
@@ -10,11 +10,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static by.pharmacy.dao.impl.SQLUserDAOConstant.*;
+import static by.pharmacy.dao.impl.SQLUserDAO.SQLUserDAOConstant.*;
 
 public class SQLUserDAO implements UserDAO {
     public int findNumberOfUsersWithLogin(String login) throws DAOException {
-        try (Connection connection = SQLConnectionCreator.createConnection()) {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        try {
             PreparedStatement statement = connection.prepareStatement(SQLUserDAOConstant.COUNT_USERS_WITH_LOGIN);
 
             statement.setString(COUNT_USERS_WITH_LOGIN_INDEX, login);
@@ -24,12 +26,16 @@ public class SQLUserDAO implements UserDAO {
             return set.getInt(SQLUserDAOConstant.COUNT_USERS_WITH_TOTAL);
         } catch (SQLException e) {
             throw new DAOException("Cannot connect to database!", e);
+        } finally {
+            connectionPool.closeConnection(connection);
         }
     }
 
     @Override
     public List<User> getAllUsers() throws DAOException {
-        try (Connection connection = SQLConnectionCreator.createConnection()) {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        try {
             List<User> userList = new ArrayList<>();
             Statement statement = connection.createStatement();
             ResultSet set = statement.executeQuery(SQLUserDAOConstant.FIND_ALL_USERS);
@@ -40,12 +46,16 @@ public class SQLUserDAO implements UserDAO {
             return userList;
         } catch (SQLException e) {
             throw new DAOException("Cannot connect to database!", e);
+        } finally {
+            connectionPool.closeConnection(connection);
         }
     }
 
 
     public void registration(User user) throws DAOException {
-        try (Connection connection = SQLConnectionCreator.createConnection()) {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        try {
             PreparedStatement statement = connection.prepareStatement(SQLUserDAOConstant.ADD_USER);
 
             statement.setString(ADD_USER_NAME_INDEX, user.getName());
@@ -59,11 +69,15 @@ public class SQLUserDAO implements UserDAO {
 
         } catch (SQLException e) {
             throw new DAOException("Cannot connect to database!", e);
+        } finally {
+            connectionPool.closeConnection(connection);
         }
     }
 
     public User findUserByLogin(String login) throws DAOException {
-        try (Connection connection = SQLConnectionCreator.createConnection()) {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        try {
             PreparedStatement statement = connection.prepareStatement(SQLUserDAOConstant.FIND_USER_BY_LOGIN);
             statement.setString(SQLUserDAOConstant.FIND_USER_BY_LOGIN_INDEX, login);
             ResultSet resultSet = statement.executeQuery();
@@ -71,26 +85,34 @@ public class SQLUserDAO implements UserDAO {
             return createUserFromResultSet(resultSet);
         } catch (SQLException e) {
             throw new DAOException("Cannot connect to database!", e);
+        } finally {
+            connectionPool.closeConnection(connection);
         }
     }
 
 
     public User findUserById(int id) throws DAOException {
-        try (Connection connection = SQLConnectionCreator.createConnection()) {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        try {
             PreparedStatement statement = connection.prepareStatement(SQLUserDAOConstant.FIND_USER_BY_ID);
             statement.setInt(SQLUserDAOConstant.FIND_USER_BY_ID_ID_INDEX, id);
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
-                return createUserFromResultSet(resultSet);
+            return createUserFromResultSet(resultSet);
 
         } catch (SQLException e) {
             throw new DAOException("Cannot connect to database!", e);
+        } finally {
+            connectionPool.closeConnection(connection);
         }
     }
 
     @Override
     public void setRole(int id, Role role) throws DAOException {
-        try (Connection connection = SQLConnectionCreator.createConnection()) {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        try {
             PreparedStatement statement = connection.prepareStatement(CHANGE_ROLE_BY_ID);
 
             statement.setString(CHANGE_ROLE_BY_ID_ROLE_INDEX, role.name());
@@ -98,6 +120,8 @@ public class SQLUserDAO implements UserDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Cannot connect to database!", e);
+        } finally {
+            connectionPool.closeConnection(connection);
         }
     }
 

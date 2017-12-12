@@ -20,7 +20,9 @@ public class ShowAllUsersCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         ServiceFactory factory = ServiceFactory.getInstance();
         AdministratorService service = factory.getAdministratorService();
+
         HttpSession session = request.getSession();
+
         int id = (Integer) session.getAttribute(ControllerConstant.USER_ID_ATTRIBUTE);
         List<User> users = service.showUsers(id);
         request.setAttribute(ControllerConstant.USERS_ATTRIBUTE, users);

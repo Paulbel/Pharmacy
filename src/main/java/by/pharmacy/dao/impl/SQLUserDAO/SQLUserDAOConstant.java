@@ -1,4 +1,4 @@
-package by.pharmacy.dao.impl;
+package by.pharmacy.dao.impl.SQLUserDAO;
 
 public final class SQLUserDAOConstant {
     public static final String USER_TABLE = "user";

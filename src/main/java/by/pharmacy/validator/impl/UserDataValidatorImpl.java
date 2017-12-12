@@ -13,6 +13,8 @@ import by.pharmacy.service.exception.WrongPasswordException;
 import by.pharmacy.validator.UserDataValidator;
 
 public class UserDataValidatorImpl implements UserDataValidator {
+    public UserDataValidatorImpl(){}
+
     public void checkPassword(User user, String password) throws WrongPasswordException {
         String userPassword = user.getPassword();
         if(!userPassword.equals(password)){
@@ -20,19 +22,6 @@ public class UserDataValidatorImpl implements UserDataValidator {
         }
     }
 
-    public void checkUnique(User user) throws ServiceException {
-        try {
-            DAOFactory factory = DAOFactory.getInstance();
-            UserDAO userDAO = factory.getUserDAO();
-            String login = user.getLogin();
-            int userNumber = userDAO.findNumberOfUsersWithLogin(login);
-            if(userNumber>0){
-                throw new UserExistsException("User with login "+login+" already exists!");
-            }
-        } catch (DAOException e) {
-            throw new ServiceException(e.getMessage(),e);
-        }
-    }
 
 
     public void checkAccessRight(int id, Role role) throws ServiceException {
@@ -48,5 +37,5 @@ public class UserDataValidatorImpl implements UserDataValidator {
         }
 
     }
-    public UserDataValidatorImpl(){}
+
 }

@@ -20,7 +20,9 @@ public class ShowAllDrugsCommand implements Command{
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServiceException, ServletException {
         ServiceFactory factory = ServiceFactory.getInstance();
         PharmacistService service = factory.getPharmacistService();
-        List<Drug> drugList = service.getAllDrugs(Language.RUSSIAN);
+
+        List<Drug> drugList = service.getAllDrugs(Language.RUSSIAN);//TODO: localization
+
         request.setAttribute(ControllerConstant.DRUGS_ATTRIBUTE,drugList);
         RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerConstant.PHARMACIST_CABINET_URI);
         dispatcher.forward(request, response);
