@@ -241,8 +241,7 @@ FROM drug_translate
 WHERE drug_translate.name LIKE '%?%';
 
 
-
-
+INSERT INTO user (login, name, surname, password, patronymic, email, phone) VALUES (?, ?, ?, ?, ?, ?, ?);
 
 /*SELECT drug.id
 FROM drug
@@ -266,8 +265,20 @@ WHERE
   user.login = 'login8xdtunvdwm' AND drug_translate.lang_name = 'russian'
 LIMIT 3 OFFSET 0;
 
-INSERT INTO user (login,password,name,surname,patronymic,phone,email) VALUES ('login8o5vj4mdkd','54157515','Генрих','Синельников','Алексеевич','+375656381587','8o5vj4mdkd@gmail.com'), ('loginxl5k8m24lx','32880767','Алексей','Гапеенко','Федорович','+375410634274','xl5k8m24lx@gmail.com');
-SELECT user.name,user.surname,user.patronymic,user.password,user.login ,user.role,user.phone, user.email FROM test.user LIMIT 3 OFFSET 0;
+INSERT INTO user (login, password, name, surname, patronymic, phone, email)
+VALUES ('login8o5vj4mdkd', '54157515', 'Генрих', 'Синельников', 'Алексеевич', '+375656381587', '8o5vj4mdkd@gmail.com'),
+  ('loginxl5k8m24lx', '32880767', 'Алексей', 'Гапеенко', 'Федорович', '+375410634274', 'xl5k8m24lx@gmail.com');
+SELECT
+  user.name,
+  user.surname,
+  user.patronymic,
+  user.password,
+  user.login,
+  user.role,
+  user.phone,
+  user.email
+FROM test.user
+LIMIT 3 OFFSET 0;
 
 SELECT
   drug.id,
@@ -300,4 +311,6 @@ DELETE FROM test.user
 WHERE user.login = 'login8o5vj4mdkd' OR user.login = 'loginxl5k8m24lx';
 
 
-SELECT * FROM user WHERE login = ?;
+SELECT *
+FROM user
+WHERE login = ?;

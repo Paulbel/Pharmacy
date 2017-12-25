@@ -16,15 +16,27 @@ import java.util.List;
 
 
 public class UserDAOImpl implements UserDAO {
+    public static final String GET_USERS = "SELECT * FROM user LIMIT ? OFFSET ?";
+
+
+    private static final String ADD_USER = "INSERT INTO user (login, name, surname, password, patronymic, email, phone)" +
+            " VALUES (?, ?, ?, ?, ?, ?, ?);";
+
+    public static final String FIND_USER_BY_LOGIN = "SELECT * " +
+            "FROM user " +
+            "WHERE login = ?;";
+
+    public static final String CHANGE_ROLE_BY_LOGIN = "UPDATE user SET role =? WHERE login =?";
+
 
     @Override
     public List<User> getUsers(int number, int offset) throws DAOException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         ResultSet set;
-        try (PreparedStatement statement = connection.prepareStatement(SQLUserDAOConstant.GET_USERS)) {
-            statement.setInt(SQLUserDAOConstant.GET_USERS_START_INDEX, number);
-            statement.setInt(SQLUserDAOConstant.GET_USERS_OFFSET_INDEX, offset);
+        try (PreparedStatement statement = connection.prepareStatement(GET_USERS)) {
+            statement.setInt(1, number);
+            statement.setInt(2, offset);
             set = statement.executeQuery();
             List<User> userList = new ArrayList<>();
             while (set.next()) {
@@ -42,16 +54,16 @@ public class UserDAOImpl implements UserDAO {
     public void registration(User user) throws DAOException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
-        try (PreparedStatement statement = connection.prepareStatement(SQLUserDAOConstant.ADD_USER)){
-            statement.setString(SQLUserDAOConstant.ADD_USER_NAME_INDEX, user.getName());
-            statement.setString(SQLUserDAOConstant.ADD_USER_SURNAME_INDEX, user.getSurname());
-            statement.setString(SQLUserDAOConstant.ADD_USER_PATRONYMIC_INDEX, user.getPatronymic());
-            statement.setString(SQLUserDAOConstant.ADD_USER_LOGIN_INDEX, user.getLogin());
-            statement.setString(SQLUserDAOConstant.ADD_USER_PASSWORD_INDEX, user.getPassword());
-            statement.setString(SQLUserDAOConstant.ADD_USER_PHONE_INDEX, user.getPhoneNumber());
-            statement.setString(SQLUserDAOConstant.ADD_USER_EMAIL_INDEX, user.getEmail());
-            statement.executeUpdate();
+        try (PreparedStatement statement = connection.prepareStatement(ADD_USER)) {
+            statement.setString(1, user.getLogin());
+            statement.setString(2, user.getName());
+            statement.setString(3, user.getSurname());
+            statement.setString(4, user.getPassword());
+            statement.setString(5, user.getPatronymic());
+            statement.setString(6, user.getEmail());
+            statement.setString(7, user.getPhoneNumber());
 
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("User already exists!", e);
         } finally {
@@ -62,8 +74,8 @@ public class UserDAOImpl implements UserDAO {
     public User findUserByLogin(String login) throws DAOException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
-        try (PreparedStatement statement = connection.prepareStatement(SQLUserDAOConstant.FIND_USER_BY_LOGIN)) {
-            statement.setString(SQLUserDAOConstant.FIND_USER_BY_LOGIN_INDEX, login);
+        try (PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_LOGIN)) {
+            statement.setString(1, login);
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             return createUserFromResultSet(resultSet);
@@ -80,10 +92,10 @@ public class UserDAOImpl implements UserDAO {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         try {
-            PreparedStatement statement = connection.prepareStatement(SQLUserDAOConstant.CHANGE_ROLE_BY_LOGIN);
+            PreparedStatement statement = connection.prepareStatement(CHANGE_ROLE_BY_LOGIN);
 
-            statement.setString(SQLUserDAOConstant.CHANGE_ROLE_BY_LOGIN_ROLE_INDEX, role.name());
-            statement.setString(SQLUserDAOConstant.CHANGE_ROLE_BY_LOGIN_LOGIN_INDEX, login);
+            statement.setString(1, role.name());
+            statement.setString(2, login);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Cannot connect to database!", e);
