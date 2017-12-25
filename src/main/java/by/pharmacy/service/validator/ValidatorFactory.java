@@ -1,6 +1,6 @@
-package by.pharmacy.validator;
+package by.pharmacy.service.validator;
 
-import by.pharmacy.validator.impl.UserDataValidatorImpl;
+import by.pharmacy.service.validator.impl.UserDataValidatorImpl;
 
 public class ValidatorFactory {
     public static final ValidatorFactory instance = new ValidatorFactory();

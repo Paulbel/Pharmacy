@@ -23,7 +23,7 @@ public class ShowAllUsersCommand implements Command {
 
         HttpSession session = request.getSession();
 
-        int id = (Integer) session.getAttribute(ControllerConstant.USER_ID_ATTRIBUTE);
+        int id = (Integer) session.getAttribute(ControllerConstant.USER_LOGIN_ATTRIBUTE);
         List<User> users = service.showUsers(id);
         request.setAttribute(ControllerConstant.USERS_ATTRIBUTE, users);
 

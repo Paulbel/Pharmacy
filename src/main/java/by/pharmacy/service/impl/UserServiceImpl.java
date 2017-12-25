@@ -6,7 +6,6 @@ import by.pharmacy.dao.exception.DAOException;
 import by.pharmacy.entity.User;
 import by.pharmacy.service.UserService;
 import by.pharmacy.service.exception.ServiceException;
-import by.pharmacy.validator.impl.UserDataValidatorImpl;
 
 public class UserServiceImpl implements UserService {
 
@@ -16,10 +15,7 @@ public class UserServiceImpl implements UserService {
         try {
             DAOFactory daoFactory = DAOFactory.getInstance();
             UserDAO userDAO = daoFactory.getUserDAO();
-            User foundUser = userDAO.findUserByLogin(login);
-            UserDataValidatorImpl validator = new UserDataValidatorImpl();
-            validator.checkPassword(foundUser, password);
-            return foundUser;
+            return userDAO.findUserByLogin(login);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
         }
@@ -36,4 +32,5 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException(e.getMessage(), e);
         }
     }
+
 }

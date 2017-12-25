@@ -16,7 +16,7 @@ public class SignOutCommand implements Command {
         session.removeAttribute(ControllerConstant.ROLE_ATTRIBUTE);
         session.removeAttribute(ControllerConstant.NAME_ATTRIBUTE);
         session.removeAttribute(ControllerConstant.PATRONYMIC_ATTRIBUTE);
-        session.removeAttribute(ControllerConstant.USER_ID_ATTRIBUTE);
+        session.removeAttribute(ControllerConstant.USER_LOGIN_ATTRIBUTE);
 
         response.sendRedirect(ControllerConstant.MAIN_PAGE_URI);
     }

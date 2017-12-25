@@ -13,7 +13,7 @@ public class Drug implements Serializable{
     private int amount;
     private int dosage;
     private String description;
-    private boolean needPresciption;
+    private boolean needPrescription;
     private double price;
     private Manufacturer manufacturer;
 
@@ -60,12 +60,12 @@ public class Drug implements Serializable{
         this.description = description;
     }
 
-    public boolean isNeedPresciption() {
-        return needPresciption;
+    public boolean isNeedPrescription() {
+        return needPrescription;
     }
 
-    public void setNeedPresciption(boolean needPresciption) {
-        this.needPresciption = needPresciption;
+    public void setNeedPrescription(boolean needPrescription) {
+        this.needPrescription = needPrescription;
     }
 
     public double getPrice() {
@@ -86,7 +86,7 @@ public class Drug implements Serializable{
 
     public Manufacturer getManufacturer() {
         Manufacturer manufacturer = new Manufacturer();
-        manufacturer.setId(1);//TODO: manufacturer logic in DrugDAO.getAll()
+        manufacturer.setId(1);//TODO: manufacturer logic in DrugDAO.getDrugs()
         return manufacturer;
     }
 
@@ -112,7 +112,7 @@ public class Drug implements Serializable{
                 ", amount=" + amount +
                 ", dosage=" + dosage +
                 ", description='" + description + '\'' +
-                ", needPresciption=" + needPresciption +
+                ", needPrescription=" + needPrescription +
                 ", price=" + price +
                 ", manufacturer=" + manufacturer +
                 '}';

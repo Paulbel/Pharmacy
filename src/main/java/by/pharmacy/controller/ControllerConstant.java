@@ -9,7 +9,7 @@ public final class ControllerConstant {
     public static final String PHONE_ATTRIBUTE = "phone";
     public static final String EMAIL_ATTRIBUTE = "email";
     public static final String LOCAL_ATTRIBUTE = "local";
-    public static final String USER_ID_ATTRIBUTE = "user_id";
+    public static final String USER_LOGIN_ATTRIBUTE = "user_id";
     public static final String USERS_ATTRIBUTE = "users";
     public static final String COMMAND_ATTRIBUTE = "command";
     public static final String DRUGS_ATTRIBUTE = "drugs";

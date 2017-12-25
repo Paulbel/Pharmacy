@@ -26,7 +26,7 @@ public class SignInCommand implements Command {
             User user = userService.signIn(login, password);
             HttpSession session = request.getSession(true);
 
-            session.setAttribute(ControllerConstant.USER_ID_ATTRIBUTE, user.getId());
+            session.setAttribute(ControllerConstant.USER_LOGIN_ATTRIBUTE, user.getLogin());
             session.setAttribute(ControllerConstant.NAME_ATTRIBUTE, user.getName());
             session.setAttribute(ControllerConstant.SURNAME_ATTRIBUTE, user.getSurname());
             session.setAttribute(ControllerConstant.ROLE_ATTRIBUTE, String.valueOf(user.getRole()));

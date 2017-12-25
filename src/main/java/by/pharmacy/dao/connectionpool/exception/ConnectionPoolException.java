@@ -1,4 +1,4 @@
-package by.pharmacy.dao.connectionPool.exception;
+package by.pharmacy.dao.connectionpool.exception;
 
 import by.pharmacy.dao.exception.DAOException;
 

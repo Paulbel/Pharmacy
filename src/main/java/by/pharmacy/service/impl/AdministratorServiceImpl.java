@@ -6,8 +6,7 @@ import by.pharmacy.dao.exception.DAOException;
 import by.pharmacy.entity.Role;
 import by.pharmacy.entity.User;
 import by.pharmacy.service.AdministratorService;
-import by.pharmacy.validator.UserDataValidator;
-import by.pharmacy.validator.ValidatorFactory;
+import by.pharmacy.service.validator.ValidatorFactory;
 import by.pharmacy.service.exception.ServiceException;
 
 import java.util.List;
@@ -18,7 +17,7 @@ public class AdministratorServiceImpl implements AdministratorService {
         try {
             DAOFactory daoFactory = DAOFactory.getInstance();
             UserDAO userDAO = daoFactory.getUserDAO();
-            return userDAO.getAllUsers();
+            return userDAO.getUsers(1,1);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
         }
@@ -28,12 +27,9 @@ public class AdministratorServiceImpl implements AdministratorService {
     public void setUserRole(int adminId, int userId, Role role) throws ServiceException {
         try {
             ValidatorFactory factory = ValidatorFactory.getInstance();
-            UserDataValidator validator = factory.getUserDataValidator();
-            validator.checkAccessRight(adminId, Role.ADMIN);
-
             DAOFactory daoFactory = DAOFactory.getInstance();
             UserDAO userDAO = daoFactory.getUserDAO();
-            userDAO.setRole(userId, role);
+            userDAO.setRole("login", role);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
         }

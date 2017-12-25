@@ -21,7 +21,7 @@ public class ShowAllDrugsCommand implements Command{
         ServiceFactory factory = ServiceFactory.getInstance();
         PharmacistService service = factory.getPharmacistService();
 
-        List<Drug> drugList = service.getAllDrugs(Language.RUSSIAN);//TODO: localization
+        List<Drug> drugList = service.getAllDrugs(Language.ENGLISH);//TODO: localization
 
         request.setAttribute(ControllerConstant.DRUGS_ATTRIBUTE,drugList);
         RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerConstant.PHARMACIST_CABINET_URI);

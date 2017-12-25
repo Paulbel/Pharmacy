@@ -27,7 +27,7 @@ public class PharmacistServiceImpl implements PharmacistService {
             //TODO: validation if user is doctor
             DAOFactory daoFactory = DAOFactory.getInstance();
             DrugDAO drugDAO = daoFactory.getDrugDAO();
-            return drugDAO.getAll(language);
+            return drugDAO.getDrugs(language,20,20);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

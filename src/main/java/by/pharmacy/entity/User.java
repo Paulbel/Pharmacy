@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class User implements Serializable {
     private static final long serialVersionUID = -4844171327987831179L;
-    private int id;
     private String name;
     private String surname;
     private String patronymic;
@@ -17,13 +16,6 @@ public class User implements Serializable {
     public User() {
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public Role getRole() {
         return role;
@@ -97,7 +89,6 @@ public class User implements Serializable {
 
         User user = (User) o;
 
-        if (id != user.id) return false;
         if (name != null ? !name.equals(user.name) : user.name != null) return false;
         if (surname != null ? !surname.equals(user.surname) : user.surname != null) return false;
         if (patronymic != null ? !patronymic.equals(user.patronymic) : user.patronymic != null) return false;
@@ -109,8 +100,7 @@ public class User implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
         result = 31 * result + (patronymic != null ? patronymic.hashCode() : 0);
         result = 31 * result + (login != null ? login.hashCode() : 0);
@@ -124,8 +114,7 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", patronymic='" + patronymic + '\'' +
                 ", login='" + login + '\'' +

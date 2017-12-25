@@ -11,11 +11,8 @@ public interface UserDAO {
 
     User findUserByLogin(String login) throws DAOException;
 
-    int findNumberOfUsersWithLogin(String login) throws DAOException;
+    List<User> getUsers(int number, int offset) throws DAOException;
 
-    List<User> getAllUsers() throws DAOException;
 
-    User findUserById(int id) throws DAOException;
-
-    void setRole(int id, Role role) throws DAOException;
+    void setRole(String login, Role role) throws DAOException;
 }

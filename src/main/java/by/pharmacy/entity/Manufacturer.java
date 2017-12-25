@@ -9,9 +9,41 @@ public class Manufacturer implements Serializable{
     private String name;
     private String phoneNumber;
     private String country;
+    private String address;
+    private String email;
 
     public Manufacturer() {
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+
 
     public int getId() {
         return id;

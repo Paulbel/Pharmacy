@@ -19,8 +19,8 @@ public class GiveRoleCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         HttpSession session = request.getSession();
 
-        int adminId = (Integer) session.getAttribute(ControllerConstant.USER_ID_ATTRIBUTE);
-        int userId = Integer.valueOf(request.getParameter(ControllerConstant.USER_ID_ATTRIBUTE));
+        int adminId = (Integer) session.getAttribute(ControllerConstant.USER_LOGIN_ATTRIBUTE);
+        int userId = Integer.valueOf(request.getParameter(ControllerConstant.USER_LOGIN_ATTRIBUTE));
         Role role = Role.valueOf(request.getParameter(ControllerConstant.ROLE_ATTRIBUTE));
 
         ServiceFactory factory = ServiceFactory.getInstance();

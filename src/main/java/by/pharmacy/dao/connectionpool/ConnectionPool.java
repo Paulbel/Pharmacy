@@ -1,8 +1,8 @@
-package by.pharmacy.dao.connectionPool;
+package by.pharmacy.dao.connectionpool;
 
 
-import by.pharmacy.dao.connectionPool.exception.ConnectionPoolException;
-import by.pharmacy.dao.impl.SQLConstantCommon;
+import by.pharmacy.dao.connectionpool.exception.ConnectionPoolException;
+import by.pharmacy.dao.DAOConstant;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -28,12 +28,12 @@ public final class ConnectionPool {
     }
 
     private ConnectionPool() {
-        ResourceBundle resourceBundle =  ResourceBundle.getBundle(SQLConstantCommon.CURRENT_DB);
-        this.driverName = resourceBundle.getString(SQLConstantCommon.CURRENT_DB+"."+SQLConstantCommon.DRIVER_NAME);
-        this.url = resourceBundle.getString(SQLConstantCommon.CURRENT_DB+"."+SQLConstantCommon.URL);
-        this.user = resourceBundle.getString(SQLConstantCommon.CURRENT_DB+"."+SQLConstantCommon.USER);
-        this.password = resourceBundle.getString(SQLConstantCommon.CURRENT_DB+"."+SQLConstantCommon.PASSWORD);
-        this.poolSize = Integer.valueOf(resourceBundle.getString(SQLConstantCommon.CURRENT_DB+"."+SQLConstantCommon.POOL_SIZE));
+        ResourceBundle resourceBundle =  ResourceBundle.getBundle(DAOConstant.CURRENT_DB);
+        this.driverName = resourceBundle.getString(DAOConstant.CURRENT_DB+"."+ DAOConstant.DRIVER_NAME);
+        this.url = resourceBundle.getString(DAOConstant.CURRENT_DB+"."+ DAOConstant.URL);
+        this.user = resourceBundle.getString(DAOConstant.CURRENT_DB+"."+ DAOConstant.USER);
+        this.password = resourceBundle.getString(DAOConstant.CURRENT_DB+"."+ DAOConstant.PASSWORD);
+        this.poolSize = Integer.valueOf(resourceBundle.getString(DAOConstant.CURRENT_DB+"."+ DAOConstant.POOL_SIZE));
         try {
             Class.forName(driverName);
             givenConnectionQueue = new ArrayBlockingQueue<>(poolSize);
