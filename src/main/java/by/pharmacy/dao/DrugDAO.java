@@ -12,5 +12,11 @@ public interface DrugDAO {
 
     void addDrug(Drug drug, Language language) throws DAOException;
 
-    List<Drug> findDrugs(String name) throws DAOException;
+    void addDrugDescription(Drug drug, Language language) throws DAOException;
+
+    List<Drug> findDrugs(String name, Language language, int number, int offset) throws DAOException;
+
+    int getDrugNumber() throws DAOException;
+
+    void removeDrug(int drugId) throws DAOException;
 }

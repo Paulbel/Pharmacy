@@ -1,13 +1,13 @@
 package by.pharmacy.dao;
 
-import by.pharmacy.dao.impl.SQLDrugDAO;
+import by.pharmacy.dao.impl.DrugDAOImpl;
 import by.pharmacy.dao.impl.UserDAOImpl;
 
 
 public class DAOFactory {
-    public static final DAOFactory instance = new DAOFactory();
+    private static final DAOFactory instance = new DAOFactory();
     private UserDAO userDAO = new UserDAOImpl();
-    private DrugDAO drugDAO = new SQLDrugDAO();
+    private DrugDAO drugDAO = new DrugDAOImpl();
 
     public UserDAO getUserDAO() {
         return userDAO;

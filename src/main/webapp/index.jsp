@@ -25,7 +25,6 @@
     <fmt:message bundle="${loc}" key="local.opticsName" var="opticsname"/>
     <fmt:message bundle="${loc}" key="local.name" var="name"/>
     <fmt:message bundle="${loc}" key="local.surname" var="surname"/>
-    <fmt:message bundle="${loc}" key="local.partronymic" var="patronymic"/>
     <fmt:message bundle="${loc}" key="local.email" var="email"/>
     <fmt:message bundle="${loc}" key="local.phone" var="phone"/>
     <fmt:message bundle="${loc}" key="local.password" var="password"/>
@@ -83,9 +82,6 @@
             <label><b><c:out value="${surname}"/></b></label>
             <input type="text" name="surname" value=""/>
             <br/>
-            <label><b><c:out value="${patronymic}"/></b></label>
-            <input type="text" name="patronymic" value=""/>
-            <br/>
 
             <label><b><c:out value="${login}"/></b></label>
             <input type="text" name="login" value=""/>
@@ -130,7 +126,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <c:if test="${not empty sessionScope.user_id}">
+                    <c:if test="${not empty sessionScope.login}">
                         <a>
                             <c:out value="${sessionScope.name}"/>
                             <c:out value="${sessionScope.surname}"/>
@@ -141,7 +137,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><c:out value="${cabinet}"/><b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <c:choose>
-                        <c:when test="${empty sessionScope.user_id}">
+                        <c:when test="${empty sessionScope.login}">
                             <li>
                                 <a href="#" onclick="document.getElementById('signInForm').style.display='block'"><c:out value="${signin}" /></a>
                                 <a href="#" onclick="document.getElementById('registrationForm').style.display='block'"><c:out value="${registration}"/></a>

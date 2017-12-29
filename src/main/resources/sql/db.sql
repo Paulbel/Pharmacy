@@ -1,21 +1,29 @@
-INSERT INTO pharmacy.user (login, password, name, surname, patronymic, phone, email) VALUES
-  ('miha', '3522234', 'Mihail', 'Sinelnikov', 'Petrovich', '25345', 'asd@gmail.com'),
-  ('lilu', '34542345', 'Tatsiana', 'Sinelnikova', 'Vasilevna', '234242', 'asd@gmail.com'),
-  ('tat', '345543A', 'Tatsiana', 'Sinelnikova', 'Ivanovna', 'asd', 'asd@gmail.com'),
-  ('max', '3455as', 'Максим', 'Синельников', 'Михайлович', 'asdsa', 'asd@gmail.com'),
-  ('vasya', '34da55', 'Василий', 'Савченко', 'Митрофанович', 'sda', 'asd@gmail.com');
+INSERT INTO pharmacy.user (login, password, name, surname, phone, email) VALUES
+  ('miha', '3522234', 'Mihail', 'Sinelnikov', '25345', 'asd@gmail.com'),
+  ('lilu', '34542345', 'Tatsiana', 'Sinelnikova', '234242', 'asd@gmail.com'),
+  ('tat', '345543A', 'Tatsiana', 'Sinelnikova', 'asd', 'asd@gmail.com'),
+  ('max', '3455as', 'Максим', 'Синельников', 'asdsa', 'asd@gmail.com'),
+  ('vasya', '34da55', 'Василий', 'Савченко', 'sda', 'asd@gmail.com');
 
 DELETE FROM user;
 
-INSERT INTO user (login, password, name, surname, patronymic, role, phone, email) VALUES
-  ('pavel', '3455', 'Pavel', 'Sinelnikov', 'Michailovich', 'ADMIN', '3252525', 'asd@gmail.com');
+INSERT INTO user (login, password, name, surname, role, phone, email) VALUES
+  ('pavel', '3455', 'Pavel', 'Sinelnikov',  'ADMIN', '3252525', 'asd@gmail.com');
+
+INSERT INTO user (login, password, name, surname, role, phone, email) VALUES
+  ('pavel1', '3455', 'Pavel', 'Sinelnikov','PHARMACIST', '3252525', 'asd@gmail.com');
+
+DELETE FROM user;
+
+USE pharmacy;
+
 
 SELECT
   id,
   name
 FROM user
 WHERE surname = 'Sinelnikov';
-
+USE pharmacy;
 SELECT *
 FROM user;
 
@@ -74,8 +82,6 @@ SELECT code
 FROM language
 WHERE name = 'russian';
 
-INSERT INTO drug_translate (drug_id, lang_code, name) VALUES
-  (11, 'en', 'name');
 
 INSERT INTO manufacturer_translate (language_code, manufacturer_id, name) VALUES
   ('ru', 1, 'Белмедпрепараты'),
@@ -87,7 +93,7 @@ SELECT
   name,
   id,
   surname,
-  patronymic,
+
   password,
   login,
   role,
@@ -241,7 +247,7 @@ FROM drug_translate
 WHERE drug_translate.name LIKE '%?%';
 
 
-INSERT INTO user (login, name, surname, password, patronymic, email, phone) VALUES (?, ?, ?, ?, ?, ?, ?);
+INSERT INTO user (login, name, surname, password,  email, phone) VALUES (?, ?, ?, ?, ?, ?);
 
 /*SELECT drug.id
 FROM drug
@@ -265,13 +271,12 @@ WHERE
   user.login = 'login8xdtunvdwm' AND drug_translate.lang_name = 'russian'
 LIMIT 3 OFFSET 0;
 
-INSERT INTO user (login, password, name, surname, patronymic, phone, email)
-VALUES ('login8o5vj4mdkd', '54157515', 'Генрих', 'Синельников', 'Алексеевич', '+375656381587', '8o5vj4mdkd@gmail.com'),
-  ('loginxl5k8m24lx', '32880767', 'Алексей', 'Гапеенко', 'Федорович', '+375410634274', 'xl5k8m24lx@gmail.com');
+INSERT INTO user (login, password, name, surname,  phone, email)
+VALUES ('login8o5vj4mdkd', '54157515', 'Генрих', 'Синельников',  '+375656381587', '8o5vj4mdkd@gmail.com'),
+  ('loginxl5k8m24lx', '32880767', 'Алексей', 'Гапеенко',  '+375410634274', 'xl5k8m24lx@gmail.com');
 SELECT
   user.name,
   user.surname,
-  user.patronymic,
   user.password,
   user.login,
   user.role,
@@ -279,7 +284,10 @@ SELECT
   user.email
 FROM test.user
 LIMIT 3 OFFSET 0;
-
+DELETE FROM drug;
+DELETE FROM manufacturer;
+DELETE FROM country;
+DELETE FROM language;
 SELECT
   drug.id,
   drug_translate.name,
@@ -314,3 +322,74 @@ WHERE user.login = 'login8o5vj4mdkd' OR user.login = 'loginxl5k8m24lx';
 SELECT *
 FROM user
 WHERE login = ?;
+INSERT INTO drug (manufacturer_id, dosage, amount, price, number, need_prescription) VALUES (1, 48, 60, 36.69, 832, 1);
+SELECT
+  drug.id,
+  drug_translate.name,
+  drug_translate.composition,
+  drug.number,
+  drug.amount,
+  drug.dosage,
+  drug_translate.description,
+  drug.need_prescription,
+  drug.price,
+  manufacturer.id,
+  manufacturer.phone_number,
+  manufacturer_translate.name,
+  country_translate.name
+FROM drug
+  INNER JOIN drug_translate ON drug.id = drug_translate.drug_id
+  INNER JOIN manufacturer ON drug.manufacturer_id = manufacturer.id
+  INNER JOIN country ON manufacturer.country_code = country.code
+  INNER JOIN country_translate ON country.code = country_translate.country_code
+  INNER JOIN manufacturer_translate ON manufacturer.id = manufacturer_translate.manufacturer_id
+WHERE drug_translate.lang_name = ? AND manufacturer_translate.language_name = drug_translate.lang_name AND
+      country_translate.lan_name = drug_translate.lang_name
+LIMIT ? OFFSET ?;
+
+INSERT INTO manufacturer (phone_number, country_code, email) VALUES
+  ('(017) 263-67-70', 'by', 'www.academpharm.by, www.academpharm.by'),
+  ('+ 375 212 60 15 69, + 375 212 60 15 69', 'by', '');
+
+DELETE FROM manufacturer;
+DELETE FROM language;
+
+DELETE FROM drug;
+DELETE FROM user;
+
+ALTER TABLE manufacturer
+  AUTO_INCREMENT = 1;
+TRUNCATE TABLE manufacturer;
+
+INSERT INTO manufacturer (phone_number, country_code, email) VALUES ('', 'de', ''), ('', 'de', '');
+
+INSERT INTO manufacturer_translate (language_name, manufacturer_id, name, address)
+VALUES ('russian', 1, 'Вёрваг Фарма', ''),
+  ('russian', 2, 'Натурварен', '');
+
+INSERT INTO language (language_name) VALUES ('russian');
+
+
+SELECT
+  drug.id,
+  drug_translate.name,
+  drug_translate.composition,
+  drug.number,
+  drug.amount,
+  drug.dosage,
+  drug_translate.description,
+  drug.need_prescription,
+  drug.price,
+  manufacturer.id,
+  manufacturer.phone_number,
+  manufacturer_translate.name,
+  country_translate.name
+FROM drug
+  INNER JOIN drug_translate ON drug.id = drug_translate.drug_id
+  INNER JOIN manufacturer ON drug.manufacturer_id = manufacturer.id
+  INNER JOIN country ON manufacturer.country_code = country.code
+  INNER JOIN country_translate ON country.code = country_translate.country_code
+  INNER JOIN manufacturer_translate ON manufacturer.id = manufacturer_translate.manufacturer_id
+WHERE drug.id = 3 AND drug_translate.lang_name = 'russian' AND
+      manufacturer_translate.language_name = drug_translate.lang_name AND
+      country_translate.lan_name = drug_translate.lang_name;

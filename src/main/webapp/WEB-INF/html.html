@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="fonts.css" type="text/css" charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="MainPageStyles.css">
+</head>
+<body>
+
+
+<div id="modal_window" class="modal">
+    <span onclick="document.getElementById('modal_window').style.display='none'" class="close" title="Close Modal">&times;</span>
+    <form class="modal-content">
+        <div class="container">
+            <h2>Sign Up</h2>
+            <div class="form_row">
+                <label><b>Name</b></label>
+                <input type="text" placeholder="Enter name" name="name" required>
+            </div>
+            <div class="form_row">
+                <label><b>Surname</b></label>
+                <input type="text" placeholder="Enter surname" name="surname" required>
+            </div>
+            <div class="form_row">
+                <label><b>Login</b></label>
+                <input type="text" class="full_row_input" placeholder="Enter login" name="login" required>
+            </div>
+            <div class="form_row">
+                <label><b>Email</b></label>
+                <input type="text" class="full_row_input" placeholder="Enter email" name="login" required>
+            </div>
+
+            <div class="form_row">
+                <label><b>Phone</b></label>
+                <input type="text" class="full_row_input" placeholder="Enter phone" name="phone" required>
+            </div>
+
+            <div class="form_row">
+                <label><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+            </div>
+            <div class="form_row">
+                <label><b>Repeat Password</b></label>
+                <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+            </div>
+            <div class="clearfix">
+                <button type="button" onclick="document.getElementById('modal_window').style.display='none'"
+                        class="cancelbtn">Cancel
+                </button>
+                <button type="submit" class="signupbtn">Sign Up</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div id="shade">
+    <div class="menu_part">
+        <div class="menu_button">
+            Аптека
+        </div>
+    </div>
+    <div class="menu_part">
+        <div class="menu_button">
+            Pavel Sinelnikov
+        </div>
+        <div class="menu_button">
+            <ul class="menu">
+                <li><a href=#>Menu 1</a>
+                    <ul class="submenu">
+                        <li><a onclick="document.getElementById('modal_window').style.display='block'" href=#>Sign
+                            Up</a></li>
+                        <li><a href=#>Sudmenu 1</a></li>
+                        <li><a href=#>Sudmenu 1</a></li>
+                    </ul>
+                </li>
+                <li><a href=#>Menu 2</a>
+                    <ul class="submenu">
+                        <li><a href=#>Sudmenu 2</a></li>
+                        <li><a href=#>Sudmenu 2</a></li>
+                        <li><a href=#>Sudmenu 2</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="menu_button">
+            Язык
+        </div>
+    </div>
+</div>
+
+<div id="main_container">
+<div class="drug_form forward">
+    <div class="info">
+        <div class="header"><h1>Препараты</h1></div>
+        <div class="text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus congue scelerisque molestie.
+            Praesent scelerisque finibus erat, a feugiat sem blandit a. Sed eget est quis purus rhoncus gravida
+            non eget mauris. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
+            Curae; Duis malesuada, lorem eu iaculis interdum, nisl quam sodales urna, vitae ullamcorper sapien
+            leo nec nisi. Quisque pellentesque risus a orci vestibulum, vitae scelerisque tellus venenatis.
+            Etiam porta faucibus lorem vitae lacinia.
+
+        </div>
+        <div class="navigation">
+
+                <div class="menu_button">
+                    <img src="search.svg">
+                    <a>Поиск</a>
+                </div>
+                <div class="menu_button">
+                    <img src="cart.svg">
+                    <a>Каталог</a>
+                </div>
+            </div>
+
+    </div>
+
+        <img class="image" src="drug.jpg"/>
+
+</div>
+
+
+        <div class="drug_form reverse">
+                <img class="image" src="manufacturer.jpg"/>
+            <div class="info">
+                <div class="header"><h1>Препараты</h1></div>
+                <div class="text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus congue scelerisque molestie.
+                    Praesent scelerisque finibus erat, a feugiat sem blandit a. Sed eget est quis purus rhoncus gravida
+                    non eget mauris. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
+                    Curae; Duis malesuada, lorem eu iaculis interdum, nisl quam sodales urna, vitae ullamcorper sapien
+                    leo nec nisi. Quisque pellentesque risus a orci vestibulum, vitae scelerisque tellus venenatis.
+                    Etiam porta faucibus lorem vitae lacinia.
+
+                </div>
+                <div class="navigation">
+                    <div class="menu_button">
+                        <img src="search.svg">
+                        <a>Поиск</a>
+                    </div>
+                    <div class="menu_button">
+                        <img src="cart.svg">
+                        <a>Каталог</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="drug_form forward">
+            <div class="info">
+                <div class="header"><h1>Препараты</h1></div>
+                <div class="text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus congue scelerisque molestie.
+                    Praesent scelerisque finibus erat, a feugiat sem blandit a. Sed eget est quis purus rhoncus gravida
+                    non eget mauris. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
+                    Curae; Duis malesuada, lorem eu iaculis interdum, nisl quam sodales urna, vitae ullamcorper sapien
+                    leo nec nisi. Quisque pellentesque risus a orci vestibulum, vitae scelerisque tellus venenatis.
+                    Etiam porta faucibus lorem vitae lacinia.
+
+                </div>
+                <div class="navigation">
+
+                        <div class="menu_button">
+                            <img src="search.svg">
+                            <a>Поиск</a>
+                        </div>
+                        <div class="menu_button">
+                            <img src="cart.svg">
+                            <a>Каталог</a>
+                        </div>
+
+                </div>
+            </div>
+
+                <img class="image" src="drug.jpg"/>
+
+        </div>
+
+
+</div>
+</body>
+
+
+</html>

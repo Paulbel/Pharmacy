@@ -17,7 +17,6 @@ public class RegistrationCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         String name = request.getParameter(ControllerConstant.NAME_ATTRIBUTE);
         String surname = request.getParameter(ControllerConstant.SURNAME_ATTRIBUTE);
-        String patronymic = request.getParameter(ControllerConstant.PATRONYMIC_ATTRIBUTE);
         String login = request.getParameter(ControllerConstant.LOGIN_ATTRIBUTE);
         String password = request.getParameter(ControllerConstant.PASSWORD_ATTRIBUTE);
         String phone = request.getParameter(ControllerConstant.PHONE_ATTRIBUTE);
@@ -27,7 +26,6 @@ public class RegistrationCommand implements Command {
 
         user.setName(name);
         user.setSurname(surname);
-        user.setPatronymic(patronymic);
         user.setPassword(password);
         user.setLogin(login);
         user.setEmail(email);

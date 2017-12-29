@@ -6,7 +6,7 @@ import by.pharmacy.service.impl.UserServiceImpl;
 
 
 public final class ServiceFactory {
-    public static final ServiceFactory instance = new ServiceFactory();
+    private static final ServiceFactory instance = new ServiceFactory();
     private UserService userService = new UserServiceImpl();
     private AdministratorService administratorService = new AdministratorServiceImpl();
 

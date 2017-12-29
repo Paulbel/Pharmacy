@@ -23,12 +23,11 @@ public class ShowAllUsersCommand implements Command {
 
         HttpSession session = request.getSession();
 
-        int id = (Integer) session.getAttribute(ControllerConstant.USER_LOGIN_ATTRIBUTE);
-        List<User> users = service.showUsers(id);
+        String login = (String) session.getAttribute(ControllerConstant.LOGIN_ATTRIBUTE);
+        List<User> users = service.showUsers(login,30,0);
         request.setAttribute(ControllerConstant.USERS_ATTRIBUTE, users);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerConstant.ADMIN_CABINET_URI);
         dispatcher.forward(request, response);
-
     }
 }

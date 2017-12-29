@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `pharmacy`.`user` (
   `surname` VARCHAR(25) NOT NULL COMMENT 'Фамилия пользователя',
   `password` VARCHAR(64) NOT NULL COMMENT 'Пароль пользователя',
   `role` ENUM('doctor', 'user', 'admin', 'pharmacist') NOT NULL DEFAULT 'user' COMMENT 'Роль пользователя в рамках системы, поумолчанию \'client\', так как любой пользователь, только прошедший регистрацию является клиентом',
-  `patronymic` VARCHAR(45) NULL COMMENT 'Отчество пользователя',
+
   `email` VARCHAR(25) NULL,
   `phone` VARCHAR(20) NULL,
   PRIMARY KEY (`login`),

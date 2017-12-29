@@ -1,0 +1,323 @@
+.menu_part{
+    display: flex;
+}
+
+
+.main_container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+
+.menu_button{
+    padding: 5px;
+
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.cancelbtn {
+    padding: 14px 20px;
+    background-color: #f44336;
+}
+
+.cancelbtn,.signupbtn {
+    float: left;
+    width: 50%;
+}
+
+
+
+
+.modal {
+    display: none;
+    color: #184E40;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #A9D1C7;;
+    margin: 20% auto auto auto; /* 5% from the top, 15% from the bottom and centered */
+    width: 40%; /* Could be more or less, depending on screen size */
+    border-radius: 10px ;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align:center;
+}
+
+.form_row{
+    text-align:left;
+    display:flex;
+    border-radius: 4px ;
+    box-shadow:  0 0 5px rgba(0,0,0,0.5);
+    background-color: white;
+    justify-content: space-between;
+    margin:10px;
+    padding-right: 10px;
+
+}
+
+
+
+.form_row input{
+    padding: 10px;
+    width: 40%;
+    border: 0;
+}
+
+.form_row label{
+    margin-top: 8px;
+    margin-left: 8px;
+}
+
+
+
+
+.close {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    color: #000;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
+
+ul {
+    display: block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+ul:after {
+    display: block;
+    clear: both;
+    float: none;
+}
+ul.menu > li {
+    float: left;
+    position: relative;
+}
+ul.menu > li > a {
+    display: block;
+    padding: 10px;
+    color: black;
+    background-color: white;
+    text-decoration: none;
+}
+/*ul.menu > li > a:hover {
+    background-color: black;
+}*/
+ul.submenu {
+    display: none;
+    position: absolute;
+    width: 100px;
+    /*    top: 37px;*/
+    left: 0;
+}
+ul.submenu > li {
+    display: block;
+}
+ul.submenu > li > a {
+    display: block;
+    padding: 10px;
+    color: white;
+
+    text-decoration: none;
+}
+
+
+ul.submenu > li > a:hover {
+    text-decoration: underline;
+}
+
+ul.menu > li:hover > ul.submenu {
+    display: block;
+}
+
+
+
+.drug_form{
+    border-radius: 6px ;
+    box-shadow:  0 0 10px rgba(0,0,0,0.5);
+    margin: 30px 20% 10px 20%;
+    padding:20px;
+    background-color: white;
+    display:flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height:380px;
+    min-height: 350px;
+}
+
+
+.info{
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    width:50%;
+    /* margin: 0 3% 0 3%; */
+}
+
+
+
+
+
+.header{
+    box-shadow:  0 1px 0 rgba(0,0,0,0.2);
+    width: 100%;
+    text-align:center;
+}
+
+.navigation{
+    height:50px;
+    width: 100%;
+    box-shadow:  0 -1px 0 rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+
+
+
+
+@media only screen and (max-width: 400px) {
+    body{
+        background-color: green;
+    }
+    .text{
+        display: none;
+    }
+
+    .drug_form{
+        max-height: 250px;
+        min-height: 200px;
+        border-radius: 10px;
+        box-shadow:  0 0 10px rgba(0,0,0,0.5);
+        margin: 10px 15% 5px 15%;
+        padding:10px;
+        background-color: white;
+        display:flex;
+        align-items: center;
+        justify-content:space-between;
+    }
+    .info{
+        height:100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width:100%;
+    }
+
+    .header{
+        box-shadow:  0 0 0;
+        width: 100%;
+        text-align:center;
+    }
+    .navigation{
+        width: 100%;
+        box-shadow:  0 0 0 ;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: flex-start;
+    }
+    .forward{
+        flex-direction:column-reverse;
+    }
+    .reverse{
+        flex-direction:column;
+    }
+
+    .image{
+        max-width: 100%;
+        height: 60%;
+        width: auto;
+        border-radius: 2px ;
+        box-shadow:  0 7px 10px rgba(0,0,0,1);
+    }
+    .drug_form h1{
+        font-size:15px ;
+
+    }
+    .drug_form a{
+        font-size:10px ;
+        display: block;
+
+
+    }
+    .menu_button{
+
+        border-radius: 30px ;
+        box-shadow:  0 2px 5px rgba(0,0,0,1);
+        display: flex;
+        flex-direction:row;
+        justify-content:space-around;
+        align-items:center;
+        width:70px;
+    }
+}
+
+@media only screen and (min-width: 401px) {
+    body{
+        background-color: red;
+    }
+}
+@media only screen and (min-width: 768px) {
+    body {
+        background-color: blue;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    body {
+        background-color: blue;
+    }
+}
+
+body{
+    margin: 0;
+}
+#shade {
+
+    margin:0;
+    background-color: #34695C;
+    width: 100%;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    display:none;
+
+}

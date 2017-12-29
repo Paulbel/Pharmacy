@@ -6,30 +6,40 @@ import by.pharmacy.dao.exception.DAOException;
 import by.pharmacy.entity.Role;
 import by.pharmacy.entity.User;
 import by.pharmacy.service.AdministratorService;
+import by.pharmacy.service.exception.AccessDeniedException;
 import by.pharmacy.service.validator.ValidatorFactory;
 import by.pharmacy.service.exception.ServiceException;
 
 import java.util.List;
 
 public class AdministratorServiceImpl implements AdministratorService {
+
+
     @Override
-    public List<User> showUsers(int id) throws ServiceException {
+    public List<User> showUsers(String administratorLogin, int number, int offset) throws ServiceException {
         try {
             DAOFactory daoFactory = DAOFactory.getInstance();
             UserDAO userDAO = daoFactory.getUserDAO();
-            return userDAO.getUsers(1,1);
+            User administrator =  userDAO.findUserByLogin(administratorLogin);
+            if(!administrator.getRole().equals(Role.ADMIN)){
+                throw new AccessDeniedException("User must be an administrator");
+            }
+            return userDAO.getUsers(number,offset);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
         }
     }
 
     @Override
-    public void setUserRole(int adminId, int userId, Role role) throws ServiceException {
+    public void setUserRole(String administratorLogin, String userLogin, Role role) throws ServiceException {
         try {
-            ValidatorFactory factory = ValidatorFactory.getInstance();
             DAOFactory daoFactory = DAOFactory.getInstance();
             UserDAO userDAO = daoFactory.getUserDAO();
-            userDAO.setRole("login", role);
+            User administrator =  userDAO.findUserByLogin(administratorLogin);
+            if(!administrator.getRole().equals(Role.ADMIN)){
+                throw new AccessDeniedException("User must be an administrator");
+            }
+            userDAO.setRole(userLogin, role);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
         }

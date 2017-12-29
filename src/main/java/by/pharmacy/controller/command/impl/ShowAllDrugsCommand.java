@@ -2,8 +2,8 @@ package by.pharmacy.controller.command.impl;
 
 import by.pharmacy.controller.ControllerConstant;
 import by.pharmacy.controller.command.Command;
-import by.pharmacy.entity.Language;
 import by.pharmacy.entity.Drug;
+import by.pharmacy.entity.Language;
 import by.pharmacy.service.PharmacistService;
 import by.pharmacy.service.ServiceFactory;
 import by.pharmacy.service.exception.ServiceException;
@@ -15,16 +15,27 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class ShowAllDrugsCommand implements Command{
+public class ShowAllDrugsCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServiceException, ServletException {
         ServiceFactory factory = ServiceFactory.getInstance();
-        PharmacistService service = factory.getPharmacistService();
+        int page = 1;
+        int recordsPerPage = 30;
+        if (request.getParameter("page") != null) {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
+        factory = ServiceFactory.getInstance();
+        PharmacistService pharmacistService = factory.getPharmacistService();
+        pharmacistService.getDrugNumber();
+        List<Drug> list = pharmacistService.getDrugs(Language.RUSSIAN, recordsPerPage,
+                (page - 1) * recordsPerPage);
+        int noOfRecords = pharmacistService.getDrugNumber();
+        int noOfPages = (int) Math.ceil(noOfRecords / recordsPerPage);
+        request.setAttribute(ControllerConstant.DRUGS_ATTRIBUTE, list);
+        request.setAttribute("noOfPages", noOfPages);
+        request.setAttribute("currentPage", page);
+        RequestDispatcher view = request.getRequestDispatcher(ControllerConstant.PHARMACIST_CABINET_URI);
+        view.forward(request, response);
 
-        List<Drug> drugList = service.getAllDrugs(Language.ENGLISH);//TODO: localization
-
-        request.setAttribute(ControllerConstant.DRUGS_ATTRIBUTE,drugList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerConstant.PHARMACIST_CABINET_URI);
-        dispatcher.forward(request, response);
     }
 }

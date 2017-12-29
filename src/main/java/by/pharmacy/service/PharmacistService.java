@@ -7,9 +7,13 @@ import by.pharmacy.service.exception.ServiceException;
 import java.util.List;
 
 public interface PharmacistService {
-    void addDrug(int drugId);
+    void addDrug(Drug drug, Language language) throws ServiceException;
 
     void removeDrug(int drugId);
 
-    List<Drug> getAllDrugs(Language language) throws ServiceException;
+    List<Drug> getDrugs(Language language, int number,int offset) throws ServiceException;
+
+    int getDrugNumber() throws ServiceException;
+
+    void addDrugDescription(String pharmacistLogin, Drug drug, Language language) throws ServiceException;
 }

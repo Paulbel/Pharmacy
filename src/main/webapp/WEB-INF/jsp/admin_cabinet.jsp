@@ -6,6 +6,8 @@
 
 <html>
 <head>
+    <%@ page import="by.pharmacy.controller.ControllerConstant" %>
+    <%@ page import="by.pharmacy.entity.Role" %>
     <meta charset="UTF-8">
     <title>Title</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -22,7 +24,6 @@
     <fmt:message bundle="${loc}" key="local.opticsName" var="opticsname"/>
     <fmt:message bundle="${loc}" key="local.name" var="name"/>
     <fmt:message bundle="${loc}" key="local.surname" var="surname"/>
-    <fmt:message bundle="${loc}" key="local.partronymic" var="patronymic"/>
     <fmt:message bundle="${loc}" key="local.email" var="email"/>
     <fmt:message bundle="${loc}" key="local.phone" var="phone"/>
     <fmt:message bundle="${loc}" key="local.password" var="password"/>
@@ -43,7 +44,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <c:if test="${not empty sessionScope.user_id}">
+                    <c:if test="${not empty sessionScope.login}">
                         <a>
                             <c:out value="${sessionScope.name}"/>
                             <c:out value="${sessionScope.surname}"/>
@@ -60,8 +61,8 @@
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown"><c:out value="${language}"/><b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="FrontController?command=changeLanguage&local=ru"><c:out value="${ru}"/></a></li>
-                        <li><a href="FrontController?command=changeLanguage&local=en"><c:out value="${en}"/></a></li>
+                        <li><a href="FrontController?command=change_language&local=russian"><c:out value="${ru}"/></a></li>
+                        <li><a href="FrontController?command=change_language&local=english"><c:out value="${en}"/></a></li>
                     </ul>
                 </li>
 
@@ -71,7 +72,6 @@
 </nav>
 <table border="1">
     <tr>
-        <th>id</th>
         <th>name</th>
         <th>surname</th>
         <th>role</th>
@@ -81,30 +81,29 @@
 
         <tr>
 
-            <td><c:out value="${item.id}"/></td>
             <td><c:out value="${item.name}"/></td>
             <td><c:out value="${item.surname}"/></td>
             <td><c:out value="${item.role}"/></td>
             <td>
                 <c:choose>
-                    <c:when test="${item.role == 'USER'}">
+                    <c:when test="${item.role == Role.USER}">
                         <form action="FrontController" method="get">
                             <p>
-                                <input type="hidden" name="command" value="give_role">
-                                <input type="hidden" name="user_id" value="${item.id}">
+                                <input type="hidden" name="${ControllerConstant.COMMAND_ATTRIBUTE}" value="${ControllerConstant.GIVE_ROLE_COMMAND}">
+                                <input type="hidden" name="${ControllerConstant.LOGIN_ATTRIBUTE}" value="${item.login}">
                                 <select name="role">
-                                    <option value="DOCTOR">Doctor</option>
-                                    <option value="PHARMACIST">Pharmacist</option>
+                                    <option value="${Role.DOCTOR}">Doctor</option>
+                                    <option value="${Role.PHARMACIST}">Pharmacist</option>
                                 </select>
                                 <input type="submit" value="Change">
                             </p>
                         </form>
                     </c:when>
-                    <c:when test="${item.role == 'DOCTOR'}">
+                    <c:when test="${item.role == Role.PHARMACIST}">
                         <form action="FrontController" method="get">
                             <p>
-                                <input type="hidden" name="command" value="give_role">
-                                <input type="hidden" name="user_id" value="${item.id}">
+                                <input type="hidden" name="${ControllerConstant.COMMAND_ATTRIBUTE}" value="${ControllerConstant.GIVE_ROLE_COMMAND}">
+                                <input type="hidden" name="${ControllerConstant.LOGIN_ATTRIBUTE}" value="${item.login}">
                                 <select name="role">
                                     <option value="USER">Client</option>
                                     <option value="PHARMACIST">Pharmacist</option>
@@ -116,8 +115,8 @@
                     <c:when test="${item.role == 'PHARMACIST'}">
                         <form action="FrontController" method="get">
                             <p>
-                                <input type="hidden" name="command" value="give_role">
-                                <input type="hidden" name="user_id" value="${item.id}">
+                                <input type="hidden" name="${ControllerConstant.COMMAND_ATTRIBUTE}" value="${ControllerConstant.GIVE_ROLE_COMMAND}">
+                                <input type="hidden" name="${ControllerConstant.LOGIN_ATTRIBUTE}" value="${item.login}">
                                 <select name="role">
                                     <option value="USER">Client</option>
                                     <option value="DOCTOR">Doctor</option>
@@ -134,6 +133,11 @@
         </tr>
     </c:forEach>
 </table>
+
+
+
+
+
 
 </body>
 </html>

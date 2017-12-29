@@ -6,6 +6,8 @@ import by.pharmacy.dao.exception.DAOException;
 import by.pharmacy.entity.User;
 import by.pharmacy.service.UserService;
 import by.pharmacy.service.exception.ServiceException;
+import by.pharmacy.service.exception.WrongPasswordException;
+import com.sun.corba.se.spi.servicecontext.UEInfoServiceContext;
 
 public class UserServiceImpl implements UserService {
 
@@ -15,7 +17,11 @@ public class UserServiceImpl implements UserService {
         try {
             DAOFactory daoFactory = DAOFactory.getInstance();
             UserDAO userDAO = daoFactory.getUserDAO();
-            return userDAO.findUserByLogin(login);
+            User user = userDAO.findUserByLogin(login);
+            if(!user.getPassword().equals(password)){
+                throw new WrongPasswordException();
+            }
+            return user;
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
         }

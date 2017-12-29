@@ -7,6 +7,7 @@ import by.pharmacy.service.exception.ServiceException;
 import java.util.List;
 
 public interface AdministratorService {
-    List<User> showUsers(int administratorId) throws ServiceException;
-    void setUserRole(int adminId, int userId, Role role) throws ServiceException;
+    List<User> showUsers(String administratorLogin, int number, int offset) throws ServiceException;
+
+    void setUserRole(String administratorLogin, String userLogin, Role role) throws ServiceException;
 }

@@ -90,6 +90,7 @@ public class Drug implements Serializable{
         return manufacturer;
     }
 
+
     public void setManufacturer(Manufacturer manufacturer) {
         this.manufacturer = manufacturer;
     }
@@ -116,5 +117,42 @@ public class Drug implements Serializable{
                 ", price=" + price +
                 ", manufacturer=" + manufacturer +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Drug drug = (Drug) o;
+
+        if (id != drug.id) return false;
+        if (number != drug.number) return false;
+        if (amount != drug.amount) return false;
+        if (dosage != drug.dosage) return false;
+        if (needPrescription != drug.needPrescription) return false;
+        if (Double.compare(drug.price, price) != 0) return false;
+        if (!name.equals(drug.name)) return false;
+        if (composition != null ? !composition.equals(drug.composition) : drug.composition != null) return false;
+        if (description != null ? !description.equals(drug.description) : drug.description != null) return false;
+        return manufacturer != null ? manufacturer.equals(drug.manufacturer) : drug.manufacturer == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = id;
+        result = 31 * result + name.hashCode();
+        result = 31 * result + (composition != null ? composition.hashCode() : 0);
+        result = 31 * result + number;
+        result = 31 * result + amount;
+        result = 31 * result + dosage;
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (needPrescription ? 1 : 0);
+        temp = Double.doubleToLongBits(price);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (manufacturer != null ? manufacturer.hashCode() : 0);
+        return result;
     }
 }

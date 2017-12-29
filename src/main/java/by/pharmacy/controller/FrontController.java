@@ -22,7 +22,6 @@ public class FrontController extends HttpServlet {
         executeCommand(request, response);
     }
 
-
     private void executeCommand(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String commandName = request.getParameter(ControllerConstant.COMMAND_ATTRIBUTE);
         Command command = CommandDirector.getCommand(commandName);
@@ -30,7 +29,7 @@ public class FrontController extends HttpServlet {
             command.execute(request, response);
         } catch (ServiceException e) {
             RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerConstant.PROBLEM_URI);
-            request.setAttribute(ControllerConstant.EXCEPTION_MESSAGE,e.getMessage());
+            request.setAttribute(ControllerConstant.EXCEPTION_MESSAGE, e.getMessage());
             dispatcher.forward(request, response);
         }
     }

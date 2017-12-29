@@ -6,7 +6,6 @@ public class User implements Serializable {
     private static final long serialVersionUID = -4844171327987831179L;
     private String name;
     private String surname;
-    private String patronymic;
     private String login;
     private String password;
     private String phoneNumber;
@@ -41,13 +40,6 @@ public class User implements Serializable {
         this.surname = surname;
     }
 
-    public String getPatronymic() {
-        return patronymic;
-    }
-
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
-    }
 
     public String getLogin() {
         return login;
@@ -91,7 +83,6 @@ public class User implements Serializable {
 
         if (name != null ? !name.equals(user.name) : user.name != null) return false;
         if (surname != null ? !surname.equals(user.surname) : user.surname != null) return false;
-        if (patronymic != null ? !patronymic.equals(user.patronymic) : user.patronymic != null) return false;
         if (login != null ? !login.equals(user.login) : user.login != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
         if (phoneNumber != null ? !phoneNumber.equals(user.phoneNumber) : user.phoneNumber != null) return false;
@@ -102,7 +93,6 @@ public class User implements Serializable {
     public int hashCode() {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
-        result = 31 * result + (patronymic != null ? patronymic.hashCode() : 0);
         result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
@@ -116,7 +106,6 @@ public class User implements Serializable {
         return "User{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", patronymic='" + patronymic + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +

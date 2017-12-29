@@ -5,14 +5,19 @@ public final class ControllerConstant {
     public static final String PASSWORD_ATTRIBUTE = "password";
     public static final String NAME_ATTRIBUTE = "name";
     public static final String SURNAME_ATTRIBUTE = "surname";
-    public static final String PATRONYMIC_ATTRIBUTE = "patronymic";
     public static final String PHONE_ATTRIBUTE = "phone";
     public static final String EMAIL_ATTRIBUTE = "email";
     public static final String LOCAL_ATTRIBUTE = "local";
-    public static final String USER_LOGIN_ATTRIBUTE = "user_id";
     public static final String USERS_ATTRIBUTE = "users";
     public static final String COMMAND_ATTRIBUTE = "command";
+
+
     public static final String DRUGS_ATTRIBUTE = "drugs";
+    public static final String DRUG_ID_ATTRIBUTE = "drug_id";
+    public static final String DRUG_NAME_ATTRIBUTE = "drug_name";
+    public static final String DRUG_DESCRIPTION_ATTRIBUTE = "drug_description";
+    public static final String DRUG_COMPOSITION_ATTRIBUTE = "drug_composition";
+
 
     public static final String ROLE_ATTRIBUTE = "role";
 
