@@ -18,6 +18,24 @@ public class DrugDAOImpl implements DrugDAO {
 
     private final static String GET_DRUG_NUMBER = "SELECT avg(drug.id) AS number FROM drug;";
 
+    private final static String GET_DRUGS_BY_MANUFACTURER = "SELECT" +
+            "  drug.id," +
+            "  drug_translate.name," +
+            "  drug_translate.composition," +
+            "  drug.number," +
+            "  drug.amount," +
+            "  drug.dosage," +
+            "  drug_translate.description," +
+            "  drug.need_prescription," +
+            "  drug.price" +
+            " FROM drug" +
+            "  INNER JOIN drug_translate ON drug.id = drug_translate.drug_id" +
+            "  INNER JOIN manufacturer ON drug.manufacturer_id = manufacturer.id" +
+            "  INNER JOIN country ON manufacturer.country_code = country.code" +
+            " WHERE drug.manufacturer_id = ? AND drug_translate.lang_name = ? " +
+            " LIMIT ? OFFSET ?;";
+
+
     private final static String FIND_DRUG = "SELECT" +
             "  drug.id," +
             "  drug_translate.name," +
@@ -103,7 +121,7 @@ public class DrugDAOImpl implements DrugDAO {
     @Override
     public void addDrug(Drug drug, Language language) throws DAOException {
         try {
-            addDrugByTransaction(drug, language);
+            addDrugUsingTransaction(drug, language);
         } catch (SQLException e) {
             throw new DAOException("Can't add drug to database");
         }
@@ -128,7 +146,7 @@ public class DrugDAOImpl implements DrugDAO {
         }
     }
 
-    private void addDrugByTransaction(Drug drug, Language language) throws SQLException, ConnectionPoolException {
+    private void addDrugUsingTransaction(Drug drug, Language language) throws SQLException, ConnectionPoolException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         PreparedStatement statement;
@@ -172,7 +190,30 @@ public class DrugDAOImpl implements DrugDAO {
     }
 
     @Override
-    public List<Drug> findDrugs(String name, Language language, int number, int offset) throws DAOException {
+    public List<Drug> findDrugsByManufacturer(int manufacturerId, Language language, int number, int offset) throws DAOException {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        try (PreparedStatement statement = connection.prepareStatement(GET_DRUGS_BY_MANUFACTURER)) {
+            List<Drug> drugs = new ArrayList<>();
+            statement.setString(1, language.toString().toLowerCase());
+            statement.setInt(2, manufacturerId);
+            statement.setInt(3, number);
+            statement.setInt(4, offset);
+
+            ResultSet set = statement.executeQuery();
+            while (set.next()) {
+                drugs.add(createDrugFromResultSet(set));
+            }
+            return drugs;
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+            connectionPool.closeConnection(connection);
+        }
+    }
+
+    @Override
+    public List<Drug> findDrugsByName(String name, Language language, int number, int offset) throws DAOException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(FIND_DRUG)) {

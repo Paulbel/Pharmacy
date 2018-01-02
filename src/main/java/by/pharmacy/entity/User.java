@@ -7,7 +7,6 @@ public class User implements Serializable {
     private String name;
     private String surname;
     private String login;
-    private String password;
     private String phoneNumber;
     private String email;
     private Role role;
@@ -49,13 +48,6 @@ public class User implements Serializable {
         this.login = login;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -81,11 +73,18 @@ public class User implements Serializable {
 
         User user = (User) o;
 
-        if (name != null ? !name.equals(user.name) : user.name != null) return false;
-        if (surname != null ? !surname.equals(user.surname) : user.surname != null) return false;
-        if (login != null ? !login.equals(user.login) : user.login != null) return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        if (phoneNumber != null ? !phoneNumber.equals(user.phoneNumber) : user.phoneNumber != null) return false;
+        if (name != null ? !name.equals(user.name) : user.name != null) {
+            return false;
+        }
+        if (surname != null ? !surname.equals(user.surname) : user.surname != null) {
+            return false;
+        }
+        if (login != null ? !login.equals(user.login) : user.login != null) {
+            return false;
+        }
+        if (phoneNumber != null ? !phoneNumber.equals(user.phoneNumber) : user.phoneNumber != null) {
+            return false;
+        }
         return (email != null ? email.equals(user.email) : user.email == null) && role == user.role;
     }
 
@@ -94,7 +93,7 @@ public class User implements Serializable {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
         result = 31 * result + (login != null ? login.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
+
         result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (role != null ? role.hashCode() : 0);
@@ -107,7 +106,6 @@ public class User implements Serializable {
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", role=" + role +

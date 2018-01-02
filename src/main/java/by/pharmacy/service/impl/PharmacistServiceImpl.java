@@ -14,8 +14,6 @@ import by.pharmacy.service.exception.ServiceException;
 import java.util.List;
 
 public class PharmacistServiceImpl implements PharmacistService {
-
-
     @Override
     public void addDrug(Drug drug, Language language) throws ServiceException {
         try {

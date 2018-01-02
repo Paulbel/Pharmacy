@@ -24,10 +24,11 @@ public final class ControllerConstant {
     public static final String MAIN_PAGE_URI = "index.jsp";
     public static final String ENTER_CABINET_COMMAND = "enter_cabinet";
     public static final String SHOW_USERS_COMMAND = "show_users";
-    public static final String REGISTRATION_COMMAND = "registration";
+    public static final String SIGN_UP_COMMAND = "sign_up";
     public static final String SHOW_ALL_DRUGS_COMMAND = "show_all_drugs";
     public static final String SIGN_IN_COMMAND = "sign_in";
     public static final String SIGN_OUT_COMMAND = "sign_out";
+    public static final String GET_MANUFACTURER_INFO = "manufacturer_info";
 
     public static final String CHANGE_LANGUAGE_COMMAND = "change_language";
     public static final String GIVE_ROLE_COMMAND = "give_role";

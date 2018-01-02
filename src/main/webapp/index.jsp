@@ -73,7 +73,7 @@
 
     <form class="modal-content animate" action="FrontController" method="post">
         <div class="container">
-            <input type="hidden" name="command" value="registration"/>
+            <input type="hidden" name="command" value="sign_up"/>
 
 
             <label><b><c:out value="${name}"/></b></label>

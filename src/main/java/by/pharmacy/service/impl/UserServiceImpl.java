@@ -9,6 +9,9 @@ import by.pharmacy.service.exception.ServiceException;
 import by.pharmacy.service.exception.WrongPasswordException;
 import com.sun.corba.se.spi.servicecontext.UEInfoServiceContext;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserServiceImpl implements UserService {
 
 
@@ -17,11 +20,7 @@ public class UserServiceImpl implements UserService {
         try {
             DAOFactory daoFactory = DAOFactory.getInstance();
             UserDAO userDAO = daoFactory.getUserDAO();
-            User user = userDAO.findUserByLogin(login);
-            if(!user.getPassword().equals(password)){
-                throw new WrongPasswordException();
-            }
-            return user;
+            return userDAO.signIn(login,password);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
         }
@@ -29,11 +28,11 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void registration(User user) throws ServiceException {
+    public void signUp(User user, String password) throws ServiceException {
         try {
             DAOFactory daoFactory = DAOFactory.getInstance();
             UserDAO userDAO = daoFactory.getUserDAO();
-            userDAO.registration(user);
+            userDAO.registration(user, password);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
         }

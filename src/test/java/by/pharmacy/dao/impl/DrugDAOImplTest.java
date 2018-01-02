@@ -5,12 +5,9 @@ import by.pharmacy.dao.DrugDAO;
 import by.pharmacy.entity.Drug;
 import by.pharmacy.entity.Language;
 import by.pharmacy.entity.Manufacturer;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -97,7 +94,7 @@ public class DrugDAOImplTest extends BaseDAOTest {
     public void testFindDrugs() throws Exception {
         DrugDAO drugDAO = new DrugDAOImpl();
         List<Drug> expectedList = drugs.subList(0, 1);
-        assertEquals(expectedList, drugDAO.findDrugs("моно", Language.RUSSIAN, 10, 0));
+        assertEquals(expectedList, drugDAO.findDrugsByName("моно", Language.RUSSIAN, 10, 0));
     }
 
 

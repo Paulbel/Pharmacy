@@ -8,12 +8,20 @@ INSERT INTO pharmacy.user (login, password, name, surname, phone, email) VALUES
 DELETE FROM user;
 
 INSERT INTO user (login, password, name, surname, role, phone, email) VALUES
-  ('pavel', '3455', 'Pavel', 'Sinelnikov',  'ADMIN', '3252525', 'asd@gmail.com');
+  ('pavel', '3455', 'Pavel', 'Sinelnikov', 'ADMIN', '3252525', 'asd@gmail.com');
 
 INSERT INTO user (login, password, name, surname, role, phone, email) VALUES
-  ('pavel1', '3455', 'Pavel', 'Sinelnikov','PHARMACIST', '3252525', 'asd@gmail.com');
+  ('pavel1', '3455', 'Pavel', 'Sinelnikov', 'PHARMACIST', '3252525', 'asd@gmail.com');
 
 DELETE FROM user;
+
+SELECT drug.id
+FROM drug
+  INNER JOIN manufacturer ON drug.manufacturer_id = manufacturer.id
+WHERE drug.manufacturer_id = 61;
+
+SELECT * FROM drug;
+
 
 USE pharmacy;
 
@@ -247,7 +255,7 @@ FROM drug_translate
 WHERE drug_translate.name LIKE '%?%';
 
 
-INSERT INTO user (login, name, surname, password,  email, phone) VALUES (?, ?, ?, ?, ?, ?);
+INSERT INTO user (login, name, surname, password, email, phone) VALUES (?, ?, ?, ?, ?, ?);
 
 /*SELECT drug.id
 FROM drug
@@ -271,9 +279,9 @@ WHERE
   user.login = 'login8xdtunvdwm' AND drug_translate.lang_name = 'russian'
 LIMIT 3 OFFSET 0;
 
-INSERT INTO user (login, password, name, surname,  phone, email)
-VALUES ('login8o5vj4mdkd', '54157515', 'Генрих', 'Синельников',  '+375656381587', '8o5vj4mdkd@gmail.com'),
-  ('loginxl5k8m24lx', '32880767', 'Алексей', 'Гапеенко',  '+375410634274', 'xl5k8m24lx@gmail.com');
+INSERT INTO user (login, password, name, surname, phone, email)
+VALUES ('login8o5vj4mdkd', '54157515', 'Генрих', 'Синельников', '+375656381587', '8o5vj4mdkd@gmail.com'),
+  ('loginxl5k8m24lx', '32880767', 'Алексей', 'Гапеенко', '+375410634274', 'xl5k8m24lx@gmail.com');
 SELECT
   user.name,
   user.surname,

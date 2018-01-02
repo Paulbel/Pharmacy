@@ -19,14 +19,13 @@ public class UserDAOImpl implements UserDAO {
 
 
     private static final String ADD_USER = "INSERT INTO user (login, name, surname, password, email, phone)" +
-            " VALUES (?, ?, ?, ?, ?, ?);";
+            " VALUES (?, ?, ?, MD5(?), ?, ?);";
 
-    private static final String FIND_USER_BY_LOGIN = "SELECT * " +
-            "FROM user " +
-            "WHERE login = ?;";
+    private static final String FIND_USER_BY_LOGIN = "SELECT * FROM user WHERE login = ?;";
 
     private static final String CHANGE_ROLE_BY_LOGIN = "UPDATE user SET role =? WHERE login =?";
 
+    private static final String CHECK_PASSWORD = "SELECT * FROM user WHERE login = ? AND password = md5(?);";
 
     @Override
     public List<User> getUsers(int number, int offset) throws DAOException {
@@ -50,14 +49,14 @@ public class UserDAOImpl implements UserDAO {
     }
 
 
-    public void registration(User user) throws DAOException {
+    public void registration(User user, String password) throws DAOException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(ADD_USER)) {
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getName());
             statement.setString(3, user.getSurname());
-            statement.setString(4, user.getPassword());
+            statement.setString(4, password);
             statement.setString(5, user.getEmail());
             statement.setString(6, user.getPhoneNumber());
 
@@ -101,12 +100,32 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
+    @Override
+    public User signIn(String login, String password) throws DAOException {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        try (PreparedStatement statement = connection.prepareStatement(CHECK_PASSWORD)) {
+            statement.setString(1, login);
+            statement.setString(2, password);
+
+
+            ResultSet resultSet = statement.executeQuery();
+            if(!resultSet.next()){
+                throw new DAOException("Wrong data");
+            }
+            return createUserFromResultSet(resultSet);
+        } catch (SQLException e) {
+            throw new DAOException("Cannot connect to database!", e);
+        } finally {
+            connectionPool.closeConnection(connection);
+        }
+    }
+
 
     private User createUserFromResultSet(ResultSet resultSet) throws SQLException {
         String name = resultSet.getString("user.name");
         String surname = resultSet.getString("user.surname");
         String login = resultSet.getString("user.login");
-        String password = resultSet.getString("user.password");
         Role role = Role.valueOf(resultSet.getString("user.role").toUpperCase());
         String phone = resultSet.getString("user.phone");
         String email = resultSet.getString("user.email");
@@ -115,7 +134,6 @@ public class UserDAOImpl implements UserDAO {
         user.setLogin(login);
         user.setName(name);
         user.setSurname(surname);
-        user.setPassword(password);
         user.setPhoneNumber(phone);
         user.setEmail(email);
         user.setRole(role);

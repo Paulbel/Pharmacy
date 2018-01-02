@@ -10,7 +10,7 @@ public final class CommandDirector {
     private static Map<String, Command> map = new HashMap<>();
 
     static {
-        map.put(ControllerConstant.REGISTRATION_COMMAND, new RegistrationCommand());
+        map.put(ControllerConstant.SIGN_UP_COMMAND, new SignUpCommand());
         map.put(ControllerConstant.SIGN_IN_COMMAND, new SignInCommand());
         map.put(ControllerConstant.SIGN_OUT_COMMAND, new SignOutCommand());
         map.put(ControllerConstant.CHANGE_LANGUAGE_COMMAND, new ChangeLanguageCommand());
@@ -18,6 +18,7 @@ public final class CommandDirector {
         map.put(ControllerConstant.ENTER_CABINET_COMMAND, new EnterCabinetCommand());
         map.put(ControllerConstant.GIVE_ROLE_COMMAND, new GiveRoleCommand());
         map.put(ControllerConstant.SHOW_ALL_DRUGS_COMMAND, new ShowAllDrugsCommand());
+        map.put(ControllerConstant.GET_MANUFACTURER_INFO, new GetManufacturerInfoCommand());
     }
 
     public static Command getCommand(String commandName) {

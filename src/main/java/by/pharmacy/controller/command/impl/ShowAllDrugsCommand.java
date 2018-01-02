@@ -29,6 +29,9 @@ public class ShowAllDrugsCommand implements Command {
         pharmacistService.getDrugNumber();
         List<Drug> list = pharmacistService.getDrugs(Language.RUSSIAN, recordsPerPage,
                 (page - 1) * recordsPerPage);
+        for(Drug drug:list){
+            System.out.println(drug.getManufacturer().getName());
+        }
         int noOfRecords = pharmacistService.getDrugNumber();
         int noOfPages = (int) Math.ceil(noOfRecords / recordsPerPage);
         request.setAttribute(ControllerConstant.DRUGS_ATTRIBUTE, list);

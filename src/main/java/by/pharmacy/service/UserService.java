@@ -6,7 +6,5 @@ import by.pharmacy.service.exception.ServiceException;
 public interface UserService {
     User signIn(String login, String password) throws ServiceException;
 
-    void registration(User user) throws ServiceException;
-
-
+    void signUp(User user, String password) throws ServiceException;
 }

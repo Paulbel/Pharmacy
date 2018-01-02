@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class RegistrationCommand implements Command {
+public class SignUpCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         String name = request.getParameter(ControllerConstant.NAME_ATTRIBUTE);
@@ -26,14 +26,13 @@ public class RegistrationCommand implements Command {
 
         user.setName(name);
         user.setSurname(surname);
-        user.setPassword(password);
         user.setLogin(login);
         user.setEmail(email);
         user.setPhoneNumber(phone);
 
         ServiceFactory factory = ServiceFactory.getInstance();
         UserService service = factory.getUserService();
-        service.registration(user);
+        service.signUp(user,password);
         response.sendRedirect(ControllerConstant.MAIN_PAGE_URI);
     }
 }

@@ -28,7 +28,7 @@ public class UserDAOImplTest extends BaseDAOTest {
     public void testRegistration() throws Exception {
         UserDAOImpl sqlUserDAO = new UserDAOImpl();
 
-        sqlUserDAO.registration(users.get(2));
+       // sqlUserDAO.registration(users.get(2));
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_LOGIN)) {
             statement.setString(1, users.get(2).getLogin());
@@ -49,7 +49,7 @@ public class UserDAOImplTest extends BaseDAOTest {
             user.setName(name);
             user.setRole(Role.valueOf(role.toUpperCase()));
             user.setSurname(surname);
-            user.setPassword(password);
+            //user.setPassword(password);
             user.setLogin(login);
             user.setEmail(email);
             user.setPhoneNumber(phone);

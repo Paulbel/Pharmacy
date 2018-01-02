@@ -7,12 +7,13 @@ import by.pharmacy.entity.User;
 import java.util.List;
 
 public interface UserDAO {
-    void registration(User user) throws DAOException;
+    void registration(User user, String password) throws DAOException;
 
     User findUserByLogin(String login) throws DAOException;
 
     List<User> getUsers(int number, int offset) throws DAOException;
 
-
     void setRole(String login, Role role) throws DAOException;
+
+    User signIn(String login, String password) throws DAOException;
 }

@@ -110,7 +110,7 @@ public class BaseDAOTest {
 
         User user1 = new User();
         user1.setLogin("login8o5vj4mdkd");
-        user1.setPassword("54157515");
+       // user1.setPassword("54157515");
         user1.setName("Генрих");
         user1.setSurname("Синельников");
         user1.setPhoneNumber("+375656381587");
@@ -119,7 +119,7 @@ public class BaseDAOTest {
 
         User user2 = new User();
         user2.setLogin("loginxl5k8m24lx");
-        user2.setPassword("32880767");
+        //user2.setPassword("32880767");
         user2.setName("Алексей");
         user2.setSurname("Гапеенко");
         user2.setPhoneNumber("+375410634274");
@@ -128,7 +128,7 @@ public class BaseDAOTest {
 
         User user3 = new User();
         user3.setLogin("login4o47zru1qt");
-        user3.setPassword("13718854");
+       // user3.setPassword("13718854");
         user3.setName("Евгений");
         user3.setSurname("Артемьев");
         user3.setPhoneNumber("+375070676621");

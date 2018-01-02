@@ -85,9 +85,7 @@ public class Drug implements Serializable{
     }
 
     public Manufacturer getManufacturer() {
-        Manufacturer manufacturer = new Manufacturer();
-        manufacturer.setId(1);//TODO: manufacturer logic in DrugDAO.getDrugs()
-        return manufacturer;
+        return this.manufacturer;
     }
 
 

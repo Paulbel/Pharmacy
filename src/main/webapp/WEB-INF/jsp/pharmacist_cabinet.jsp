@@ -102,6 +102,8 @@
         <th>dosage</th>
         <th>amount</th>
         <th>price</th>
+        <th>manufacturer</th>
+        <th>country</th>
     </tr>
 
     <c:forEach var="item" items="${requestScope.drugs}">
@@ -111,6 +113,8 @@
             <td><c:out value="${item.dosage}"/></td>
             <td><c:out value="${item.amount}"/></td>
             <td><c:out value="${item.price}"/></td>
+            <td><a href="FrontController&command="><c:out value="${item.manufacturer.name}"/></a></td>
+            <td><a href="FrontController&command="><c:out value="${item.manufacturer.country}"/></a></td>
         </tr>
     </c:forEach>
 </table>
