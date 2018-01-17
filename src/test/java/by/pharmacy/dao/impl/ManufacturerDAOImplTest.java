@@ -25,7 +25,7 @@ public class ManufacturerDAOImplTest extends BaseDAOTest {
     @Ignore
     public void testAddManufacturer() throws Exception {
         ManufacturerDAO manufacturerDAO = new ManufacturerDAOImpl();
-        manufacturerDAO.addManufacturer(initManufacturer(), Language.RUSSIAN);
+        manufacturerDAO.addManufacturer(initManufacturer(), Language.RU);
 
     }
 

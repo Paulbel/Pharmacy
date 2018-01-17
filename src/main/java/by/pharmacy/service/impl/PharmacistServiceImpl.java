@@ -30,27 +30,6 @@ public class PharmacistServiceImpl implements PharmacistService {
 
     }
 
-    @Override
-    public List<Drug> getDrugs(Language language, int number, int offset) throws ServiceException {
-        try {
-            DAOFactory daoFactory = DAOFactory.getInstance();
-            DrugDAO drugDAO = daoFactory.getDrugDAO();
-            return drugDAO.getDrugs(language,number,offset);
-        } catch (DAOException e) {
-            throw new ServiceException("Can't get drugs",e);
-        }
-    }
-
-    @Override
-    public int getDrugNumber() throws ServiceException {
-        DAOFactory daoFactory = DAOFactory.getInstance();
-        DrugDAO drugDAO = daoFactory.getDrugDAO();
-        try {
-            return drugDAO.getDrugNumber();
-        } catch (DAOException e) {
-            throw new ServiceException("Can't get entries number",e);
-        }
-    }
 
     @Override
     public void addDrugDescription(String pharmacistLogin, Drug drug, Language language) throws ServiceException {

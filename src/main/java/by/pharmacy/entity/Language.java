@@ -1,5 +1,6 @@
 package by.pharmacy.entity;
 
+
 public enum Language {
-    RUSSIAN,ENGLISH
+    RU, EN, BE, CZ, FR, DE, UK
 }

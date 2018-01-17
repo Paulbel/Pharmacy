@@ -12,12 +12,21 @@ import java.util.List;
 
 public class ManufacturerDAOImpl implements ManufacturerDAO {
 
-    private final static String GET_LANGUAGE_CODE = "SELECT l";
+
+    private final static String GET_COUNT = "SELECT" +
+            " COUNT(id) AS 'count'" +
+            "FROM manufacturer " +
+            "INNER JOIN manufacturer_translate ON manufacturer.id = manufacturer_translate.manufacturer_id " +
+            "INNER JOIN country ON manufacturer.country_code = country.code " +
+            "INNER JOIN country_translate ON country.code = country_translate.country_code " +
+            "WHERE manufacturer_translate.language_name = ? " +
+            "AND country_translate.lan_name = manufacturer_translate.language_name ";
+
 
     private final static String ADD_MANUFACTURER =
             "INSERT INTO manufacturer (country_code, phone_number, email) VALUES (?,?,?);";
 
-    public final static String ADD_MANUFACTURER_TRANSLATE =
+    private final static String ADD_MANUFACTURER_TRANSLATE =
             "INSERT INTO manufacturer_translate (language_name, manufacturer_id, name, address) VALUES (?,?,?,?);";
 
     private final static String GET_MANUFACTURERS = "SELECT" +
@@ -99,7 +108,7 @@ public class ManufacturerDAOImpl implements ManufacturerDAO {
 
 
     @Override
-    public List<Manufacturer> getManufacturers(int number, int offset, Language language) throws DAOException {
+    public List<Manufacturer> getManufacturers(Language language,int number, int offset) throws DAOException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         ResultSet resultSet = null;
@@ -137,6 +146,21 @@ public class ManufacturerDAOImpl implements ManufacturerDAO {
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             return createManufacturerFromResultSet(resultSet);
+        } catch (SQLException e) {
+            throw new DAOException("Cannot connect to database!", e);
+        } finally {
+            connectionPool.closeConnection(connection);
+        }
+    }
+
+    @Override
+    public int getManufacturerCount() throws DAOException {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        try (Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(GET_COUNT);
+            resultSet.next();
+            return resultSet.getInt("count");
         } catch (SQLException e) {
             throw new DAOException("Cannot connect to database!", e);
         } finally {

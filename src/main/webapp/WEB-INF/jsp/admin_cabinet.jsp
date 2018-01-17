@@ -1,20 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page import="by.pharmacy.controller.ControllerConstant" %>
+<%@ page import="by.pharmacy.entity.Role" %>
+<%@ page import="by.pharmacy.entity.Language" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 
 <html>
 <head>
-    <%@ page import="by.pharmacy.controller.ControllerConstant" %>
-    <%@ page import="by.pharmacy.entity.Role" %>
+
     <meta charset="UTF-8">
     <title>Title</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="fonts.css" type="text/css" charset="utf-8"/>
-    <link rel="stylesheet" type="text/css" href="MainPageStyles.css">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="../../js/jquery-3.2.1.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
     <fmt:setLocale value="${sessionScope.local}"/>
     <fmt:setBundle basename="local" var="loc"/>
     <fmt:message bundle="${loc}" key="local.signIn" var="signin"/>
@@ -28,7 +28,7 @@
     <fmt:message bundle="${loc}" key="local.phone" var="phone"/>
     <fmt:message bundle="${loc}" key="local.password" var="password"/>
     <fmt:message bundle="${loc}" key="local.login" var="login"/>
-    <fmt:message bundle="${loc}" key="local.repeatPassword" var="repeatPassword"/>
+    <fmt:message bundle="${loc}" key="local.repeat_password" var="repeat_password"/>
     <fmt:message bundle="${loc}" key="local.cancel" var="cancel"/>
     <fmt:message bundle="${loc}" key="local.ru" var="ru"/>
     <fmt:message bundle="${loc}" key="local.en" var="en"/>

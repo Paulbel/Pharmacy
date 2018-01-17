@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -8,7 +8,7 @@
 
 
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Title</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
@@ -29,13 +29,11 @@
     <fmt:message bundle="${loc}" key="local.phone" var="phone"/>
     <fmt:message bundle="${loc}" key="local.password" var="password"/>
     <fmt:message bundle="${loc}" key="local.login" var="login"/>
-    <fmt:message bundle="${loc}" key="local.repeatPassword" var="repeatPassword"/>
+    <fmt:message bundle="${loc}" key="local.repeat_password" var="repeat_password"/>
     <fmt:message bundle="${loc}" key="local.cancel" var="cancel"/>
     <fmt:message bundle="${loc}" key="local.ru" var="ru"/>
     <fmt:message bundle="${loc}" key="local.en" var="en"/>
     <fmt:message bundle="${loc}" key="local.language" var="language"/>
-
-
 </head>
 <body>
 
@@ -91,7 +89,7 @@
             <input type="password" name="password" value=""/>
             <br/>
 
-            <label><b><c:out value="${repeatPassword}"/></b></label>
+            <label><b><c:out value="${repeat_password}"/></b></label>
             <input type="password" name="repeatedPassword" value=""/>
             <br/>
 

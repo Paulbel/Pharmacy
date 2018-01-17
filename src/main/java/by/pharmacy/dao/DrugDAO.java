@@ -14,11 +14,13 @@ public interface DrugDAO {
 
     void addDrugDescription(Drug drug, Language language) throws DAOException;
 
-    List<Drug> findDrugsByName(String name, Language language, int number, int offset) throws DAOException;
+    List<Drug> findDrugByName(String name, Language language) throws DAOException;
 
     int getDrugNumber() throws DAOException;
 
     void removeDrug(int drugId) throws DAOException;
+
+    Drug getDrug(int id, Language language) throws DAOException;
 
     List<Drug> findDrugsByManufacturer(int manufacturerId, Language language, int number, int offset) throws DAOException;
 }

@@ -2,7 +2,6 @@ package by.pharmacy.controller.command.impl;
 
 import by.pharmacy.controller.ControllerConstant;
 import by.pharmacy.controller.command.Command;
-import by.pharmacy.controller.command.CommandDirector;
 import by.pharmacy.entity.Role;
 import by.pharmacy.service.AdministratorService;
 import by.pharmacy.service.ServiceFactory;
@@ -14,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class GiveRoleCommand implements Command {
+public class GiveRoleCommand extends Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         HttpSession session = request.getSession();
@@ -27,8 +26,5 @@ public class GiveRoleCommand implements Command {
         AdministratorService service = factory.getAdministratorService();
 
         service.setUserRole(administratorLogin, userLogin, role);
-
-        Command command = CommandDirector.getCommand(ControllerConstant.SHOW_USERS_COMMAND);
-        command.execute(request, response);
     }
 }

@@ -14,20 +14,31 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EnterCabinetCommand implements Command {
-    private static final Map<Role,String> pageMap = new HashMap<>();
+public class EnterCabinetCommand extends Command {
+    private static final Map<Role, String> pageMap = new HashMap<>();
+
     static {
-        pageMap.put(Role.ADMIN,ControllerConstant.ADMIN_CABINET_URI);
-        pageMap.put(Role.PHARMACIST,ControllerConstant.PHARMACIST_CABINET_URI);
+        pageMap.put(Role.ADMIN, ControllerConstant.ADMIN_CABINET_URI);
+        pageMap.put(Role.PHARMACIST, ControllerConstant.PHARMACIST_CABINET_URI);
+        pageMap.put(Role.USER, ControllerConstant.MAIN_PAGE_URI);
     }
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         HttpSession session = request.getSession();
-        Role role = Role.valueOf((String) session.getAttribute(ControllerConstant.ROLE_ATTRIBUTE));
 
+        String roleName = (String) session.getAttribute(ControllerConstant.ROLE_ATTRIBUTE);
+        Role role = Role.USER;
+        if (roleName!= null) {
+            role = Role.valueOf(roleName);
+        }
         String address = pageMap.get(role);
+
+        String commandName = request.getParameter(ControllerConstant.COMMAND_ATTRIBUTE);
+        request.setAttribute(ControllerConstant.COMMAND_ATTRIBUTE,commandName);
+
         RequestDispatcher dispatcher = request.getRequestDispatcher(address);
         dispatcher.forward(request, response);
     }
+
 }

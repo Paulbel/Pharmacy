@@ -1,9 +1,0 @@
-@font-face {
-    font-family: Old_Style; /* Имя шрифта */
-    src: url(Old_Style.ttf); /* Путь к файлу со шрифтом */
-}
-
-@font-face {
-    font-family: Lens; /* Имя шрифта */
-    src: url(LensStyle.otf); /* Путь к файлу со шрифтом */
-}

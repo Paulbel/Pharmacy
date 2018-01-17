@@ -11,7 +11,7 @@ INSERT INTO user (login, password, name, surname, role, phone, email) VALUES
   ('pavel', '3455', 'Pavel', 'Sinelnikov', 'ADMIN', '3252525', 'asd@gmail.com');
 
 INSERT INTO user (login, password, name, surname, role, phone, email) VALUES
-  ('pavel1', '3455', 'Pavel', 'Sinelnikov', 'PHARMACIST', '3252525', 'asd@gmail.com');
+  ('pavel', '3455', 'Pavel', 'Sinelnikov', 'PHARMACIST', '3252525', 'asd@gmail.com');
 
 DELETE FROM user;
 
@@ -22,7 +22,7 @@ WHERE drug.manufacturer_id = 61;
 
 SELECT * FROM drug;
 
-
+SELECT language_to_translate,name FROM language_translate WHERE language_name = ?;
 USE pharmacy;
 
 

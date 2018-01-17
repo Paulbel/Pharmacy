@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-public class ShowAllUsersCommand implements Command {
+public class ShowAllUsersCommand extends Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         ServiceFactory factory = ServiceFactory.getInstance();
@@ -26,8 +26,5 @@ public class ShowAllUsersCommand implements Command {
         String login = (String) session.getAttribute(ControllerConstant.LOGIN_ATTRIBUTE);
         List<User> users = service.showUsers(login,30,0);
         request.setAttribute(ControllerConstant.USERS_ATTRIBUTE, users);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher(ControllerConstant.ADMIN_CABINET_URI);
-        dispatcher.forward(request, response);
     }
 }
