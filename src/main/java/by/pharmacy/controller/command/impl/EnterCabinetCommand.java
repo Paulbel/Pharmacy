@@ -35,7 +35,7 @@ public class EnterCabinetCommand extends Command {
         String address = pageMap.get(role);
 
         String commandName = request.getParameter(ControllerConstant.COMMAND_ATTRIBUTE);
-        request.setAttribute(ControllerConstant.COMMAND_ATTRIBUTE,commandName);
+        request.setAttribute(ControllerConstant.PREV_COMMAND_ATTRIBUTE,commandName);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(address);
         dispatcher.forward(request, response);

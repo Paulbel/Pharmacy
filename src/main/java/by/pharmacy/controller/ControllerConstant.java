@@ -10,6 +10,10 @@ public final class ControllerConstant {
     public static final String LOCAL_ATTRIBUTE = "local";
     public static final String USERS_ATTRIBUTE = "users";
     public static final String COMMAND_ATTRIBUTE = "command";
+    public static final String PREV_COMMAND_ATTRIBUTE = "prev_command";
+
+    public static final String MANUFACTURER_ATTRIBUTE = "manufacturer";
+    public static final String MANUFACTURER_ID_ATTRIBUTE = "manufacturer_id";
 
     public static final String DRUG_ATTRIBUTE = "drug";
     public static final String DRUGS_ATTRIBUTE = "drugs";
@@ -27,10 +31,14 @@ public final class ControllerConstant {
     public static final String SHOW_USERS_COMMAND = "show_users";
     public static final String SIGN_UP_COMMAND = "sign_up";
     public static final String GET_DRUGS_COMMAND = "show_all_drugs";
+    public static final String GET_DRUG_COMMAND = "get_drug";
     public static final String SIGN_IN_COMMAND = "sign_in";
     public static final String SIGN_OUT_COMMAND = "sign_out";
     public static final String ADD_DESCRIPTION_COMMAND = "add_drug_description";
-    public static final String GET_MANUFACTURER_INFO = "manufacturer_info";
+    public static final String GET_MANUFACTURER_COMMAND = "get_manufacturer";
+    public static final String CHANGE_DRUG_DESCRIPTION_COMMAND = "change_drug_description";
+    public static final String CHANGE_DRUG_INFO_COMMAND = "change_drug_info";
+
 
     public static final String CHANGE_LANGUAGE_COMMAND = "change_language";
     public static final String GET_LANGUAGE_AND_DRUGS_COMMAND = "get_language_drugs";

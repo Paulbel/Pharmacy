@@ -47,5 +47,16 @@ public class PharmacistServiceImpl implements PharmacistService {
         }
     }
 
+    @Override
+    public void changeDrugDescription(Drug drug, Language language) throws ServiceException {
+        try {
+            DAOFactory factory = DAOFactory.getInstance();
+            DrugDAO drugDAO = factory.getDrugDAO();
+            drugDAO.changeDrugDescription(drug,language);
+        } catch (DAOException e) {
+            throw new ServiceException("Can't change");
+        }
+    }
+
 
 }

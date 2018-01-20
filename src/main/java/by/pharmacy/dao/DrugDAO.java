@@ -23,4 +23,6 @@ public interface DrugDAO {
     Drug getDrug(int id, Language language) throws DAOException;
 
     List<Drug> findDrugsByManufacturer(int manufacturerId, Language language, int number, int offset) throws DAOException;
+
+    void changeDrugDescription(Drug drug, Language language) throws DAOException;
 }

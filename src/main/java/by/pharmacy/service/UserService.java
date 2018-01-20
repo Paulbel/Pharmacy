@@ -26,6 +26,8 @@ public interface UserService {
 
     int getManufacturerNumber() throws ServiceException;
 
+    Manufacturer getManufacturer(int id, Language language) throws ServiceException;
+
 
     Drug getDrug(int drugId, Language language) throws ServiceException;
 }

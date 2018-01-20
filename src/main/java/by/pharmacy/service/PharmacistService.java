@@ -13,4 +13,6 @@ public interface PharmacistService {
     void removeDrug(int drugId);
 
     void addDrugDescription(String pharmacistLogin, Drug drug, Language language) throws ServiceException;
+
+    void changeDrugDescription(Drug drug, Language language) throws ServiceException;
 }

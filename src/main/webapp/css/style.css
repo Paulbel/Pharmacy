@@ -1,0 +1,17 @@
+    #container{
+         display:flex;
+     }
+
+    #nav_menu{
+        width:30%;
+        height:100%;
+    }
+
+
+    #info{
+        width:50%;
+    }
+
+    .drug_form{
+        border: 1px black solid;
+    }

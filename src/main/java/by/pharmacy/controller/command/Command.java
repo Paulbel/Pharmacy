@@ -14,7 +14,7 @@ public abstract class Command {
     protected List<Command> commandList = new ArrayList<>();
 
 
-    public static String formRedirectAddress(HttpServletRequest request){
+    public String formRedirectAddress(HttpServletRequest request){
         String query = request.getParameter("query");
         StringBuilder addressConstructor = new StringBuilder();
         addressConstructor.append("/FrontController");

@@ -16,7 +16,7 @@ public class ChangeLanguageCommand extends Command {
         String language = request.getParameter(ControllerConstant.LOCAL_ATTRIBUTE);
 
         session.setAttribute(ControllerConstant.LOCAL_ATTRIBUTE, language);
-        String address = Command.formRedirectAddress(request);
+        String address = formRedirectAddress(request);
         response.sendRedirect(address);
     }
 

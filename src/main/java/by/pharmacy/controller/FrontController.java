@@ -18,7 +18,9 @@ public class FrontController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
+
         CommandInvoker commandInvoker = CommandInvoker.getInstance();
+
         Command command = new MacroCommand();
         command.addCommand(new GetLanguageCommand());
         command.addCommand(new GetDrugsCommand());
@@ -29,6 +31,11 @@ public class FrontController extends HttpServlet {
         command.addCommand(new GetDrugsCommand());
         command.addCommand(new EnterCabinetCommand());
         commandInvoker.addCommand(ControllerConstant.GET_DRUGS_COMMAND,command);
+
+        command = new MacroCommand();
+        command.addCommand(new GetDrugCommand());
+        command.addCommand(new EnterCabinetCommand());
+        commandInvoker.addCommand(ControllerConstant.GET_DRUG_COMMAND,command);
 
 
         commandInvoker.addCommand(ControllerConstant.CHANGE_LANGUAGE_COMMAND,new ChangeLanguageCommand());
@@ -60,9 +67,26 @@ public class FrontController extends HttpServlet {
 
 
         command = new MacroCommand();
+        command.addCommand(new GetManufacturerCommand());
+        command.addCommand(new EnterCabinetCommand());
+        commandInvoker.addCommand(ControllerConstant.GET_MANUFACTURER_COMMAND,command);
+
+        command = new MacroCommand();
         command.addCommand(new AddDrugDescriptionCommand());
         command.addCommand(new EnterCabinetCommand());
         commandInvoker.addCommand(ControllerConstant.ADD_DESCRIPTION_COMMAND, command);
+
+        command = new MacroCommand();
+        command.addCommand(new ChangeDrugDescriptionCommand());
+        command.addCommand(new GetDrugCommand());
+        command.addCommand(new EnterCabinetCommand());
+        commandInvoker.addCommand(ControllerConstant.CHANGE_DRUG_DESCRIPTION_COMMAND, command);
+
+        command = new MacroCommand();
+        command.addCommand(new ChangeDrugInfoCommand());
+        command.addCommand(new GetDrugCommand());
+        command.addCommand(new EnterCabinetCommand());
+        commandInvoker.addCommand(ControllerConstant.CHANGE_DRUG_INFO_COMMAND, command);
 
         commandInvoker.addCommand(ControllerConstant.SIGN_OUT_COMMAND,new SignOutCommand());
 

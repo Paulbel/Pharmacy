@@ -15,6 +15,12 @@ import java.util.List;
 
 public class DrugDAOImpl implements DrugDAO {
     private final static String REMOVE_DRUG = "DELETE FROM drug WHERE id = ?";
+    private final static String CHANGE_DRUG_DESCRIPTION = "UPDATE" +
+            " drug_translate" +
+            " SET drug_translate.name=?," +
+            " drug_translate.composition = ?," +
+            " drug_translate.description = ?" +
+            " WHERE drug_translate.drug_id = ? AND drug_translate.lang_name = ?";
     private final static String GET_DRUG = "SELECT" +
             "  drug.id," +
             "  drug_translate.name," +
@@ -234,6 +240,26 @@ public class DrugDAOImpl implements DrugDAO {
         } finally {
             connectionPool.closeConnection(connection);
         }
+    }
+
+    @Override
+    public void changeDrugDescription(Drug drug, Language language) throws DAOException {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        try (PreparedStatement statement = connection.prepareStatement(CHANGE_DRUG_DESCRIPTION)) {
+            statement.setString(1, drug.getName());
+            statement.setString(2, drug.getComposition());
+            statement.setString(3, drug.getDescription());
+            statement.setInt(4, drug.getId());
+            statement.setString(5, language.toString().toLowerCase());
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("Can't add description", e);
+        } finally {
+            connectionPool.closeConnection(connection);
+        }
+
     }
 
     @Override

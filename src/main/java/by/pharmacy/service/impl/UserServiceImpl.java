@@ -105,13 +105,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Manufacturer getManufacturer(int id, Language language) throws ServiceException {
+        DAOFactory daoFactory = DAOFactory.getInstance();
+        ManufacturerDAO manufacturerDAO = daoFactory.getManufacturerDAO();
+        try {
+            return manufacturerDAO.getManufacturer(id, language);
+        } catch (DAOException e) {
+            throw new ServiceException("Can't get manufacturer", e);
+        }
+    }
+
+    @Override
     public Drug getDrug(int drugId, Language language) throws ServiceException {
         DAOFactory daoFactory = DAOFactory.getInstance();
         DrugDAO drugDAO = daoFactory.getDrugDAO();
         try {
             return drugDAO.getDrug(drugId, language);
         } catch (DAOException e) {
-            throw new ServiceException("Can't get manufacturers", e);
+            throw new ServiceException("Can't get drug", e);
         }
     }
 
