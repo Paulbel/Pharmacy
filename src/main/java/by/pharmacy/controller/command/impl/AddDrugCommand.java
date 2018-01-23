@@ -4,6 +4,7 @@ import by.pharmacy.controller.ControllerConstant;
 import by.pharmacy.controller.command.Command;
 import by.pharmacy.entity.Drug;
 import by.pharmacy.entity.Language;
+import by.pharmacy.entity.Manufacturer;
 import by.pharmacy.service.PharmacistService;
 import by.pharmacy.service.ServiceFactory;
 import by.pharmacy.service.exception.ServiceException;
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class ChangeDrugDescriptionCommand extends Command {
+public class AddDrugCommand extends Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServiceException, ServletException {
         ServiceFactory factory = ServiceFactory.getInstance();
@@ -25,19 +26,34 @@ public class ChangeDrugDescriptionCommand extends Command {
 
         Language language = Language.valueOf(languageName.toUpperCase());
 
-        int drugId = Integer.valueOf(request.getParameter(ControllerConstant.DRUG_ID_ATTRIBUTE));
         String name = request.getParameter(ControllerConstant.DRUG_NAME_ATTRIBUTE);
         String composition = request.getParameter(ControllerConstant.DRUG_COMPOSITION_ATTRIBUTE);
         String description = request.getParameter(ControllerConstant.DRUG_DESCRIPTION_ATTRIBUTE);
+        int drugAmount = Integer.valueOf(request.getParameter(ControllerConstant.DRUG_AMOUNT_ATTRIBUTE));
+        int drugDosage = Integer.valueOf(request.getParameter(ControllerConstant.DRUG_DOSAGE_ATTRIBUTE));
+        int drugNumber = Integer.valueOf(request.getParameter(ControllerConstant.DRUG_NUMBER_ATTRIBUTE));
+        double drugPrice = Double.valueOf(request.getParameter(ControllerConstant.DRUG_PRICE_ATTRIBUTE));
+        int manufacturerId = Integer.valueOf(request.getParameter(ControllerConstant.MANUFACTURER_ID_ATTRIBUTE));
 
+        boolean needPrescription = false;
+        if (request.getParameter(ControllerConstant.DRUG_NEED_PRESCRIPTION_ATTRIBUTE) != null) {
+            needPrescription = true;
+        }
 
         Drug drug = new Drug();
-        drug.setId(drugId);
         drug.setName(name);
         drug.setComposition(composition);
         drug.setDescription(description);
+        drug.setAmount(drugAmount);
+        drug.setDosage(drugDosage);
+        drug.setNeedPrescription(needPrescription);
+        drug.setNumber(drugNumber);
+        drug.setPrice(drugPrice);
 
-        pharmacistService.changeDrugDescription(drug,language);
+        Manufacturer manufacturer = new Manufacturer();
+        manufacturer.setId(manufacturerId);
+        drug.setManufacturer(manufacturer);
 
+        pharmacistService.addDrug(drug, language);
     }
 }

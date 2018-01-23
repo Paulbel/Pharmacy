@@ -2,10 +2,7 @@ package by.pharmacy.service.impl;
 
 import by.pharmacy.dao.*;
 import by.pharmacy.dao.exception.DAOException;
-import by.pharmacy.entity.Drug;
-import by.pharmacy.entity.Language;
-import by.pharmacy.entity.Manufacturer;
-import by.pharmacy.entity.User;
+import by.pharmacy.entity.*;
 import by.pharmacy.service.UserService;
 import by.pharmacy.service.exception.ServiceException;
 
@@ -61,11 +58,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int getDrugNumber() throws ServiceException {
+    public int getDrugCount() throws ServiceException {
         DAOFactory daoFactory = DAOFactory.getInstance();
         DrugDAO drugDAO = daoFactory.getDrugDAO();
         try {
-            return drugDAO.getDrugNumber();
+            return drugDAO.getDrugCount();
         } catch (DAOException e) {
             throw new ServiceException("Can't get entries number", e);
         }
@@ -94,11 +91,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int getManufacturerNumber() throws ServiceException {
+    public int getManufacturerCount(Language language) throws ServiceException {
         DAOFactory daoFactory = DAOFactory.getInstance();
         ManufacturerDAO manufacturerDAO = daoFactory.getManufacturerDAO();
         try {
-            return manufacturerDAO.getManufacturerCount();
+            return manufacturerDAO.getManufacturerCount(language);
         } catch (DAOException e) {
             throw new ServiceException("Can't get manufacturers", e);
         }
@@ -121,6 +118,17 @@ public class UserServiceImpl implements UserService {
         DrugDAO drugDAO = daoFactory.getDrugDAO();
         try {
             return drugDAO.getDrug(drugId, language);
+        } catch (DAOException e) {
+            throw new ServiceException("Can't get drug", e);
+        }
+    }
+
+    @Override
+    public List<Country> getCountryList(Language language) throws ServiceException {
+        DAOFactory daoFactory = DAOFactory.getInstance();
+        CountryDAO countryDAO = daoFactory.getCountryDAO();
+        try {
+            return countryDAO.getCountryList(language);
         } catch (DAOException e) {
             throw new ServiceException("Can't get drug", e);
         }

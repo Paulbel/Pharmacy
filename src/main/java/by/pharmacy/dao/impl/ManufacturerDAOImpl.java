@@ -3,6 +3,7 @@ package by.pharmacy.dao.impl;
 import by.pharmacy.dao.ManufacturerDAO;
 import by.pharmacy.dao.connectionpool.ConnectionPool;
 import by.pharmacy.dao.exception.DAOException;
+import by.pharmacy.entity.Country;
 import by.pharmacy.entity.Language;
 import by.pharmacy.entity.Manufacturer;
 
@@ -35,6 +36,7 @@ public class ManufacturerDAOImpl implements ManufacturerDAO {
             " manufacturer.phone_number," +
             " manufacturer_translate.name," +
             " manufacturer_translate.address," +
+            " country_translate.country_code," +
             " country_translate.name " +
             "FROM manufacturer " +
             "INNER JOIN manufacturer_translate ON manufacturer.id = manufacturer_translate.manufacturer_id " +
@@ -50,6 +52,7 @@ public class ManufacturerDAOImpl implements ManufacturerDAO {
             " manufacturer.phone_number," +
             " manufacturer_translate.name," +
             " manufacturer_translate.address," +
+            " country_translate.country_code," +
             " country_translate.name " +
             "FROM manufacturer " +
             "INNER JOIN manufacturer_translate ON manufacturer.id = manufacturer_translate.manufacturer_id " +
@@ -68,9 +71,10 @@ public class ManufacturerDAOImpl implements ManufacturerDAO {
 
             statement = connection.prepareStatement(ADD_MANUFACTURER, Statement.RETURN_GENERATED_KEYS);
 
-            statement.setString(1, language.toString().toLowerCase());
+            statement.setString(1, manufacturer.getCountry().getCode());
             statement.setString(2, manufacturer.getPhoneNumber());
             statement.setString(3, manufacturer.getEmail());
+
 
             statement.executeUpdate();
 
@@ -154,11 +158,12 @@ public class ManufacturerDAOImpl implements ManufacturerDAO {
     }
 
     @Override
-    public int getManufacturerCount() throws DAOException {
+    public int getManufacturerCount(Language language) throws DAOException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
-        try (Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(GET_COUNT);
+        try (PreparedStatement statement = connection.prepareStatement(GET_COUNT)) {
+            statement.setString(1,language.toString().toLowerCase());
+            ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             return resultSet.getInt("count");
         } catch (SQLException e) {
@@ -175,15 +180,24 @@ public class ManufacturerDAOImpl implements ManufacturerDAO {
         String email = resultSet.getString("manufacturer.email");
         String phoneNumber = resultSet.getString("manufacturer.phone_number");
         String name = resultSet.getString("manufacturer_translate.name");
-        String countryName = resultSet.getString("country_translate.name");
         String address = resultSet.getString("manufacturer_translate.address");
+
+        String countryName = resultSet.getString("country_translate.name");
+        String countryCode = resultSet.getString("country_translate.country_code");
+
 
         manufacturer.setId(id);
         manufacturer.setAddress(address);
         manufacturer.setEmail(email);
         manufacturer.setPhoneNumber(phoneNumber);
         manufacturer.setName(name);
-        manufacturer.setCountry(countryName);
+
+        Country country = new Country();
+
+        country.setName(countryName);
+        country.setCode(countryCode);
+
+        manufacturer.setCountry(country);
         return manufacturer;
     }
 }

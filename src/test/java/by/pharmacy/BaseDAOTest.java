@@ -153,7 +153,7 @@ public class BaseDAOTest {
         drug.setNeedPrescription(true);
 
         Manufacturer manufacturer1 = new Manufacturer();
-        manufacturer1.setCountry("Федеративная Республика Германия");
+       // manufacturer1.setCountry("Федеративная Республика Германия");
         manufacturer1.setName("Вёрваг Фарма");
         manufacturer1.setEmail("");
         manufacturer1.setPhoneNumber("");
@@ -174,7 +174,7 @@ public class BaseDAOTest {
         drug.setNeedPrescription(false);
 
         Manufacturer manufacturer2 = new Manufacturer();
-        manufacturer2.setCountry("Федеративная Республика Германия");
+        //manufacturer2.setCountry("Федеративная Республика Германия");
         manufacturer2.setName("Натурварен");
         manufacturer2.setEmail("");
         manufacturer2.setPhoneNumber("");

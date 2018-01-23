@@ -2,8 +2,9 @@ package by.pharmacy.controller.command.impl;
 
 import by.pharmacy.controller.ControllerConstant;
 import by.pharmacy.controller.command.Command;
-import by.pharmacy.entity.Drug;
+import by.pharmacy.entity.Country;
 import by.pharmacy.entity.Language;
+import by.pharmacy.entity.Manufacturer;
 import by.pharmacy.service.PharmacistService;
 import by.pharmacy.service.ServiceFactory;
 import by.pharmacy.service.exception.ServiceException;
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class ChangeDrugDescriptionCommand extends Command {
+public class AddManufacturerCommand extends Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServiceException, ServletException {
         ServiceFactory factory = ServiceFactory.getInstance();
@@ -25,19 +26,22 @@ public class ChangeDrugDescriptionCommand extends Command {
 
         Language language = Language.valueOf(languageName.toUpperCase());
 
-        int drugId = Integer.valueOf(request.getParameter(ControllerConstant.DRUG_ID_ATTRIBUTE));
-        String name = request.getParameter(ControllerConstant.DRUG_NAME_ATTRIBUTE);
-        String composition = request.getParameter(ControllerConstant.DRUG_COMPOSITION_ATTRIBUTE);
-        String description = request.getParameter(ControllerConstant.DRUG_DESCRIPTION_ATTRIBUTE);
+        String name = request.getParameter(ControllerConstant.MANUFACTURER_NAME_ATTRIBUTE);
+        String phoneNumber = request.getParameter(ControllerConstant.PHONE_ATTRIBUTE);
+        String address = request.getParameter(ControllerConstant.MANUFACTURER_ADDRESS_ATTRIBUTE);
+        String email = request.getParameter(ControllerConstant.EMAIL_ATTRIBUTE);
+        String country_code = request.getParameter(ControllerConstant.COUNTRY_CODE_ATTRIBUTE);
 
+        Manufacturer manufacturer = new Manufacturer();
+        manufacturer.setName(name);
+        manufacturer.setPhoneNumber(phoneNumber);
+        manufacturer.setEmail(email);
+        manufacturer.setAddress(address);
 
-        Drug drug = new Drug();
-        drug.setId(drugId);
-        drug.setName(name);
-        drug.setComposition(composition);
-        drug.setDescription(description);
+        Country country = new Country();
+        country.setCode(country_code);
+        manufacturer.setCountry(country);
 
-        pharmacistService.changeDrugDescription(drug,language);
-
+        pharmacistService.addManufacturer(manufacturer, language);
     }
 }

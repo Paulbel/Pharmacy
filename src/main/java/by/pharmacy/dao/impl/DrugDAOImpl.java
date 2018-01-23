@@ -4,6 +4,7 @@ import by.pharmacy.dao.DrugDAO;
 import by.pharmacy.dao.connectionpool.ConnectionPool;
 import by.pharmacy.dao.connectionpool.exception.ConnectionPoolException;
 import by.pharmacy.dao.exception.DAOException;
+import by.pharmacy.entity.Country;
 import by.pharmacy.entity.Drug;
 import by.pharmacy.entity.Language;
 import by.pharmacy.entity.Manufacturer;
@@ -15,12 +16,25 @@ import java.util.List;
 
 public class DrugDAOImpl implements DrugDAO {
     private final static String REMOVE_DRUG = "DELETE FROM drug WHERE id = ?";
+
+
+
+    private final static String CHANGE_DRUG_INFO = "UPDATE" +
+            " drug" +
+            " SET drug.dosage=?," +
+            " drug.amount= ?," +
+            " drug.number = ?," +
+            " drug.need_prescription = ?," +
+            " drug.price = ?" +
+            " WHERE drug.id = ?";
+
     private final static String CHANGE_DRUG_DESCRIPTION = "UPDATE" +
             " drug_translate" +
             " SET drug_translate.name=?," +
             " drug_translate.composition = ?," +
             " drug_translate.description = ?" +
             " WHERE drug_translate.drug_id = ? AND drug_translate.lang_name = ?";
+
     private final static String GET_DRUG = "SELECT" +
             "  drug.id," +
             "  drug_translate.name," +
@@ -34,6 +48,7 @@ public class DrugDAOImpl implements DrugDAO {
             "  manufacturer.id," +
             "  manufacturer.phone_number," +
             "  manufacturer.email," +
+            "  manufacturer.country_code," +
             "  manufacturer_translate.name," +
             "  manufacturer_translate.address," +
             "  country_translate.name" +
@@ -43,11 +58,11 @@ public class DrugDAOImpl implements DrugDAO {
             "  INNER JOIN country ON manufacturer.country_code = country.code" +
             "  INNER JOIN country_translate ON country.code = country_translate.country_code" +
             "  INNER JOIN manufacturer_translate ON manufacturer.id = manufacturer_translate.manufacturer_id" +
-            " WHERE drug_translate.lang_name = ? AND manufacturer_translate.language_name = drug_translate.lang_name AND" +
+            " WHERE drug.id = ? AND drug_translate.lang_name = ? AND manufacturer_translate.language_name = drug_translate.lang_name AND" +
             "      country_translate.lan_name = drug_translate.lang_name";
 
 
-    private final static String GET_DRUG_NUMBER = "SELECT avg(drug.id) AS number FROM drug;";
+    private final static String GET_DRUG_NUMBER = "SELECT count(drug.id) AS number FROM drug;";
 
     private final static String GET_DRUGS_BY_MANUFACTURER = "SELECT" +
             "  drug.id," +
@@ -82,6 +97,7 @@ public class DrugDAOImpl implements DrugDAO {
             "  manufacturer.email," +
             "  manufacturer_translate.name," +
             "  manufacturer_translate.address," +
+            "  manufacturer.country_code," +
             "  country_translate.name" +
             " FROM drug" +
             "  INNER JOIN drug_translate ON drug.id = drug_translate.drug_id" +
@@ -103,6 +119,7 @@ public class DrugDAOImpl implements DrugDAO {
             "  drug_translate.description," +
             "  drug.need_prescription," +
             "  drug.price," +
+            "  manufacturer.country_code," +
             "  manufacturer.id," +
             "  manufacturer.phone_number," +
             "  manufacturer.email," +
@@ -262,6 +279,34 @@ public class DrugDAOImpl implements DrugDAO {
 
     }
 
+    /*            " drug" +
+            " SET drug.dosage=?," +
+            " drug.amount= ?," +
+            " drug.number = ?," +
+            " drug.need_prescription = ?," +
+            " drug.price = ?" +
+            " WHERE drug.id = ?";*/
+
+    @Override
+    public void changeDrugInfo(Drug drug) throws DAOException {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        try (PreparedStatement statement = connection.prepareStatement(CHANGE_DRUG_INFO)) {
+            statement.setInt(1, drug.getDosage());
+            statement.setInt(2, drug.getAmount());
+            statement.setInt(3, drug.getNumber());
+            statement.setBoolean(4, drug.isNeedPrescription());
+            statement.setDouble(5, drug.getPrice());
+            statement.setInt(6, drug.getId());
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("Can't add description", e);
+        } finally {
+            connectionPool.closeConnection(connection);
+        }
+    }
+
     @Override
     public List<Drug> findDrugByName(String name, Language language) throws DAOException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -286,7 +331,7 @@ public class DrugDAOImpl implements DrugDAO {
     }
 
     @Override
-    public int getDrugNumber() throws DAOException {
+    public int getDrugCount() throws DAOException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         try (Statement statement = connection.createStatement()) {
@@ -322,7 +367,8 @@ public class DrugDAOImpl implements DrugDAO {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(GET_DRUG)) {
-            statement.setString(1, language.toString().toLowerCase());
+            statement.setInt(1,id);
+            statement.setString(2, language.toString().toLowerCase());
 
             ResultSet set = statement.executeQuery();
             set.next();
@@ -351,15 +397,17 @@ public class DrugDAOImpl implements DrugDAO {
         String manufacturerName = resultSet.getString("manufacturer_translate.name");
         String address = resultSet.getString("manufacturer_translate.address");
         String email = resultSet.getString("manufacturer.email");
-
         String countryName = resultSet.getString("country_translate.name");
-
+        String countryCode = resultSet.getString("manufacturer.country_code");
         Manufacturer manufacturer = new Manufacturer();
         manufacturer.setId(manufacturerId);
         manufacturer.setAddress(address);
         manufacturer.setName(manufacturerName);
         manufacturer.setPhoneNumber(phoneNumber);
-        manufacturer.setCountry(countryName);
+        Country country = new Country();
+        country.setName(countryName);
+        country.setCode(countryCode);
+        manufacturer.setCountry(country);
         manufacturer.setEmail(email);
 
         Drug drug = new Drug();

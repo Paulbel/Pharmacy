@@ -16,4 +16,6 @@ public interface UserDAO {
     void setRole(String login, Role role) throws DAOException;
 
     User signIn(String login, String password) throws DAOException;
+
+    List<User> getUsers(Role role) throws DAOException;
 }

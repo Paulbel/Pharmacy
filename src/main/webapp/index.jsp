@@ -22,7 +22,7 @@
     <fmt:message bundle="${loc}" key="local.registration" var="registration"/>
     <fmt:message bundle="${loc}" key="local.signOut" var="signout"/>
     <fmt:message bundle="${loc}" key="local.cabinet" var="cabinet"/>
-    <fmt:message bundle="${loc}" key="local.opticsName" var="opticsname"/>
+    <fmt:message bundle="${loc}" key="local.companyName" var="company_name"/>
     <fmt:message bundle="${loc}" key="local.name" var="name"/>
     <fmt:message bundle="${loc}" key="local.surname" var="surname"/>
     <fmt:message bundle="${loc}" key="local.email" var="email"/>
@@ -119,7 +119,7 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#"><c:out value="${opticsname}"/></a>
+            <a class="navbar-brand" href="#"><c:out value="${company_name}"/></a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">

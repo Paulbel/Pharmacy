@@ -8,7 +8,7 @@ public class Manufacturer implements Serializable{
     private int id;
     private String name;
     private String phoneNumber;
-    private String country;
+    private Country country;
     private String address;
     private String email;
 
@@ -27,11 +27,11 @@ public class Manufacturer implements Serializable{
         return serialVersionUID;
     }
 
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 

@@ -13,5 +13,5 @@ public interface ManufacturerDAO {
 
     Manufacturer getManufacturer(int manufacturerId, Language language) throws DAOException;
 
-    int getManufacturerCount() throws DAOException;
+    int getManufacturerCount(Language language) throws DAOException;
 }

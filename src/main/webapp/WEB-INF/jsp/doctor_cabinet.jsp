@@ -1,9 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page import="by.pharmacy.controller.ControllerConstant" %>
-<%@ page import="by.pharmacy.entity.Role" %>
-<%@ page import="by.pharmacy.entity.Language" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 
@@ -61,8 +58,10 @@
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown"><c:out value="${language}"/><b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="FrontController?command=change_language&local=russian"><c:out value="${ru}"/></a></li>
-                        <li><a href="FrontController?command=change_language&local=english"><c:out value="${en}"/></a></li>
+                        <li><a href="FrontController?command=change_language&local=russian"><c:out value="${ru}"/></a>
+                        </li>
+                        <li><a href="FrontController?command=change_language&local=english"><c:out value="${en}"/></a>
+                        </li>
                     </ul>
                 </li>
 
@@ -70,77 +69,20 @@
         </div>
     </div>
 </nav>
+
+
 <table border="1">
     <tr>
         <th>name</th>
         <th>surname</th>
-        <th>role</th>
-        <th>set role</th>
     </tr>
     <c:forEach items="${requestScope.users}" var="item">
-
         <tr>
-
             <td><c:out value="${item.name}"/></td>
             <td><c:out value="${item.surname}"/></td>
-            <td><c:out value="${item.role}"/></td>
-            <td>
-                <c:choose>
-                    <c:when test="${item.role == Role.USER}">
-                        <form action="FrontController" method="get">
-                            <p>
-                                <input type="hidden" name="${ControllerConstant.COMMAND_ATTRIBUTE}" value="${ControllerConstant.GIVE_ROLE_COMMAND}">
-                                <input type="hidden" name="${ControllerConstant.LOGIN_ATTRIBUTE}" value="${item.login}">
-                                <select name="role">
-                                    <option value="${Role.DOCTOR}">Doctor</option>
-                                    <option value="${Role.PHARMACIST}">Pharmacist</option>
-                                </select>
-                                <input type="submit" value="Change">
-                            </p>
-                        </form>
-                    </c:when>
-                    <c:when test="${item.role == Role.PHARMACIST}">
-                        <form action="FrontController" method="get">
-                            <p>
-                                <input type="hidden" name="${ControllerConstant.COMMAND_ATTRIBUTE}" value="${ControllerConstant.GIVE_ROLE_COMMAND}">
-                                <input type="hidden" name="${ControllerConstant.LOGIN_ATTRIBUTE}" value="${item.login}">
-                                <select name="role">
-                                    <option value="USER">Client</option>
-                                    <option value="PHARMACIST">Pharmacist</option>
-                                </select>
-                                <input type="submit" value="Change">
-                            </p>
-                        </form>
-                    </c:when>
-                    <c:when test="${item.role == 'PHARMACIST'}">
-                        <form action="FrontController" method="get">
-                            <p>
-                                <input type="hidden" name="${ControllerConstant.COMMAND_ATTRIBUTE}" value="${ControllerConstant.GIVE_ROLE_COMMAND}">
-                                <input type="hidden" name="${ControllerConstant.LOGIN_ATTRIBUTE}" value="${item.login}">
-                                <select name="role">
-                                    <option value="USER">Client</option>
-                                    <option value="DOCTOR">Doctor</option>
-                                </select>
-                                <input type="submit" value="Change">
-                            </p>
-                        </form>
-                    </c:when>
-                    <c:otherwise>
-                        <c:out value="${item.role}"/>
-                    </c:otherwise>
-                </c:choose>
-            </td>
         </tr>
     </c:forEach>
 </table>
-
-
-
-
-
-
-
-
 
 </body>
 </html>

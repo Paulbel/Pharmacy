@@ -7,7 +7,6 @@ import by.pharmacy.service.AdministratorService;
 import by.pharmacy.service.ServiceFactory;
 import by.pharmacy.service.exception.ServiceException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +23,7 @@ public class ShowAllUsersCommand extends Command {
         HttpSession session = request.getSession();
 
         String login = (String) session.getAttribute(ControllerConstant.LOGIN_ATTRIBUTE);
-        List<User> users = service.showUsers(login,30,0);
+        List<User> users = service.getUserList(login,30,0);
         request.setAttribute(ControllerConstant.USERS_ATTRIBUTE, users);
     }
 }

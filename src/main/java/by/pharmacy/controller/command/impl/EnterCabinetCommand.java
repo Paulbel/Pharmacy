@@ -21,6 +21,7 @@ public class EnterCabinetCommand extends Command {
         pageMap.put(Role.ADMIN, ControllerConstant.ADMIN_CABINET_URI);
         pageMap.put(Role.PHARMACIST, ControllerConstant.PHARMACIST_CABINET_URI);
         pageMap.put(Role.USER, ControllerConstant.MAIN_PAGE_URI);
+        pageMap.put(Role.DOCTOR, ControllerConstant.DOCTOR_CABINET_URI);
     }
 
     @Override
@@ -35,6 +36,9 @@ public class EnterCabinetCommand extends Command {
         String address = pageMap.get(role);
 
         String commandName = request.getParameter(ControllerConstant.COMMAND_ATTRIBUTE);
+        if(commandName.equals(ControllerConstant.ENTER_CABINET_COMMAND)){
+            commandName = request.getParameter(ControllerConstant.WANT_COMMAND_ATTRIBUTE);
+        }
         request.setAttribute(ControllerConstant.PREV_COMMAND_ATTRIBUTE,commandName);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(address);

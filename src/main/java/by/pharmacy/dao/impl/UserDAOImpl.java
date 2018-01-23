@@ -17,6 +17,8 @@ import java.util.List;
 public class UserDAOImpl implements UserDAO {
     private static final String GET_USERS = "SELECT * FROM user LIMIT ? OFFSET ?";
 
+    private static final String GET_USERS_WITH_ROLE = "SELECT * FROM user where user.role = ?";
+
 
     private static final String ADD_USER = "INSERT INTO user (login, name, surname, password, email, phone)" +
             " VALUES (?, ?, ?, MD5(?), ?, ?);";
@@ -114,6 +116,26 @@ public class UserDAOImpl implements UserDAO {
                 throw new DAOException("Wrong data");
             }
             return createUserFromResultSet(resultSet);
+        } catch (SQLException e) {
+            throw new DAOException("Cannot connect to database!", e);
+        } finally {
+            connectionPool.closeConnection(connection);
+        }
+    }
+
+    @Override
+    public List<User> getUsers(Role role) throws DAOException {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        ResultSet set;
+        try (PreparedStatement statement = connection.prepareStatement(GET_USERS_WITH_ROLE)) {
+            statement.setString(1, role.toString().toLowerCase());
+            set = statement.executeQuery();
+            List<User> userList = new ArrayList<>();
+            while (set.next()) {
+                userList.add(createUserFromResultSet(set));
+            }
+            return userList;
         } catch (SQLException e) {
             throw new DAOException("Cannot connect to database!", e);
         } finally {

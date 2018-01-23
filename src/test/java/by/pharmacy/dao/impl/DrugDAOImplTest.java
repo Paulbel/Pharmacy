@@ -138,7 +138,7 @@ public class DrugDAOImplTest extends BaseDAOTest {
         manufacturer.setAddress(address);
         manufacturer.setName(manufacturerName);
         manufacturer.setPhoneNumber(phoneNumber);
-        manufacturer.setCountry(countryName);
+        //manufacturer.setCountry(countryName);
         manufacturer.setEmail(email);
 
         Drug drug = new Drug();

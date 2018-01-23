@@ -15,22 +15,52 @@ INSERT INTO user (login, password, name, surname, role, phone, email) VALUES
 
 DELETE FROM user;
 
+
+SELECT
+  drug.id,
+  drug_translate.name,
+  drug_translate.composition,
+  drug.number,
+  drug.amount,
+  drug.dosage,
+  drug_translate.description,
+  drug.need_prescription,
+  drug.price ,
+ manufacturer.country_code,
+ manufacturer.id,
+ manufacturer.phone_number,
+  manufacturer.email,
+  manufacturer_translate.name,
+  manufacturer_translate.address/*,
+ country_translate.name*/
+FROM drug
+  INNER JOIN drug_translate ON drug.id = drug_translate.drug_id
+ INNER JOIN manufacturer ON drug.manufacturer_id = manufacturer.id/*
+  INNER JOIN country ON manufacturer.country_code = country.code
+ INNER JOIN country_translate ON country.code = country_translate.country_code*/
+ INNER JOIN manufacturer_translate ON manufacturer.id = manufacturer_translate.manufacturer_id
+ WHERE drug_translate.lang_name = ? AND manufacturer_translate.language_name = drug_translate.lang_name /*AND
+      country_translate.lan_name = drug_translate.lang_name*/
+LIMIT 1000 OFFSET 0;
+
+
 SELECT drug.id
 FROM drug
   INNER JOIN manufacturer ON drug.manufacturer_id = manufacturer.id
 WHERE drug.manufacturer_id = 61;
 
-SELECT * FROM drug;
+SELECT *
+FROM drug;
 
-SELECT language_to_translate,name FROM language_translate WHERE language_name = ?;
+SELECT
+  language_to_translate,
+  name
+FROM language_translate
+WHERE language_name = ?;
 USE pharmacy;
 
 
-SELECT
-  id,
-  name
-FROM user
-WHERE surname = 'Sinelnikov';
+
 USE pharmacy;
 SELECT *
 FROM user;
@@ -46,8 +76,7 @@ CREATE TABLE drug_neutral (
   need_recipe TINYINT(1) NOT NULL,
   PRIMARY KEY (id)
 );
-INSERT INTO drug (manufacurer_id, dosage, amount, price, number, need_presciption) VALUES (1, 2, 3, 0.0, 0, 0);
-INSERT INTO manufacturer (country_id) VALUES (1);
+
 
 
 CREATE TABLE translation (
@@ -401,3 +430,7 @@ FROM drug
 WHERE drug.id = 3 AND drug_translate.lang_name = 'russian' AND
       manufacturer_translate.language_name = drug_translate.lang_name AND
       country_translate.lan_name = drug_translate.lang_name;
+
+SELECT *
+FROM drug;
+USE pharmacy;

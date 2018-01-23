@@ -33,7 +33,7 @@ public class ManufacturerDAOImplTest extends BaseDAOTest {
     private Manufacturer initManufacturer(){
         Manufacturer manufacturer = new Manufacturer();
         manufacturer.setEmail("www.academpharm.by");
-        manufacturer.setCountry("Республика Беларусь");
+       // manufacturer.setCountry("Республика Беларусь");
         manufacturer.setPhoneNumber("(017) 263-67-70");
         manufacturer.setName("«Академфарм» ГП");
         manufacturer.setAddress("г. Минск, ул. Академика В. Ф. Купревича, д. 5, корп. 3");

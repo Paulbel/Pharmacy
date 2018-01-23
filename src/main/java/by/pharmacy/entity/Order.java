@@ -12,8 +12,6 @@ public class Order {
 
     }
 
-
-
     public User getClient() {
         return client;
     }
