@@ -115,7 +115,7 @@ public class BaseDAOTest {
         user1.setSurname("Синельников");
         user1.setPhoneNumber("+375656381587");
         user1.setEmail("8o5vj4mdkd@gmail.com");
-        user1.setRole(Role.USER);
+        user1.setRole(Role.CLIENT);
 
         User user2 = new User();
         user2.setLogin("loginxl5k8m24lx");
@@ -124,7 +124,7 @@ public class BaseDAOTest {
         user2.setSurname("Гапеенко");
         user2.setPhoneNumber("+375410634274");
         user2.setEmail("xl5k8m24lx@gmail.com");
-        user2.setRole(Role.USER);
+        user2.setRole(Role.CLIENT);
 
         User user3 = new User();
         user3.setLogin("login4o47zru1qt");
@@ -133,7 +133,7 @@ public class BaseDAOTest {
         user3.setSurname("Артемьев");
         user3.setPhoneNumber("+375070676621");
         user3.setEmail("4o47zru1qt@gmail.com");
-        user3.setRole(Role.USER);
+        user3.setRole(Role.CLIENT);
 
         users.add(user1);
         users.add(user2);

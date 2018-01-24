@@ -1,5 +1,5 @@
 package by.pharmacy.entity;
 
 public enum  Role {
-    DOCTOR,ADMIN,USER,PHARMACIST,CLIENT
+    DOCTOR,ADMIN, PHARMACIST,CLIENT
 }

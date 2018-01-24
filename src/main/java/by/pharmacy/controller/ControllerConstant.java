@@ -2,6 +2,7 @@ package by.pharmacy.controller;
 
 public final class ControllerConstant {
     public static final String LOGIN_ATTRIBUTE = "login";
+    public static final String CLIENT_LOGIN_ATTRIBUTE = "client_login";
     public static final String PASSWORD_ATTRIBUTE = "password";
     public static final String NAME_ATTRIBUTE = "name";
     public static final String SURNAME_ATTRIBUTE = "surname";
@@ -12,6 +13,8 @@ public final class ControllerConstant {
     public static final String COMMAND_ATTRIBUTE = "command";
     public static final String PREV_COMMAND_ATTRIBUTE = "prev_command";
     public static final String WANT_COMMAND_ATTRIBUTE = "want_command";
+
+    public static final String DAY_COUNT_ATTRIBUTE = "day_count";
 
     public static final String MANUFACTURER_ATTRIBUTE = "manufacturer";
     public static final String MANUFACTURER_LIST_ATTRIBUTE = "manufacturer_list";
@@ -55,6 +58,8 @@ public final class ControllerConstant {
     public static final String CHANGE_DRUG_INFO_COMMAND = "change_drug_info";
     public static final String GET_MANUFACTURER_LIST_COMMAND = "get_manufacturer_list";
     public static final String ADD_MANUFACTURER_COMMAND = "add_manufacturer";
+    public static final String ADD_PRESCRIPTION_COMMAND = "add_prescription";
+
 
     public static final String CHANGE_LANGUAGE_COMMAND = "change_language";
     public static final String GET_LANGUAGE_AND_DRUGS_COMMAND = "get_language_drugs";

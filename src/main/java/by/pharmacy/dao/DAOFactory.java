@@ -11,6 +11,11 @@ public class DAOFactory {
     private LanguageDAO languageDAO = new LanguageDAOImpl();
     private ManufacturerDAO manufacturerDAO = new ManufacturerDAOImpl();
     private CountryDAO countryDAO = new CountryDAOImpl();
+    private PrescriptionDAO prescriptionDAO = new PrescriptionDAOImpl();
+
+    public PrescriptionDAO getPrescriptionDAO() {
+        return prescriptionDAO;
+    }
 
     public ManufacturerDAO getManufacturerDAO() {
         return manufacturerDAO;

@@ -20,7 +20,6 @@ public class EnterCabinetCommand extends Command {
     static {
         pageMap.put(Role.ADMIN, ControllerConstant.ADMIN_CABINET_URI);
         pageMap.put(Role.PHARMACIST, ControllerConstant.PHARMACIST_CABINET_URI);
-        pageMap.put(Role.USER, ControllerConstant.MAIN_PAGE_URI);
         pageMap.put(Role.DOCTOR, ControllerConstant.DOCTOR_CABINET_URI);
     }
 
@@ -29,7 +28,7 @@ public class EnterCabinetCommand extends Command {
         HttpSession session = request.getSession();
 
         String roleName = (String) session.getAttribute(ControllerConstant.ROLE_ATTRIBUTE);
-        Role role = Role.USER;
+        Role role = Role.CLIENT;
         if (roleName!= null) {
             role = Role.valueOf(roleName);
         }
