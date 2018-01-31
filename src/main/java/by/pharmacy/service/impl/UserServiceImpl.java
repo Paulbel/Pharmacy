@@ -4,6 +4,7 @@ import by.pharmacy.dao.*;
 import by.pharmacy.dao.exception.DAOException;
 import by.pharmacy.entity.*;
 import by.pharmacy.service.UserService;
+import by.pharmacy.service.comparator.NameComparator;
 import by.pharmacy.service.exception.ServiceException;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class UserServiceImpl implements UserService {
         try {
             DAOFactory daoFactory = DAOFactory.getInstance();
             DrugDAO drugDAO = daoFactory.getDrugDAO();
+
             return drugDAO.getDrugs(language, number, offset);
         } catch (DAOException e) {
             throw new ServiceException("Can't get drugs", e);
@@ -51,18 +53,20 @@ public class UserServiceImpl implements UserService {
         try {
             DAOFactory daoFactory = DAOFactory.getInstance();
             DrugDAO drugDAO = daoFactory.getDrugDAO();
-            return drugDAO.findDrugByName(name, language);
+            List<Drug>drugs =drugDAO.findDrugByName(name, language);
+                    drugs.sort(new NameComparator());
+            return drugs;
         } catch (DAOException e) {
             throw new ServiceException("Can't find drug", e);
         }
     }
 
     @Override
-    public int getDrugCount() throws ServiceException {
+    public int getDrugCount(Language language) throws ServiceException {
         DAOFactory daoFactory = DAOFactory.getInstance();
         DrugDAO drugDAO = daoFactory.getDrugDAO();
         try {
-            return drugDAO.getDrugCount();
+            return drugDAO.getDrugCount(language);
         } catch (DAOException e) {
             throw new ServiceException("Can't get entries number", e);
         }

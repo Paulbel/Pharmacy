@@ -44,7 +44,7 @@
 
     <form class="modal-content animate" action="FrontController" method="post">
         <div class="container">
-            <input type="hidden" name="command" value="sign_in"/>
+            <input type="hidden" name="command" value="sign_in_enter_cabinet"/>
 
             <label><b><c:out value="${login}"/></b></label>
             <input type="text" name="login" value=""/>

@@ -2,15 +2,13 @@ package by.pharmacy.dao.impl;
 
 import by.pharmacy.BaseDAOTest;
 import by.pharmacy.dao.ManufacturerDAO;
-import by.pharmacy.entity.Drug;
+import by.pharmacy.dao.impl.manufacturer.ManufacturerDAOImpl;
 import by.pharmacy.entity.Language;
 import by.pharmacy.entity.Manufacturer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class ManufacturerDAOImplTest extends BaseDAOTest {
     @Before

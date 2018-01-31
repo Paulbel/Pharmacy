@@ -7,7 +7,8 @@ import by.pharmacy.entity.Order;
 import java.util.List;
 
 public interface OrderDAO {
-    void addOrder(String login, int drugId, int number) throws DAOException;
+
+    void addOrder(Order order) throws DAOException;
 
     List<Order> getUserOrders(String login, int number, int offset, Language language) throws DAOException;
 

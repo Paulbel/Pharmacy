@@ -22,7 +22,15 @@ public class CommandInvoker {
         command.execute(request,response);
     }
 
+
     public static CommandInvoker getInstance() {
         return instance;
+    }
+
+    @Override
+    public String toString() {
+        return "CommandInvoker{" +
+                "commands=" + commands +
+                '}';
     }
 }

@@ -6,4 +6,5 @@ import by.pharmacy.entity.User;
 
 public interface PrescriptionDAO {
     void addPrescription(String doctorLogin, String clientLogin, Drug drug, int dayCount) throws DAOException;
+
 }

@@ -2,7 +2,6 @@ package by.pharmacy.controller;
 
 public final class ControllerConstant {
     public static final String LOGIN_ATTRIBUTE = "login";
-    public static final String CLIENT_LOGIN_ATTRIBUTE = "client_login";
     public static final String PASSWORD_ATTRIBUTE = "password";
     public static final String NAME_ATTRIBUTE = "name";
     public static final String SURNAME_ATTRIBUTE = "surname";
@@ -42,6 +41,9 @@ public final class ControllerConstant {
     public static final String ROLE_ATTRIBUTE = "role";
 
     public static final String MAIN_PAGE_URI = "index.jsp";
+
+
+    public static final String SIGN_IN_ENTER_CABINET_COMMAND = "sign_in_enter_cabinet";
     public static final String ENTER_CABINET_COMMAND = "enter_cabinet";
     public static final String FIND_DRUG_COMMAND = "find_drug";
     public static final String SHOW_USERS_COMMAND = "show_users";
@@ -59,12 +61,13 @@ public final class ControllerConstant {
     public static final String GET_MANUFACTURER_LIST_COMMAND = "get_manufacturer_list";
     public static final String ADD_MANUFACTURER_COMMAND = "add_manufacturer";
     public static final String ADD_PRESCRIPTION_COMMAND = "add_prescription";
-
-
     public static final String CHANGE_LANGUAGE_COMMAND = "change_language";
     public static final String GET_LANGUAGE_AND_DRUGS_COMMAND = "get_language_drugs";
     public static final String GIVE_ROLE_COMMAND = "give_role";
     public static final String EXCEPTION_MESSAGE = "exception_message";
+
+
+
 
     public static final String PHARMACIST_CABINET_URI = "WEB-INF/jsp/pharmacist_cabinet.jsp";
     public static final String ADMIN_CABINET_URI = "WEB-INF/jsp/admin_cabinet.jsp";

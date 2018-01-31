@@ -14,7 +14,7 @@ public abstract class Command {
     protected List<Command> commandList = new ArrayList<>();
 
 
-    protected String formRedirectAddress(HttpServletRequest request){
+    protected final String formRedirectAddress(HttpServletRequest request){
         String query = request.getParameter("query");
         StringBuilder addressConstructor = new StringBuilder();
         addressConstructor.append("/FrontController");
@@ -35,5 +35,12 @@ public abstract class Command {
 
     public void getChildCommand(int index){
         this.commandList.remove(index);
+    }
+
+    @Override
+    public String toString() {
+        return "Command{" +
+                "commandList=" + commandList.size() +
+                '}';
     }
 }

@@ -15,7 +15,8 @@ public interface UserService {
 
     List<Drug> findDrug(String name, Language language) throws ServiceException;
 
-    int getDrugCount() throws ServiceException;
+
+    int getDrugCount(Language language) throws ServiceException;
 
     Map<String, Language> getLanguages(Language language) throws ServiceException;
 

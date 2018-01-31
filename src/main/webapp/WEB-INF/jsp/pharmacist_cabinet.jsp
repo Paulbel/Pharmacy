@@ -3,9 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page import="by.pharmacy.controller.ControllerConstant" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-
 <html>
+
+<%--TODO:AJAX--%>
 <head>
     <meta charset="UTF-8" content="">
     <title>Title</title>
@@ -45,48 +45,45 @@
             <a class="navbar-brand" href="#"><c:out value="${company_name}"/></a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <c:if test="${not empty sessionScope.ControllerConstant.LOGIN_ATTRIBUTE}">
+                    <c:if test="${not empty sessionScope.login}">
                         <a>
-                            <c:out value="${sessionScope.ControllerConstant.NAME_ATTRIBUTE}"/>
-                            <c:out value="${sessionScope.ControllerConstant.SURNAME_ATTRIBUTE}"/>
+                            <c:out value="${sessionScope.name}"/>
+                            <c:out value="${sessionScope.surname}"/>
                         </a>
                     </c:if>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><c:out value="${cabinet}"/>
-                        <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <c:out value="${cabinet}"/>
+                    </a>
                     <ul class="dropdown-menu">
-                        <c:choose>
-                            <c:when test="${empty sessionScope.ControllerConstant.LOGIN_ATTRIBUTE}">
-                                <li>
-                                    <a href="#"
-                                       onclick="document.getElementById('signInForm').style.display='block'"><c:out
-                                            value="${signin}"/></a>
-                                    <a href="#"
-                                       onclick="document.getElementById('registrationForm').style.display='block'"><c:out
-                                            value="${registration}"/></a>
-                                </li>
-                            </c:when>
-                            <c:otherwise>
-                                <li><a href="FrontController?command=sign_out"><c:out value="${signout}"/></a></li>
-                            </c:otherwise>
-                        </c:choose>
+                        <li>
+                            <a href="FrontController?command=sign_out">
+                                <c:out value="${signout}"/>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown"><c:out value="${language}"/><b class="caret"></b></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <c:out value="${language}"/>
+                    </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="FrontController?command=change_language&local=ru&query=${requestScope.ControllerConstant.COMMAND_ATTRIBUTE}"><c:out
-                                    value="${ru}"/></a></li>
+                            <a href="FrontController?command=change_language&local=ru&query=${requestScope.ControllerConstant.COMMAND_ATTRIBUTE}">
+                                <c:out value="${ru}"/>
+                            </a>
+                        </li>
                         <li>
-                            <a href="FrontController?command=change_language&local=en&query=${requestScope.ControllerConstant.COMMAND_ATTRIBUTE}"><c:out
-                                    value="${en}"/></a></li>
+                            <a href="FrontController?command=change_language&local=en&query=${requestScope.ControllerConstant.COMMAND_ATTRIBUTE}">
+                                <c:out value="${en}"/>
+                            </a>
+                        </li>
                     </ul>
                 </li>
-
             </ul>
         </div>
     </div>
@@ -96,7 +93,7 @@
     <div id="nav_menu">
         <ul class="nav nav-pills nav-stacked" style="max-width: 260px;">
             <c:choose>
-                <c:when test="${requestScope.prev_command eq 'show_all_drugs'}">
+                <c:when test="${requestScope.prev_command eq 'get_drug_list_enter_cabinet'}">
                     <li class="active">
                         <a href=#>
                             <c:out value="${drugs}"/>
@@ -105,7 +102,7 @@
                 </c:when>
                 <c:otherwise>
                     <li>
-                        <a href="FrontController?command=show_all_drugs">
+                        <a href="FrontController?command=get_drug_list_enter_cabinet">
                             <c:out value="${drugs}"/>
                         </a>
                     </li>
@@ -163,24 +160,6 @@
                     </li>
                 </c:otherwise>
             </c:choose>
-            <%--            <c:choose>
-                            <c:when test="${requestScope.prev_command eq 'get_language_drugs'}">
-                                <li class="active">
-                                    <a href=#>
-                                            &lt;%&ndash;                            <span class="badge pull-right">42</span>&ndash;%&gt;
-                                        <c:out value="${find_drug}"/>
-                                    </a>
-                                </li>
-                            </c:when>
-                            <c:otherwise>
-                                <li>
-                                    <a href="FrontController?command=get_language_drugs">
-                                            &lt;%&ndash;                            <span class="badge pull-right">42</span>&ndash;%&gt;
-                                        <c:out value="${find_drug}"/>
-                                    </a>
-                                </li>
-                            </c:otherwise>
-                        </c:choose>--%>
             <c:if test="${requestScope.prev_command eq 'get_manufacturer'}">
                 <li class="active">
                     <a href=#>
@@ -207,7 +186,7 @@
 
     </div>
     <div id="info">
-        <c:if test="${requestScope.prev_command eq 'show_all_drugs'}">
+        <c:if test="${requestScope.prev_command eq 'get_drug_list_enter_cabinet'}">
             <table border="1" cellpadding="5" cellspacing="5">
                 <tr>
                     <th>name</th>
@@ -225,7 +204,7 @@
                         <td><c:out value="${item.dosage}"/></td>
                         <td><c:out value="${item.amount}"/></td>
                         <td><c:out value="${item.price}"/></td>
-                        <td><c:out value="${item.manufacturer.country}"/></td>
+                        <td><c:out value="${item.manufacturer.country.name}"/></td>
                         <td>
                             <a href="FrontController?command=get_manufacturer&manufacturer_id=${item.manufacturer.id}"><c:out
                                     value="${item.manufacturer.name}"/></a>
@@ -237,7 +216,7 @@
 
                 <c:choose>
                     <c:when test="${requestScope.currentPage != 1}">
-                        <li><a href="FrontController?command=show_all_drugs&page=${requestScope.currentPage - 1}">«</a>
+                        <li><a href="FrontController?command=get_drug_list_enter_cabinet&page=${requestScope.currentPage - 1}">«</a>
                         </li>
                     </c:when>
                     <c:otherwise>
@@ -252,7 +231,7 @@
                             </li>
                         </c:when>
                         <c:otherwise>
-                            <li><a href="FrontController?command=show_all_drugs&page=${i}"><c:out
+                            <li><a href="FrontController?command=get_drug_list_enter_cabinet&page=${i}"><c:out
                                     value="${i}"/></a>
                             </li>
                         </c:otherwise>
@@ -260,7 +239,7 @@
                 </c:forEach>
                 <c:choose>
                     <c:when test="${requestScope.currentPage lt requestScope.noOfPages}">
-                        <li><a href="FrontController?command=show_all_drugs&page=${requestScope.currentPage + 1}">»</a>
+                        <li><a href="FrontController?command=get_drug_list_enter_cabinet&page=${requestScope.currentPage + 1}">»</a>
                         </li>
                     </c:when>
                     <c:otherwise>
@@ -279,75 +258,75 @@
                 <button type="submit" class="btn btn-default" value="">Отправить</button>
             </form>
 
-                    <table border="1" cellpadding="5" cellspacing="5">
-                        <tr>
-                            <th>id</th>
-                            <th>name</th>
-                            <th>dosage</th>
-                            <th>amount</th>
-                            <th>price</th>
-                            <th>manufacturer</th>
-                            <th>country</th>
-                        </tr>
+            <table border="1" cellpadding="5" cellspacing="5">
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>dosage</th>
+                    <th>amount</th>
+                    <th>price</th>
+                    <th>manufacturer</th>
+                    <th>country</th>
+                </tr>
 
-                        <c:forEach var="item" items="${requestScope.drugs}">
-                            <tr>
-                                <td><c:out value="${item.id}"/></td>
-                                <td><c:out value="${item.name}"/></td>
-                                <td><c:out value="${item.dosage}"/></td>
-                                <td><c:out value="${item.amount}"/></td>
-                                <td><c:out value="${item.price}"/></td>
-                                <td><a href="FrontController?command="><c:out value="${item.manufacturer.name}"/></a>
-                                </td>
-                                <td><a href="FrontController?command="><c:out value="${item.manufacturer.country}"/></a>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </table>
-                    <ul class="pagination">
-                        <c:choose>
-                            <c:when test="${requestScope.currentPage != 1}">
-                                <li>
-                                    <a href="FrontController?command=find_drug&page=${requestScope.currentPage - 1}&drug_name=${requestScope.drug_name}">«</a>
-                                </li>
-                            </c:when>
-                            <c:otherwise>
-                                <li class="disabled"><a href="#">«</a></li>
-                            </c:otherwise>
-                        </c:choose>
-                        <c:forEach begin="1" end="${requestScope.noOfPages}" var="i">
-                            <c:choose>
-                                <c:when test="${requestScope.currentPage eq i}">
-                                    <li class="active"><a href="#"><c:out value="${i}"/><span
-                                            class="sr-only">(current)</span></a>
-                                    </li>
-                                </c:when>
-                                <c:otherwise>
-                                    <li>
-                                        <a href="FrontController?command=find_drug&page=${i}&drug_name=${requestScope.drug_name}"><c:out
-                                                value="${i}"/></a>
-                                    </li>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
-                        <c:choose>
-                            <c:when test="${requestScope.currentPage lt requestScope.noOfPages}">
-                                <li>
-                                    <a href="FrontController?command=find_drug&page=${requestScope.currentPage + 1}&drug_name=${requestScope.drug_name}">»</a>
-                                </li>
-                            </c:when>
-                            <c:otherwise>
-                                <li class="disabled"><a href="#">»</a></li>
-                            </c:otherwise>
-                        </c:choose>
-                    </ul>
+                <c:forEach var="item" items="${requestScope.drugs}">
+                    <tr>
+                        <td><c:out value="${item.id}"/></td>
+                        <td><c:out value="${item.name}"/></td>
+                        <td><c:out value="${item.dosage}"/></td>
+                        <td><c:out value="${item.amount}"/></td>
+                        <td><c:out value="${item.price}"/></td>
+                        <td><a href="FrontController?command="><c:out value="${item.manufacturer.name}"/></a>
+                        </td>
+                        <td><a href="FrontController?command="><c:out value="${item.manufacturer.country}"/></a>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+            <ul class="pagination">
+                <c:choose>
+                    <c:when test="${requestScope.currentPage != 1}">
+                        <li>
+                            <a href="FrontController?command=find_drug&page=${requestScope.currentPage - 1}&drug_name=${requestScope.drug_name}">«</a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="disabled"><a href="#">«</a></li>
+                    </c:otherwise>
+                </c:choose>
+                <c:forEach begin="1" end="${requestScope.noOfPages}" var="i">
+                    <c:choose>
+                        <c:when test="${requestScope.currentPage eq i}">
+                            <li class="active"><a href="#"><c:out value="${i}"/><span
+                                    class="sr-only">(current)</span></a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li>
+                                <a href="FrontController?command=find_drug&page=${i}&drug_name=${requestScope.drug_name}"><c:out
+                                        value="${i}"/></a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+                <c:choose>
+                    <c:when test="${requestScope.currentPage lt requestScope.noOfPages}">
+                        <li>
+                            <a href="FrontController?command=find_drug&page=${requestScope.currentPage + 1}&drug_name=${requestScope.drug_name}">»</a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="disabled"><a href="#">»</a></li>
+                    </c:otherwise>
+                </c:choose>
+            </ul>
         </c:if>
 
 
         <c:if test="${requestScope.prev_command eq 'get_manufacturer'}">
             <form action="FrontController" method="post">
                 <div class="form-row">
-                    <div >
+                    <div>
                         <label>name</label>
                         <input placeholder="<c:out value="${requestScope.manufacturer.name}"/>">
                     </div>
@@ -356,7 +335,7 @@
                         <input type="password" placeholder="Password">
                     </div>
                 </div>
-                <div >
+                <div>
                     <label>Address</label>
                     <input type="text" placeholder="1234 Main St">
                 </div>

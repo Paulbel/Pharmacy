@@ -1,15 +1,12 @@
 package by.pharmacy.dao.impl;
 
 import by.pharmacy.BaseDAOTest;
+import by.pharmacy.dao.impl.user.UserDAOImpl;
 import by.pharmacy.entity.Role;
 import by.pharmacy.entity.User;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 

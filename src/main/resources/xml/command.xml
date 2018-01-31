@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<com:commands xmlns:com="http://www.pharmacy.com/Commands"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://www.pharmacy.com/Commands schema.xsd">
+    <com:atomic_commands>
+        <com:command>
+            <com:name>change_language</com:name>
+            <com:class>by.pharmacy.controller.command.impl.cabinet.ChangeCurrentLanguageCommand</com:class>
+        </com:command>
+
+
+        <com:command>
+            <com:name>enter_cabinet</com:name>
+            <com:class>by.pharmacy.controller.command.impl.cabinet.EnterCabinetCommand</com:class>
+        </com:command>
+
+        <com:command>
+            <com:name>sign_in</com:name>
+            <com:class>by.pharmacy.controller.command.impl.cabinet.SignInCommand</com:class>
+        </com:command>
+        <com:command>
+            <com:name>sign_out</com:name>
+            <com:class>by.pharmacy.controller.command.impl.cabinet.SignOutCommand</com:class>
+        </com:command>
+
+
+
+        <com:command>
+            <com:name>sign_up</com:name>
+            <com:class>by.pharmacy.controller.command.impl.cabinet.SignUpCommand</com:class>
+        </com:command>
+        <com:command>
+            <com:name>get_country_list</com:name>
+            <com:class>by.pharmacy.controller.command.impl.country.GetCountryListCommand</com:class>
+        </com:command>
+        <com:command>
+            <com:name>add_drug</com:name>
+            <com:class>by.pharmacy.controller.command.impl.drug.AddDrugCommand</com:class>
+        </com:command>
+        <com:command>
+            <com:name>add_drug_description</com:name>
+            <com:class>by.pharmacy.controller.command.impl.drug.AddDrugDescriptionCommand</com:class>
+        </com:command>
+        <com:command>
+            <com:name>change_drug_description</com:name>
+            <com:class>by.pharmacy.controller.command.impl.drug.ChangeDrugDescriptionCommand</com:class>
+        </com:command>
+        <com:command>
+            <com:name>change_drug_info</com:name>
+            <com:class>by.pharmacy.controller.command.impl.drug.ChangeDrugInfoCommand</com:class>
+        </com:command>
+        <com:command>
+            <com:name>find_drug</com:name>
+            <com:class>by.pharmacy.controller.command.impl.drug.FindDrugCommand</com:class>
+        </com:command>
+        <com:command>
+            <com:name>get_drug</com:name>
+            <com:class>by.pharmacy.controller.command.impl.drug.GetDrugCommand</com:class>
+        </com:command>
+        <com:command>
+            <com:name>get_drug_list</com:name>
+            <com:class>by.pharmacy.controller.command.impl.drug.GetDrugListCommand</com:class>
+        </com:command>
+        <com:command>
+            <com:name>get_language_map</com:name>
+            <com:class>by.pharmacy.controller.command.impl.language.GetLanguageMapCommand</com:class>
+        </com:command>
+        <com:command>
+            <com:name>add_manufacturer</com:name>
+            <com:class>by.pharmacy.controller.command.impl.manufacturer.AddManufacturerCommand</com:class>
+        </com:command>
+        <com:command>
+            <com:name>get_specific_manufacturer</com:name>
+            <com:class>by.pharmacy.controller.command.impl.manufacturer.GetManufacturerCommand</com:class>
+        </com:command>
+        <com:command>
+            <com:name>get_manufacturer_list</com:name>
+            <com:class>by.pharmacy.controller.command.impl.manufacturer.GetManufacturerListCommand</com:class>
+        </com:command>
+        <com:command>
+            <com:name>add_order</com:name>
+            <com:class>by.pharmacy.controller.command.impl.order.AddOrderCommand</com:class>
+        </com:command>
+        <com:command>
+            <com:name>add_prescription</com:name>
+            <com:class>by.pharmacy.controller.command.impl.prescription.AddPrescriptionCommand</com:class>
+        </com:command>
+        <com:command>
+            <com:name>get_client_list</com:name>
+            <com:class>by.pharmacy.controller.command.impl.user.GetClientListCommand</com:class>
+        </com:command>
+        <com:command>
+            <com:name>give_role</com:name>
+            <com:class>by.pharmacy.controller.command.impl.user.GiveRoleCommand</com:class>
+        </com:command>
+        <com:command>
+            <com:name>get_user_list</com:name>
+            <com:class>by.pharmacy.controller.command.impl.user.GetUserListCommand</com:class>
+        </com:command>
+
+    </com:atomic_commands>
+    <com:macro_commands>
+        <com:macro_command>
+            <com:name>get_language_drugs_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>get_language_map</com:command_name>
+                <com:command_name>get_drug_list</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>get_drug_list_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>get_drug_list</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>get_country_list_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>get_country_list</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>get_drug_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>get_drug</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>give_role_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>give_role</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>get_user_list_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>get_user_list</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+
+        <com:macro_command>
+            <com:name>find_drug_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>find_drug</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>sign_in_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>sign_in</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>get_manufacturer_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>get_manufacturer</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>add_drug_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>add_drug</com:command_name>
+                <com:command_name>get_manufacturer_list</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>add_drug_description_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>add_drug_description</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>get_manufacturer_list_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>get_manufacturer_list</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>change_drug_description_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>change_drug_description</com:command_name>
+                <com:command_name>get_drug</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>change_drug_info_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>change_drug_info</com:command_name>
+                <com:command_name>get_drug</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>add_manufacturer_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>add_manufacturer</com:command_name>
+                <com:command_name>get_country_list</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+    </com:macro_commands>
+</com:commands>
+

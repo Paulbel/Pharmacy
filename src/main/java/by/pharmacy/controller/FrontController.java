@@ -2,15 +2,31 @@ package by.pharmacy.controller;
 
 import by.pharmacy.controller.command.Command;
 import by.pharmacy.controller.command.CommandInvoker;
+import by.pharmacy.controller.command.CommandSaxHandler;
 import by.pharmacy.controller.command.MacroCommand;
-import by.pharmacy.controller.command.impl.*;
+import by.pharmacy.controller.command.impl.cabinet.*;
+import by.pharmacy.controller.command.impl.country.GetCountryListCommand;
+import by.pharmacy.controller.command.impl.drug.*;
+import by.pharmacy.controller.command.impl.manufacturer.AddManufacturerCommand;
+import by.pharmacy.controller.command.impl.manufacturer.GetManufacturerCommand;
+import by.pharmacy.controller.command.impl.manufacturer.GetManufacturerListCommand;
+import by.pharmacy.controller.command.impl.user.GiveRoleCommand;
+import by.pharmacy.controller.command.impl.user.GetUserListCommand;
+import by.pharmacy.controller.command.impl.language.GetLanguageMapCommand;
 import by.pharmacy.service.exception.ServiceException;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.DefaultHandler;
+import org.xml.sax.helpers.XMLReaderFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URL;
 
 public class FrontController extends HttpServlet {
     private static final long serialVersionUID = -2081650491757405193L;
@@ -18,17 +34,28 @@ public class FrontController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        //TODO:JAXB unmarshaller
-        CommandInvoker commandInvoker = CommandInvoker.getInstance();
+        try {
+            CommandInvoker commandInvoker = CommandInvoker.getInstance();
+            XMLReader reader = XMLReaderFactory.createXMLReader();
+            reader.setContentHandler(new CommandSaxHandler(commandInvoker));
+            reader.parse(new InputSource(new FileInputStream(getFilePath())));
+            System.out.println(commandInvoker);
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+       /* CommandInvoker commandInvoker = CommandInvoker.getInstance();
 
         Command command = new MacroCommand();
-        command.addCommand(new GetLanguageCommand());
-        command.addCommand(new GetAllDrugCommand());
+        command.addCommand(new GetLanguageMapCommand());
+        command.addCommand(new GetDrugListCommand());
         command.addCommand(new EnterCabinetCommand());
         commandInvoker.addCommand(ControllerConstant.GET_LANGUAGE_AND_DRUGS_COMMAND, command);
 
         command = new MacroCommand();
-        command.addCommand(new GetAllDrugCommand());
+        command.addCommand(new GetDrugListCommand());
         command.addCommand(new EnterCabinetCommand());
         commandInvoker.addCommand(ControllerConstant.GET_DRUGS_COMMAND, command);
 
@@ -44,7 +71,6 @@ public class FrontController extends HttpServlet {
         commandInvoker.addCommand(ControllerConstant.GET_DRUG_COMMAND, command);
 
 
-        commandInvoker.addCommand(ControllerConstant.CHANGE_LANGUAGE_COMMAND, new ChangeLanguageCommand());
 
         command = new MacroCommand();
         command.addCommand(new GiveRoleCommand());
@@ -53,13 +79,12 @@ public class FrontController extends HttpServlet {
 
 
         command = new MacroCommand();
-        command.addCommand(new ShowAllUsersCommand());
+        command.addCommand(new GetUserListCommand());
         command.addCommand(new EnterCabinetCommand());
         commandInvoker.addCommand(ControllerConstant.SHOW_USERS_COMMAND, command);
 
 
         command = new MacroCommand();
-
         command.addCommand(new FindDrugCommand());
         command.addCommand(new EnterCabinetCommand());
         commandInvoker.addCommand(ControllerConstant.FIND_DRUG_COMMAND, command);
@@ -113,12 +138,13 @@ public class FrontController extends HttpServlet {
         command.addCommand(new EnterCabinetCommand());
         commandInvoker.addCommand(ControllerConstant.CHANGE_DRUG_INFO_COMMAND, command);
 
-        command = new EnterCabinetCommand();
-        commandInvoker.addCommand(ControllerConstant.ENTER_CABINET_COMMAND, command);
+        commandInvoker.addCommand(ControllerConstant.CHANGE_LANGUAGE_COMMAND, new ChangeCurrentLanguageCommand());
+
+        commandInvoker.addCommand(ControllerConstant.ENTER_CABINET_COMMAND, new EnterCabinetCommand());
 
         commandInvoker.addCommand(ControllerConstant.SIGN_OUT_COMMAND, new SignOutCommand());
 
-        commandInvoker.addCommand(ControllerConstant.SIGN_UP_COMMAND, new SignUpCommand());
+        commandInvoker.addCommand(ControllerConstant.SIGN_UP_COMMAND, new SignUpCommand());*/
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -137,5 +163,18 @@ public class FrontController extends HttpServlet {
         } catch (ServiceException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getFilePath() {
+        URL fileURL = this.getClass().getClassLoader().getResource("xml/command.xml");
+        String filePath = null;
+
+        if (fileURL != null) {
+            filePath = fileURL.getPath();
+            filePath = filePath.replaceAll("%5B", "[");
+            filePath = filePath.replaceAll("%5D", "]");
+        }
+
+        return filePath;
     }
 }
