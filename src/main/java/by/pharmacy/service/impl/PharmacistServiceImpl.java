@@ -9,8 +9,6 @@ import by.pharmacy.entity.*;
 import by.pharmacy.service.PharmacistService;
 import by.pharmacy.service.exception.ServiceException;
 
-import java.util.List;
-
 public class PharmacistServiceImpl implements PharmacistService {
     @Override
     public void addDrug(Drug drug, Language language) throws ServiceException {
@@ -72,5 +70,9 @@ public class PharmacistServiceImpl implements PharmacistService {
         }
     }
 
+    @Override
+    public void removeDrug(int drugId, String doctorLogin) throws ServiceException {
+
+    }
 
 }

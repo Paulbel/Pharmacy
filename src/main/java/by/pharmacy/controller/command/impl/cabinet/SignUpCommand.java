@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class SignUpCommand extends Command {
+public class SignUpCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         String name = request.getParameter(ControllerConstant.NAME_ATTRIBUTE);
@@ -23,7 +23,6 @@ public class SignUpCommand extends Command {
         String email = request.getParameter(ControllerConstant.EMAIL_ATTRIBUTE);
 
         User user = new User();
-
         user.setName(name);
         user.setSurname(surname);
         user.setLogin(login);
@@ -32,7 +31,7 @@ public class SignUpCommand extends Command {
 
         ServiceFactory factory = ServiceFactory.getInstance();
         UserService service = factory.getUserService();
-        service.signUp(user,password);
+        service.signUp(user, password);
         response.sendRedirect(ControllerConstant.MAIN_PAGE_URI);
     }
 }

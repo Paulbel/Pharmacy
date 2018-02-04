@@ -7,13 +7,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class MacroCommand extends Command {
+public class MacroCommand implements Command {
+
+    private List<Command> commandList = new ArrayList<>();
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServiceException, ServletException {
         for (Command command : commandList) {
             command.execute(request, response);
         }
+    }
+
+    public void addCommand(Command command) {
+        this.commandList.add(command);
     }
 
     public MacroCommand() {

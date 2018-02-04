@@ -8,14 +8,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class SignOutCommand extends Command {
+public class SignOutCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
 
-        session.removeAttribute(ControllerConstant.ROLE_ATTRIBUTE);
-        session.removeAttribute(ControllerConstant.NAME_ATTRIBUTE);
-        session.removeAttribute(ControllerConstant.LOGIN_ATTRIBUTE);
+//        session.removeAttribute(ControllerConstant.ROLE_ATTRIBUTE);
+//        session.removeAttribute(ControllerConstant.NAME_ATTRIBUTE);
+//        session.removeAttribute(ControllerConstant.LOGIN_ATTRIBUTE);
+        session.invalidate();
 
         response.sendRedirect(ControllerConstant.MAIN_PAGE_URI);
     }

@@ -9,30 +9,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CommandSaxHandler extends DefaultHandler {
+    private final static String NAME = "name";
+    private final static String CLASS = "class";
+    private final static String COMMAND_NAME = "command_name";
+    private final static String COMMAND = "command";
+    private final static String MACRO_COMMAND = "macro_command";
+
     private StringBuilder text;
     private Command command;
     private String commandName;
-    private CommandInvoker commandInvoker;
     private Map<String, Command> commandMap;
 
-
-    private final String NAME = "name";
-    private final String CLASS = "class";
-    private final String COMMAND_NAME = "command_name";
-    private final String COMMAND = "command";
-    private final String MACRO_COMMAND = "macro_command";
-
-
-    public CommandSaxHandler(CommandInvoker commandInvoker) {
-        this.commandInvoker = commandInvoker;
+    public CommandSaxHandler() {
         this.commandMap = new HashMap<>();
     }
 
+    public Map<String, Command> getCommandMap() {
+        return commandMap;
+    }
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         text = new StringBuilder();
-        switch (localName){
+        switch (localName) {
             case MACRO_COMMAND:
                 command = new MacroCommand();
                 break;
@@ -44,7 +43,6 @@ public class CommandSaxHandler extends DefaultHandler {
         switch (localName) {
             case COMMAND:
                 commandMap.put(commandName, command);
-                commandInvoker.addCommand(commandName, command);
                 break;
             case CLASS:
                 try {
@@ -56,10 +54,11 @@ public class CommandSaxHandler extends DefaultHandler {
                 }
                 break;
             case MACRO_COMMAND:
-                commandInvoker.addCommand(commandName, command);
+                commandMap.put(commandName, command);
                 break;
             case COMMAND_NAME:
-                command.addCommand(commandMap.get(String.valueOf(text)));
+                MacroCommand macroCommand = (MacroCommand) command;
+                macroCommand.addCommand(commandMap.get(String.valueOf(text)));
                 break;
             case NAME:
                 commandName = String.valueOf(text);
@@ -67,12 +66,9 @@ public class CommandSaxHandler extends DefaultHandler {
         }
     }
 
-
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         text.append(ch, start, length);
     }
-
-
 }
 

@@ -1,7 +1,7 @@
 package by.pharmacy.controller.command.impl.drug;
 
 import by.pharmacy.controller.ControllerConstant;
-import by.pharmacy.controller.command.Command;;
+import by.pharmacy.controller.command.Command;
 import by.pharmacy.entity.Drug;
 import by.pharmacy.entity.Language;
 import by.pharmacy.service.PharmacistService;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class AddDrugDescriptionCommand extends Command {
+public class AddDrugDescriptionCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServiceException, ServletException {
         int drugId = Integer.valueOf(request.getParameter(ControllerConstant.DRUG_ID_ATTRIBUTE));

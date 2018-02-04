@@ -13,17 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class GetClientListCommand extends Command {
+public class GetClientListCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServiceException, ServletException {
-
-        ServiceFactory factory = ServiceFactory.getInstance();
-        DoctorService doctorService = factory.getDoctorService();
+        DoctorService doctorService = ServiceFactory.getInstance().getDoctorService();
 
         List<User> list = doctorService.getClientList();
-
-
-
 
         int page = 1;
         int recordsPerPage = 30;
@@ -34,19 +29,15 @@ public class GetClientListCommand extends Command {
         int noOfRecords = list.size();
         int noOfPages = (int) Math.ceil(noOfRecords / recordsPerPage);
 
-
         int fromIndex = recordsPerPage*(page-1);
         int toIndex = recordsPerPage+fromIndex;
         if(fromIndex+recordsPerPage>noOfRecords){
             toIndex = noOfRecords;
         }
         List<User> subList = list.subList(fromIndex,toIndex);
-
-
-
-        
-        request.setAttribute(ControllerConstant.USERS_ATTRIBUTE, subList);
         request.setAttribute("noOfPages", noOfPages);
         request.setAttribute("currentPage", page);
+
+        request.setAttribute(ControllerConstant.USERS_ATTRIBUTE, subList);
     }
 }

@@ -4,15 +4,12 @@ import by.pharmacy.dao.*;
 import by.pharmacy.dao.exception.DAOException;
 import by.pharmacy.entity.*;
 import by.pharmacy.service.UserService;
-import by.pharmacy.service.comparator.NameComparator;
 import by.pharmacy.service.exception.ServiceException;
 
 import java.util.List;
 import java.util.Map;
 
 public class UserServiceImpl implements UserService {
-
-
     @Override
     public User signIn(String login, String password) throws ServiceException {
         try {
@@ -23,7 +20,6 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException(e.getMessage(), e);
         }
     }
-
 
     @Override
     public void signUp(User user, String password) throws ServiceException {
@@ -37,25 +33,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Drug> getDrugs(Language language, int number, int offset) throws ServiceException {
+    public List<Drug> getDrugs(Language language, int number, int offset, DrugCriteria orderField) throws ServiceException {
         try {
             DAOFactory daoFactory = DAOFactory.getInstance();
             DrugDAO drugDAO = daoFactory.getDrugDAO();
 
-            return drugDAO.getDrugs(language, number, offset);
+            return drugDAO.getDrugs(language, number, offset, orderField);
         } catch (DAOException e) {
             throw new ServiceException("Can't get drugs", e);
         }
     }
 
     @Override
-    public List<Drug> findDrug(String name, Language language) throws ServiceException {
+    public List<Drug> findDrug(String name, Language language, DrugCriteria orderField) throws ServiceException {
         try {
             DAOFactory daoFactory = DAOFactory.getInstance();
             DrugDAO drugDAO = daoFactory.getDrugDAO();
-            List<Drug>drugs =drugDAO.findDrugByName(name, language);
-                    drugs.sort(new NameComparator());
-            return drugs;
+            return drugDAO.findDrugByName(name, language, orderField);
         } catch (DAOException e) {
             throw new ServiceException("Can't find drug", e);
         }
@@ -100,6 +94,17 @@ public class UserServiceImpl implements UserService {
         ManufacturerDAO manufacturerDAO = daoFactory.getManufacturerDAO();
         try {
             return manufacturerDAO.getManufacturerCount(language);
+        } catch (DAOException e) {
+            throw new ServiceException("Can't get manufacturers", e);
+        }
+    }
+
+    @Override
+    public List<Manufacturer> findManufacturer(String content, Language language) throws ServiceException {
+        DAOFactory daoFactory = DAOFactory.getInstance();
+        ManufacturerDAO manufacturerDAO = daoFactory.getManufacturerDAO();
+        try {
+            return manufacturerDAO.findManufacturer(content, language);
         } catch (DAOException e) {
             throw new ServiceException("Can't get manufacturers", e);
         }

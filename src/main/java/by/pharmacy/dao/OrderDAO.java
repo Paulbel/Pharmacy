@@ -10,7 +10,9 @@ public interface OrderDAO {
 
     void addOrder(Order order) throws DAOException;
 
-    List<Order> getUserOrders(String login, int number, int offset, Language language) throws DAOException;
+    List<Order> getClientOrders(String login, int number, int offset, Language language) throws DAOException;
 
     List<Order> getOrders(int number, int offset, Language language) throws DAOException;
+
+    int getOrderCount(String login, Language language) throws DAOException;
 }

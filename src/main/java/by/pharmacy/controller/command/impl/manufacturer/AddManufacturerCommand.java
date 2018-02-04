@@ -15,11 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class AddManufacturerCommand extends Command {
+public class AddManufacturerCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServiceException, ServletException {
-        ServiceFactory factory = ServiceFactory.getInstance();
-        PharmacistService pharmacistService = factory.getPharmacistService();
+        PharmacistService pharmacistService = ServiceFactory.getInstance().getPharmacistService();
 
         HttpSession session = request.getSession();
         String languageName = (String) session.getAttribute(ControllerConstant.LOCAL_ATTRIBUTE);

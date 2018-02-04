@@ -12,22 +12,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Map;
 
-public class GetLanguageMapCommand extends Command{
+public class GetLanguageMapCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServiceException, ServletException {
-        ServiceFactory serviceFactory = ServiceFactory.getInstance();
-        UserService userService = serviceFactory.getUserService();
+        UserService userService = ServiceFactory.getInstance().getUserService();
 
         HttpSession session = request.getSession();
 
         Language currentLocale = Language.valueOf(session.getAttribute(ControllerConstant.LOCAL_ATTRIBUTE).toString().toUpperCase());
 
-        Map<String,Language> languageMap = userService.getLanguages(currentLocale);
-        request.setAttribute(ControllerConstant.LANGUAGES_ATTRIBUTE,languageMap);
+        request.setAttribute(ControllerConstant.LANGUAGES_ATTRIBUTE, userService.getLanguages(currentLocale));
     }
-
-
 }

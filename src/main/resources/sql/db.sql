@@ -14,7 +14,18 @@ INSERT INTO user (login, password, name, surname, role, phone, email) VALUES
   ('pavel', '3455', 'Pavel', 'Sinelnikov', 'PHARMACIST', '3252525', 'asd@gmail.com');
 
 DELETE FROM user;
-
+SELECT
+  drug_translate.name,
+  drug.price,
+  drug.id,
+  orders.date,
+  orders.number
+FROM orders
+  INNER JOIN user ON orders.client_login = user.login
+  INNER JOIN drug ON orders.drug_id = drug.id
+  INNER JOIN drug_translate ON drug.id = drug_translate.drug_id
+WHERE user.login = 'pavel_client' AND drug_translate.lang_name = 'ru'
+LIMIT 30 OFFSET 0;
 
 SELECT
   drug.id,

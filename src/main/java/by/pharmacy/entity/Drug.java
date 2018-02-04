@@ -1,11 +1,14 @@
 package by.pharmacy.entity;
 
-
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
-public class Drug implements Serializable{
+@XmlRootElement(name = "drug")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Drug implements Serializable {
     private static final long serialVersionUID = 4340011690482548403L;
-
     private int id;
     private String name;
     private String composition;
@@ -17,7 +20,12 @@ public class Drug implements Serializable{
     private double price;
     private Manufacturer manufacturer;
 
+
     public Drug() {
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public int getId() {
@@ -153,4 +161,5 @@ public class Drug implements Serializable{
         result = 31 * result + (manufacturer != null ? manufacturer.hashCode() : 0);
         return result;
     }
+
 }

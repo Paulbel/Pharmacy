@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class ChangeDrugDescriptionCommand extends Command {
+public class ChangeDrugDescriptionCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServiceException, ServletException {
         ServiceFactory factory = ServiceFactory.getInstance();
@@ -30,7 +30,6 @@ public class ChangeDrugDescriptionCommand extends Command {
         String composition = request.getParameter(ControllerConstant.DRUG_COMPOSITION_ATTRIBUTE);
         String description = request.getParameter(ControllerConstant.DRUG_DESCRIPTION_ATTRIBUTE);
 
-
         Drug drug = new Drug();
         drug.setId(drugId);
         drug.setName(name);
@@ -38,6 +37,5 @@ public class ChangeDrugDescriptionCommand extends Command {
         drug.setDescription(description);
 
         pharmacistService.changeDrugDescription(drug,language);
-
     }
 }

@@ -2,7 +2,6 @@ package by.pharmacy.dao.impl;
 
 import by.pharmacy.BaseDAOTest;
 import by.pharmacy.dao.ManufacturerDAO;
-import by.pharmacy.dao.impl.manufacturer.ManufacturerDAOImpl;
 import by.pharmacy.entity.Language;
 import by.pharmacy.entity.Manufacturer;
 import org.junit.After;

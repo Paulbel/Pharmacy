@@ -8,6 +8,16 @@
             <com:class>by.pharmacy.controller.command.impl.cabinet.ChangeCurrentLanguageCommand</com:class>
         </com:command>
 
+        <com:command>
+            <com:name>get_prescription</com:name>
+            <com:class>by.pharmacy.controller.command.impl.prescription.GetPrescriptionCommand</com:class>
+        </com:command>
+
+
+        <com:command>
+            <com:name>get_order_list</com:name>
+            <com:class>by.pharmacy.controller.command.impl.order.GetOrderListCommand</com:class>
+        </com:command>
 
         <com:command>
             <com:name>enter_cabinet</com:name>
@@ -23,7 +33,10 @@
             <com:class>by.pharmacy.controller.command.impl.cabinet.SignOutCommand</com:class>
         </com:command>
 
-
+        <com:command>
+            <com:name>find_manufacturer</com:name>
+            <com:class>by.pharmacy.controller.command.impl.manufacturer.FindManufacturerCommand</com:class>
+        </com:command>
 
         <com:command>
             <com:name>sign_up</com:name>
@@ -70,7 +83,7 @@
             <com:class>by.pharmacy.controller.command.impl.manufacturer.AddManufacturerCommand</com:class>
         </com:command>
         <com:command>
-            <com:name>get_specific_manufacturer</com:name>
+            <com:name>get_manufacturer</com:name>
             <com:class>by.pharmacy.controller.command.impl.manufacturer.GetManufacturerCommand</com:class>
         </com:command>
         <com:command>
@@ -218,11 +231,43 @@
         </com:macro_command>
 
         <com:macro_command>
+            <com:name>find_manufacturer_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>find_manufacturer</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>add_order_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>add_order</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>get_order_list_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>get_order_list</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
             <com:name>add_manufacturer_enter_cabinet</com:name>
             <com:command_list>
                 <com:command_name>add_manufacturer</com:command_name>
                 <com:command_name>get_country_list</com:command_name>
                 <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>get_prescription_drug_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>get_prescription</com:command_name>
+                <com:command_name>get_drug_enter_cabinet</com:command_name>
             </com:command_list>
         </com:macro_command>
     </com:macro_commands>

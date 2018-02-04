@@ -1,8 +1,7 @@
 package by.pharmacy.dao.connectionpool;
 
 
-import by.pharmacy.dao.connectionpool.exception.ConnectionPoolException;
-import by.pharmacy.dao.DAOConstant;
+import by.pharmacy.dao.exception.ConnectionPoolException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,28 +11,25 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 public final class ConnectionPool {
+    private final static String CURRENT_DB = "mysql";
+    private final static String DRIVER_NAME = "driver";
+    private final static String URL = "url";
+    private final static String USER = "user";
+    private final static String PASSWORD = "password";
+    private final static String POOL_SIZE = "pool_size";
+
     private BlockingQueue<Connection> connectionQueue;
     private BlockingQueue<Connection> givenConnectionQueue;
 
-    private int poolSize;
-    private String driverName;
-    private String url;
-    private String user;
-    private String password;
-
     private static volatile ConnectionPool instance = new ConnectionPool();
 
-    public static ConnectionPool getInstance()  {
-        return instance;
-    }
-
     private ConnectionPool() {
-        ResourceBundle resourceBundle =  ResourceBundle.getBundle(DAOConstant.CURRENT_DB);
-        this.driverName = resourceBundle.getString(DAOConstant.CURRENT_DB+"."+ DAOConstant.DRIVER_NAME);
-        this.url = resourceBundle.getString(DAOConstant.CURRENT_DB+"."+ DAOConstant.URL);
-        this.user = resourceBundle.getString(DAOConstant.CURRENT_DB+"."+ DAOConstant.USER);
-        this.password = resourceBundle.getString(DAOConstant.CURRENT_DB+"."+ DAOConstant.PASSWORD);
-        this.poolSize = Integer.valueOf(resourceBundle.getString(DAOConstant.CURRENT_DB+"."+ DAOConstant.POOL_SIZE));
+        ResourceBundle resourceBundle = ResourceBundle.getBundle(CURRENT_DB);
+        final String driverName = resourceBundle.getString(CURRENT_DB + "." + DRIVER_NAME);
+        final String url = resourceBundle.getString(CURRENT_DB + "." + URL);
+        final String user = resourceBundle.getString(CURRENT_DB + "." + USER);
+        final String password = resourceBundle.getString(CURRENT_DB + "." + PASSWORD);
+        int poolSize = Integer.valueOf(resourceBundle.getString(CURRENT_DB + "." + POOL_SIZE));
         try {
             Class.forName(driverName);
             givenConnectionQueue = new ArrayBlockingQueue<>(poolSize);
@@ -46,6 +42,10 @@ public final class ConnectionPool {
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException("Can't get access to database", e);
         }
+    }
+
+    public static ConnectionPool getInstance() {
+        return instance;
     }
 
     public void closeConnection(Connection connection) throws ConnectionPoolException {
@@ -99,6 +99,4 @@ public final class ConnectionPool {
             connection.close();
         }
     }
-
-
 }

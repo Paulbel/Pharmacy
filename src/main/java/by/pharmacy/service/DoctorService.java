@@ -10,4 +10,6 @@ public interface DoctorService {
     void addPrescription(String doctorLogin, String clientLogin, Drug drug, int dayCount) throws ServiceException;
 
     List<User> getClientList() throws ServiceException;
+
+    void changeProlongationRequestStatus(String idString, String doctorLogin, String statusString) throws ServiceException;
 }

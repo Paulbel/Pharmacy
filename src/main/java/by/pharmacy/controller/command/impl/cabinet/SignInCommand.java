@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class SignInCommand extends Command {
+public class SignInCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
@@ -25,10 +25,10 @@ public class SignInCommand extends Command {
         String password = request.getParameter(ControllerConstant.PASSWORD_ATTRIBUTE);
 
         User user = userService.signIn(login, password);
-        HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession();
 
-        if (session.getAttribute(ControllerConstant.LOCAL_ATTRIBUTE)==null){
-            session.setAttribute(ControllerConstant.LOCAL_ATTRIBUTE, Language.RU.toString().toLowerCase()   );
+        if (session.getAttribute(ControllerConstant.LOCAL_ATTRIBUTE) == null) {
+            session.setAttribute(ControllerConstant.LOCAL_ATTRIBUTE, Language.RU.toString().toLowerCase());
         }
         session.setAttribute(ControllerConstant.LOGIN_ATTRIBUTE, user.getLogin());
         session.setAttribute(ControllerConstant.NAME_ATTRIBUTE, user.getName());

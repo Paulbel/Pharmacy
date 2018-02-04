@@ -7,14 +7,11 @@ import by.pharmacy.entity.Role;
 import by.pharmacy.entity.User;
 import by.pharmacy.service.AdministratorService;
 import by.pharmacy.service.exception.AccessDeniedException;
-import by.pharmacy.service.validator.ValidatorFactory;
 import by.pharmacy.service.exception.ServiceException;
 
 import java.util.List;
 
 public class AdministratorServiceImpl implements AdministratorService {
-
-
     @Override
     public List<User> getUserList(String administratorLogin, int number, int offset) throws ServiceException {
         try {
@@ -44,5 +41,4 @@ public class AdministratorServiceImpl implements AdministratorService {
             throw new ServiceException(e.getMessage(), e);
         }
     }
-
 }

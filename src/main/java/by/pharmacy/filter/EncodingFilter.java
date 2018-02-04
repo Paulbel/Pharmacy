@@ -7,9 +7,8 @@ public class EncodingFilter implements Filter {
 
     private String encoding = "utf-8";
 
-    public void doFilter(ServletRequest request,
-
-                         ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
+            throws IOException, ServletException {
         request.setCharacterEncoding(encoding);
         filterChain.doFilter(request, response);
     }

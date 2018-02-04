@@ -1,12 +1,6 @@
 package by.pharmacy.dao;
 
-import by.pharmacy.dao.impl.country.CountryDAOImpl;
-import by.pharmacy.dao.impl.drug.DrugDAOImpl;
-import by.pharmacy.dao.impl.language.LanguageDAOImpl;
-import by.pharmacy.dao.impl.manufacturer.ManufacturerDAOImpl;
-import by.pharmacy.dao.impl.order.OrderDAOImpl;
-import by.pharmacy.dao.impl.prescription.PrescriptionDAOImpl;
-import by.pharmacy.dao.impl.user.UserDAOImpl;
+import by.pharmacy.dao.impl.*;
 
 
 public class DAOFactory {
@@ -19,6 +13,12 @@ public class DAOFactory {
     private CountryDAO countryDAO = new CountryDAOImpl();
     private PrescriptionDAO prescriptionDAO = new PrescriptionDAOImpl();
     private OrderDAO orderDAO = new OrderDAOImpl();
+    private ProlongationRequestDAO prolongationRequestDAO = new ProlongationRequestDAOImpl();
+
+
+    public ProlongationRequestDAO getProlongationRequestDAO() {
+        return prolongationRequestDAO;
+    }
 
     public OrderDAO getOrderDAO() {
         return orderDAO;

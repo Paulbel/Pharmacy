@@ -1,17 +1,21 @@
 package by.pharmacy.service;
 
-import by.pharmacy.service.impl.AdministratorServiceImpl;
-import by.pharmacy.service.impl.DoctorServiceImpl;
-import by.pharmacy.service.impl.PharmacistServiceImpl;
-import by.pharmacy.service.impl.UserServiceImpl;
+import by.pharmacy.service.impl.*;
 
 
 public final class ServiceFactory {
     private static final ServiceFactory instance = new ServiceFactory();
+
     private UserService userService = new UserServiceImpl();
     private AdministratorService administratorService = new AdministratorServiceImpl();
     private PharmacistService pharmacistService = new PharmacistServiceImpl();
     private DoctorService doctorService = new DoctorServiceImpl();
+    private ClientService clientService = new ClientServiceImpl();
+
+
+    public ClientService getClientService() {
+        return clientService;
+    }
 
     public DoctorService getDoctorService() {
         return doctorService;

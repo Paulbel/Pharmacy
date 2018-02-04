@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-public class GetManufacturerListCommand extends Command {
+public class GetManufacturerListCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServiceException, ServletException {
         ServiceFactory factory = ServiceFactory.getInstance();
@@ -26,7 +26,7 @@ public class GetManufacturerListCommand extends Command {
 
         Language language = Language.valueOf(languageName.toUpperCase());
         int manufacturerNumber = userService.getManufacturerCount(language);
-        List<Manufacturer> manufacturerList = userService.getManufacturers(language,manufacturerNumber,0);
+        List<Manufacturer> manufacturerList = userService.getManufacturers(language, manufacturerNumber, 0);
         request.setAttribute(ControllerConstant.MANUFACTURER_LIST_ATTRIBUTE, manufacturerList);
     }
 }

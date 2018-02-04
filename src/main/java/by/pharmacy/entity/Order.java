@@ -3,6 +3,8 @@ package by.pharmacy.entity;
 import java.util.Date;
 
 public class Order {
+    //TODO ID
+    private long id;
     private User client;
     private Drug drug;
     private int number;
@@ -10,6 +12,14 @@ public class Order {
 
     public Order() {
 
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public User getClient() {

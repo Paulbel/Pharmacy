@@ -1,5 +1,6 @@
 package by.pharmacy.entity;
 
-public enum  Role {
-    DOCTOR,ADMIN, PHARMACIST,CLIENT
+//TODO rename
+public enum Role {
+    DOCTOR, ADMIN, PHARMACIST, CLIENT
 }

@@ -3,17 +3,36 @@ package by.pharmacy.entity;
 import java.util.Date;
 
 public class Prescription {
-    private Date date;
+    private int id;
+    private Date startDate;
+    private Date endDate;
     private User client;
     private User doctor;
     private Drug drug;
 
-    public Date getDate() {
-        return date;
+
+    public int getId() {
+        return id;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public User getClient() {
@@ -39,4 +58,6 @@ public class Prescription {
     public void setDrug(Drug drug) {
         this.drug = drug;
     }
+
+    //TODO hashCode ...
 }

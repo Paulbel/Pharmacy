@@ -11,7 +11,9 @@ public final class ControllerConstant {
     public static final String USERS_ATTRIBUTE = "users";
     public static final String COMMAND_ATTRIBUTE = "command";
     public static final String PREV_COMMAND_ATTRIBUTE = "prev_command";
-    public static final String WANT_COMMAND_ATTRIBUTE = "want_command";
+    public static final String CURRENT_OPTION_ATTRIBUTE = "want_command";
+    public static final String PROBLEM_DESCRIPTION = "problem_description";
+
 
     public static final String DAY_COUNT_ATTRIBUTE = "day_count";
 
@@ -20,6 +22,8 @@ public final class ControllerConstant {
     public static final String MANUFACTURER_ID_ATTRIBUTE = "manufacturer_id";
     public static final String MANUFACTURER_ADDRESS_ATTRIBUTE = "manufacturer_address";
     public static final String MANUFACTURER_NAME_ATTRIBUTE = "manufacturer_name";
+
+    public static final String ORDER_LIST_ATTRIBUTE = "order_list";
 
 
     public static final String COUNTRY_CODE_ATTRIBUTE = "country_code";
@@ -43,7 +47,6 @@ public final class ControllerConstant {
     public static final String MAIN_PAGE_URI = "index.jsp";
 
 
-    public static final String SIGN_IN_ENTER_CABINET_COMMAND = "sign_in_enter_cabinet";
     public static final String ENTER_CABINET_COMMAND = "enter_cabinet";
     public static final String FIND_DRUG_COMMAND = "find_drug";
     public static final String SHOW_USERS_COMMAND = "show_users";
@@ -71,6 +74,7 @@ public final class ControllerConstant {
 
     public static final String PHARMACIST_CABINET_URI = "WEB-INF/jsp/pharmacist_cabinet.jsp";
     public static final String ADMIN_CABINET_URI = "WEB-INF/jsp/admin_cabinet.jsp";
+    public static final String CLIENT_CABINET_URI = "WEB-INF/jsp/client_cabinet.jsp";
     public static final String DOCTOR_CABINET_URI = "WEB-INF/jsp/doctor_cabinet.jsp";
     public static final String PROBLEM_URI = "WEB-INF/jsp/problem_accured.jsp";
     public static final String DEFAULT_LANGUAGE = "en";

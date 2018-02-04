@@ -12,9 +12,7 @@
     <title>Title</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="fonts.css" type="text/css" charset="utf-8"/>
-    <link rel="stylesheet" type="text/css" href="MainPageStyles.css">
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
 
     <fmt:setLocale value="${sessionScope.local}"/>
     <fmt:setBundle basename="local" var = "loc"/>
@@ -38,7 +36,7 @@
 <body>
 
 
-<div id="signInForm" class="modal">
+<%--<div id="signInForm" class="modal">
   <span onclick="document.getElementById('signInForm').style.display='none'"
         class="close" title="Close Modal">&times;</span>
 
@@ -158,8 +156,8 @@
             </ul>
         </div>
     </div>
-</nav>
+</nav>--%>
+<jsp:include page="navbar.jsp"/>
 
-</h>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package by.pharmacy.service.exception;
 
+//TODO rename
 public class UserExistsException extends ServiceException {
     public UserExistsException() {
     }

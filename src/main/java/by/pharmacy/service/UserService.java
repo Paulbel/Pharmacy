@@ -11,10 +11,11 @@ public interface UserService {
 
     void signUp(User user, String password) throws ServiceException;
 
-    List<Drug> getDrugs(Language language, int number, int offset) throws ServiceException;
+    List<Drug> getDrugs(Language language, int number, int offset, DrugCriteria orderField) throws ServiceException;
 
-    List<Drug> findDrug(String name, Language language) throws ServiceException;
+    List<Drug> findDrug(String name, Language language, DrugCriteria orderField) throws ServiceException;
 
+    List<Country> getCountryList(Language language) throws ServiceException;
 
     int getDrugCount(Language language) throws ServiceException;
 
@@ -24,9 +25,10 @@ public interface UserService {
 
     int getManufacturerCount(Language language) throws ServiceException;
 
+    List<Manufacturer> findManufacturer(String content, Language language) throws ServiceException;
+
     Manufacturer getManufacturer(int id, Language language) throws ServiceException;
 
     Drug getDrug(int drugId, Language language) throws ServiceException;
 
-    List<Country> getCountryList(Language language) throws ServiceException;
 }
