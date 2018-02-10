@@ -1,19 +1,20 @@
 package by.pharmacy.dao.builder;
 
-import by.pharmacy.dao.builder.impl.DrugBuilderImpl;
 import by.pharmacy.entity.Drug;
 
 import java.sql.SQLException;
 
 public interface DrugBuilder {
 
-    DrugBuilderImpl create();
+    void create();
 
-    DrugBuilderImpl buildDrugInfo() throws SQLException;
+    void buildDrugInfo() throws SQLException;
 
-    DrugBuilderImpl buildDrugDescription() throws SQLException;
+    void buildDrugDescription() throws SQLException;
 
-    DrugBuilderImpl buildDrugManufacturer() throws SQLException;
+    void buildDrugManufacturer() throws SQLException;
+
+    void buildFullDrug() throws SQLException;
 
     Drug get();
 }

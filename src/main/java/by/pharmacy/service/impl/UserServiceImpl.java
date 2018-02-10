@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
             DAOFactory daoFactory = DAOFactory.getInstance();
             DrugDAO drugDAO = daoFactory.getDrugDAO();
 
-            return drugDAO.getDrugs(language, number, offset, orderField);
+            return drugDAO.getDrugList(language, number, offset, orderField);
         } catch (DAOException e) {
             throw new ServiceException("Can't get drugs", e);
         }

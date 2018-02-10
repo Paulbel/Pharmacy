@@ -46,7 +46,7 @@ public class DrugDAOImplTest extends BaseDAOTest {
     public void testGetDrugs() throws Exception {
         DrugDAO drugDAO = new DrugDAOImpl();
         List<Drug> expectedList = drugs.subList(0, 2);
-        //assertEquals(expectedList, drugDAO.getDrugs(Language.RU, 10, 0));
+        //assertEquals(expectedList, drugDAO.getDrugList(Language.RU, 10, 0));
     }
 
     @Test

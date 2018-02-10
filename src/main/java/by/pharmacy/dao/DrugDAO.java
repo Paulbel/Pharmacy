@@ -8,7 +8,7 @@ import by.pharmacy.entity.Language;
 import java.util.List;
 
 public interface DrugDAO {
-    List<Drug> getDrugs(Language language, int number, int offset, DrugCriteria orderField) throws DAOException;
+    List<Drug> getDrugList(Language language, int number, int offset, DrugCriteria orderField) throws DAOException;
 
     void addDrug(Drug drug, Language language) throws DAOException;
 

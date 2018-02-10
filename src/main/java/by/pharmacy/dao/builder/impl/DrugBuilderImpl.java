@@ -16,12 +16,11 @@ public class DrugBuilderImpl implements DrugBuilder {
         this.resultSet = resultSet;
     }
 
-    public DrugBuilderImpl create() {
+    public void create() {
         this.drug = new Drug();
-        return this;
     }
 
-    public DrugBuilderImpl buildDrugInfo() throws SQLException {
+    public void buildDrugInfo() throws SQLException {
         int id = resultSet.getInt("drug.id");
         int number = resultSet.getInt("drug.number");
         int amount = resultSet.getInt("drug.amount");
@@ -35,11 +34,9 @@ public class DrugBuilderImpl implements DrugBuilder {
         drug.setDosage(dosage);
         drug.setPrice(price);
         drug.setNeedPrescription(needPrescription);
-
-        return this;
     }
 
-    public DrugBuilderImpl buildDrugDescription() throws SQLException {
+    public void buildDrugDescription() throws SQLException {
         String name = resultSet.getString("drug_translate.name");
         String composition = resultSet.getString("drug_translate.composition");
         String description = resultSet.getString("drug_translate.description");
@@ -47,11 +44,9 @@ public class DrugBuilderImpl implements DrugBuilder {
         drug.setName(name);
         drug.setComposition(composition);
         drug.setDescription(description);
-
-        return this;
     }
 
-    public DrugBuilderImpl buildDrugManufacturer() throws SQLException {
+    public void buildDrugManufacturer() throws SQLException {
         int manufacturerId = resultSet.getInt("manufacturer.id");
         String phoneNumber = resultSet.getString("manufacturer.phone_number");
         String manufacturerName = resultSet.getString("manufacturer_translate.name");
@@ -74,8 +69,14 @@ public class DrugBuilderImpl implements DrugBuilder {
         manufacturer.setCountry(country);
 
         drug.setManufacturer(manufacturer);
+    }
 
-        return this;
+    @Override
+    public void buildFullDrug() throws SQLException {
+        this.create();
+        this.buildDrugInfo();
+        this.buildDrugDescription();
+        this.buildDrugManufacturer();
     }
 
     public Drug get() {
