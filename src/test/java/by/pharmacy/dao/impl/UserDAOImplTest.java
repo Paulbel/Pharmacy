@@ -17,7 +17,7 @@ public class UserDAOImplTest extends BaseDAOTest {
     @Test
     public void testGetUsers() throws Exception {
         UserDAOImpl sqlUserDAO = new UserDAOImpl();
-        assertEquals(users.subList(0, 2), sqlUserDAO.getUsers(10, 0));
+        assertEquals(users.subList(0, 2), sqlUserDAO.getUserList(10, 0));
     }
 
 
@@ -26,7 +26,7 @@ public class UserDAOImplTest extends BaseDAOTest {
     public void testRegistration() throws Exception {
         UserDAOImpl sqlUserDAO = new UserDAOImpl();
 
-       // sqlUserDAO.registration(users.get(2));
+        // sqlUserDAO.signUp(users.get(2));
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_LOGIN)) {
             statement.setString(1, users.get(2).getLogin());

@@ -44,7 +44,7 @@ public class DoctorServiceImpl implements DoctorService {
         try {
             DAOFactory daoFactory = DAOFactory.getInstance();
             UserDAO userDAO = daoFactory.getUserDAO();
-            return userDAO.getUsers(UserRole.CLIENT);
+            return userDAO.getUserList(UserRole.CLIENT);
         } catch (DAOException e) {
             throw new ServiceException("Can't find", e);
         }

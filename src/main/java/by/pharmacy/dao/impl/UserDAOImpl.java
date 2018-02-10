@@ -18,21 +18,15 @@ import java.util.List;
 public class UserDAOImpl implements UserDAO {
     private final static Logger logger = Logger.getLogger(UserDAOImpl.class);
     private static final String GET_USERS = "SELECT * FROM user LIMIT ? OFFSET ?";
-
-    private static final String GET_USERS_WITH_ROLE = "SELECT * FROM user where user.role = ?";
-
-
+    private static final String GET_USERS_WITH_ROLE = "SELECT * FROM user WHERE user.role = ?";
     private static final String ADD_USER = "INSERT INTO user (login, name, surname, password, email, phone)" +
             " VALUES (?, ?, ?, MD5(?), ?, ?);";
-
     private static final String FIND_USER_BY_LOGIN = "SELECT * FROM user WHERE login = ?;";
-
     private static final String CHANGE_ROLE_BY_LOGIN = "UPDATE user SET role =? WHERE login =?";
-
     private static final String CHECK_PASSWORD = "SELECT * FROM user WHERE login = ? AND password = md5(?);";
 
     @Override
-    public List<User> getUsers(int number, int offset) throws DAOException {
+    public List<User> getUserList(int number, int offset) throws DAOException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         ResultSet set;
@@ -46,14 +40,15 @@ public class UserDAOImpl implements UserDAO {
             }
             return userList;
         } catch (SQLException e) {
-            throw new DAOException("Cannot connect to database!", e);
+            logger.error("Not able to get user list", e);
+            throw new DAOException("An error has occurred in attempt of getting user list from database", e);
         } finally {
             connectionPool.closeConnection(connection);
         }
     }
 
-
-    public void registration(User user, String password) throws DAOException {
+    @Override
+    public void signUp(User user, String password) throws DAOException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(ADD_USER)) {
@@ -66,27 +61,31 @@ public class UserDAOImpl implements UserDAO {
 
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("User already exists!", e);
+            logger.error("Not able to add new user", e);
+            throw new DAOException("An error has occurred in attempt of adding user to database, check if user not exists", e);
         } finally {
             connectionPool.closeConnection(connection);
         }
     }
 
+    @Override
     public User findUserByLogin(String login) throws DAOException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_LOGIN)) {
             statement.setString(1, login);
             ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
+            if (!resultSet.next()) {
+                return null;
+            }
             return createUserFromResultSet(resultSet);
         } catch (SQLException e) {
-            throw new DAOException("Cannot connect to database!", e);
+            logger.error("Not able to find user", e);
+            throw new DAOException("An error has occurred in attempt of finding user in database", e);
         } finally {
             connectionPool.closeConnection(connection);
         }
     }
-
 
     @Override
     public void setRole(String login, UserRole role) throws DAOException {
@@ -98,7 +97,8 @@ public class UserDAOImpl implements UserDAO {
             statement.setString(2, login);
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("Cannot connect to database!", e);
+            logger.error("Not able to set role to user with id = " + login, e);
+            throw new DAOException("An error has occurred in attempt of setting user role check if user exists", e);
         } finally {
             connectionPool.closeConnection(connection);
         }
@@ -112,21 +112,21 @@ public class UserDAOImpl implements UserDAO {
             statement.setString(1, login);
             statement.setString(2, password);
 
-
             ResultSet resultSet = statement.executeQuery();
-            if(!resultSet.next()){
+            if (!resultSet.next()) {
                 return null;
             }
             return createUserFromResultSet(resultSet);
         } catch (SQLException e) {
-            throw new DAOException("Cannot connect to database!", e);
+            logger.error("Not able to sign in for user with login = " + login, e);
+            throw new DAOException("An error has occurred in attempt of signing in", e);
         } finally {
             connectionPool.closeConnection(connection);
         }
     }
 
     @Override
-    public List<User> getUsers(UserRole role) throws DAOException {
+    public List<User> getUserList(UserRole role) throws DAOException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         ResultSet set;
@@ -139,12 +139,12 @@ public class UserDAOImpl implements UserDAO {
             }
             return userList;
         } catch (SQLException e) {
-            throw new DAOException("Cannot connect to database!", e);
+            logger.error("Not able to get user list", e);
+            throw new DAOException("An error has occurred in attempt getting user list", e);
         } finally {
             connectionPool.closeConnection(connection);
         }
     }
-
 
     private User createUserFromResultSet(ResultSet resultSet) throws SQLException {
         String name = resultSet.getString("user.name");
@@ -163,6 +163,4 @@ public class UserDAOImpl implements UserDAO {
         user.setRole(role);
         return user;
     }
-
-
 }

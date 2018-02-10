@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
         try {
             DAOFactory daoFactory = DAOFactory.getInstance();
             UserDAO userDAO = daoFactory.getUserDAO();
-            userDAO.registration(user, password);
+            userDAO.signUp(user, password);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
         }

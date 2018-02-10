@@ -102,7 +102,7 @@
 
         <div class="container">
 
-            <input type="submit" value="<c:out value="${registration}"/>"/><br/>
+            <input type="submit" value="<c:out value="${signUp}"/>"/><br/>
             <button type="reset" onclick="document.getElementById('registrationForm').style.display='none'" class="cancelbtn">
                 <c:out value="${cancel}"/>
             </button>
@@ -136,7 +136,7 @@
                         <c:when test="${empty sessionScope.login}">
                             <li>
                                 <a href="#" onclick="document.getElementById('signInForm').style.display='block'"><c:out value="${signin}" /></a>
-                                <a href="#" onclick="document.getElementById('registrationForm').style.display='block'"><c:out value="${registration}"/></a>
+                                <a href="#" onclick="document.getElementById('registrationForm').style.display='block'"><c:out value="${signUp}"/></a>
                             </li>
                         </c:when>
                         <c:otherwise>

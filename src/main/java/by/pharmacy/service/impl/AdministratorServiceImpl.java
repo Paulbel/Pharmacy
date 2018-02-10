@@ -21,7 +21,7 @@ public class AdministratorServiceImpl implements AdministratorService {
             if (!administrator.getRole().equals(UserRole.ADMIN)) {
                 throw new AccessDeniedException("User must be an administrator");
             }
-            return userDAO.getUsers(number,offset);
+            return userDAO.getUserList(number, offset);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
         }
