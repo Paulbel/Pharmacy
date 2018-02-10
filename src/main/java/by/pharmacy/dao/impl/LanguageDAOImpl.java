@@ -4,6 +4,7 @@ import by.pharmacy.dao.LanguageDAO;
 import by.pharmacy.dao.connectionpool.ConnectionPool;
 import by.pharmacy.dao.exception.DAOException;
 import by.pharmacy.entity.Language;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,11 +14,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LanguageDAOImpl implements LanguageDAO {
+    private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private final static Logger logger = Logger.getLogger(ConnectionPool.class);
+    private final static String GET_LANGUAGES = "SELECT language_to_translate,language_name, name FROM language_translate WHERE language_name = ?;";
 
-private final static String GET_LANGUAGES = "SELECT language_to_translate,language_name, name FROM language_translate WHERE language_name = ?;";
     @Override
-    public Map<String, Language> getLanguages(Language language) throws DAOException {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
+    public Map<String, Language> getLanguageMap(Language language) throws DAOException {
         Connection connection = connectionPool.getConnection();
         ResultSet set;
         try (PreparedStatement statement = connection.prepareStatement(GET_LANGUAGES)) {
@@ -25,7 +27,7 @@ private final static String GET_LANGUAGES = "SELECT language_to_translate,langua
 
             set = statement.executeQuery();
 
-            Map<String,Language> languageStringMap = new HashMap<>();
+            Map<String, Language> languageStringMap = new HashMap<>();
             while (set.next()) {
                 String languageToTranslateName = set.getString("language_to_translate");
                 String languageOrigin = set.getString("name");
@@ -33,6 +35,7 @@ private final static String GET_LANGUAGES = "SELECT language_to_translate,langua
             }
             return languageStringMap;
         } catch (SQLException e) {
+            logger.error("Not able to get drug list", e);
             throw new DAOException("Cannot connect to database!", e);
         } finally {
             connectionPool.closeConnection(connection);

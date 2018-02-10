@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
         DAOFactory daoFactory = DAOFactory.getInstance();
         LanguageDAO languageDAO = daoFactory.getLanguageDAO();
         try {
-            return languageDAO.getLanguages(language);
+            return languageDAO.getLanguageMap(language);
         } catch (DAOException e) {
             throw new ServiceException("Can't get languages", e);
         }
