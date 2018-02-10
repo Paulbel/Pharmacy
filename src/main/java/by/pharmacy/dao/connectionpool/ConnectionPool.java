@@ -2,6 +2,8 @@ package by.pharmacy.dao.connectionpool;
 
 
 import by.pharmacy.dao.exception.ConnectionPoolException;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,6 +24,8 @@ public final class ConnectionPool {
     private BlockingQueue<Connection> givenConnectionQueue;
 
     private static volatile ConnectionPool instance = new ConnectionPool();
+
+    private static final Logger logger = Logger.getLogger(ConnectionPool.class);
 
     private ConnectionPool() {
         ResourceBundle resourceBundle = ResourceBundle.getBundle(CURRENT_DB);
@@ -50,17 +54,31 @@ public final class ConnectionPool {
 
     public void closeConnection(Connection connection) throws ConnectionPoolException {
         try {
+            for (Connection c : this.connectionQueue) {
+                logger.debug("in connectionQueue");
+                String connectionState = c.isClosed() ? "is closed" : "isn't closed";
+                logger.debug("connection " + connectionState);
+            }
+            for (Connection c : this.givenConnectionQueue) {
+                logger.debug("in givenAwayConQueue");
+                String connectionState = c.isClosed() ? "is closed" : "isn't closed";
+                logger.debug("connection " + connectionState);
+            }
             if (connection.isClosed()) {
+                logger.log(Level.ERROR, "Trying to close closed connection");
                 throw new ConnectionPoolException("Trying to close closed connection");
             }
             if (connection.isReadOnly()) {
                 connection.setReadOnly(false);
             }
+
         } catch (SQLException e) {
+            logger.error("Can't access connection", e);
             throw new ConnectionPoolException("Can't access connection", e);
         }
 
-        if (!givenConnectionQueue.remove(connection)) {
+        if (!this.givenConnectionQueue.remove(connection)) {
+            logger.log(Level.ERROR, "Error deleting connection from the given away connections pool");
             throw new ConnectionPoolException("Error deleting connection from the given away connections pool");
         }
 
@@ -69,14 +87,6 @@ public final class ConnectionPool {
         }
     }
 
-    public void dispose() throws ConnectionPoolException {
-        try {
-            closeConnectionsQueue(givenConnectionQueue);
-            closeConnectionsQueue(connectionQueue);
-        } catch (SQLException e) {
-            throw new ConnectionPoolException("Closing connection error", e);
-        }
-    }
 
     public Connection getConnection() throws ConnectionPoolException {
         Connection connection;
@@ -89,14 +99,4 @@ public final class ConnectionPool {
         return connection;
     }
 
-
-    private void closeConnectionsQueue(BlockingQueue<Connection> queue) throws SQLException {
-        Connection connection;
-        while ((connection = queue.poll()) != null) {
-            if (!connection.getAutoCommit()) {
-                connection.commit();
-            }
-            connection.close();
-        }
-    }
 }

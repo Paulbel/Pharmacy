@@ -1,7 +1,7 @@
 package by.pharmacy.service;
 
-import by.pharmacy.entity.Role;
 import by.pharmacy.entity.User;
+import by.pharmacy.entity.UserRole;
 import by.pharmacy.service.exception.ServiceException;
 
 import java.util.List;
@@ -9,5 +9,5 @@ import java.util.List;
 public interface AdministratorService {
     List<User> getUserList(String administratorLogin, int number, int offset) throws ServiceException;
 
-    void setUserRole(String administratorLogin, String userLogin, Role role) throws ServiceException;
+    void setUserRole(String administratorLogin, String userLogin, UserRole role) throws ServiceException;
 }

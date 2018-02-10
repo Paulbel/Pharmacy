@@ -2,7 +2,7 @@ package by.pharmacy.controller.command.impl.cabinet;
 
 import by.pharmacy.controller.ControllerConstant;
 import by.pharmacy.controller.command.Command;
-import by.pharmacy.entity.Role;
+import by.pharmacy.entity.UserRole;
 import by.pharmacy.service.exception.ServiceException;
 
 import javax.servlet.RequestDispatcher;
@@ -15,21 +15,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EnterCabinetCommand implements Command {
-    private final Map<Role, String> pageMap = new HashMap<Role, String>() {{
-        put(Role.ADMIN, ControllerConstant.ADMIN_CABINET_URI);
-        put(Role.PHARMACIST, ControllerConstant.PHARMACIST_CABINET_URI);
-        put(Role.DOCTOR, ControllerConstant.DOCTOR_CABINET_URI);
-        put(Role.CLIENT, ControllerConstant.CLIENT_CABINET_URI);
-    }};
+    private final Map<UserRole, String> pageMap;
+
+    public EnterCabinetCommand() {
+        pageMap = new HashMap<>();
+        pageMap.put(UserRole.ADMIN, ControllerConstant.ADMIN_CABINET_URI);
+        pageMap.put(UserRole.PHARMACIST, ControllerConstant.PHARMACIST_CABINET_URI);
+        pageMap.put(UserRole.DOCTOR, ControllerConstant.DOCTOR_CABINET_URI);
+        pageMap.put(UserRole.CLIENT, ControllerConstant.CLIENT_CABINET_URI);
+        pageMap.put(UserRole.USER, ControllerConstant.MAIN_PAGE_URI);
+    }
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         HttpSession session = request.getSession();
 
         String roleName = (String) session.getAttribute(ControllerConstant.ROLE_ATTRIBUTE);
-        Role role = Role.CLIENT;
+        UserRole role = UserRole.USER;
         if (roleName != null) {
-            role = Role.valueOf(roleName);
+            role = UserRole.valueOf(roleName);
         }
         String address = pageMap.get(role);
 

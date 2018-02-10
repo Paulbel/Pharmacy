@@ -1,8 +1,8 @@
 package by.pharmacy.dao;
 
 import by.pharmacy.dao.exception.DAOException;
-import by.pharmacy.entity.Role;
 import by.pharmacy.entity.User;
+import by.pharmacy.entity.UserRole;
 
 import java.util.List;
 
@@ -13,9 +13,9 @@ public interface UserDAO {
 
     List<User> getUsers(int number, int offset) throws DAOException;
 
-    void setRole(String login, Role role) throws DAOException;
+    void setRole(String login, UserRole role) throws DAOException;
 
     User signIn(String login, String password) throws DAOException;
 
-    List<User> getUsers(Role role) throws DAOException;
+    List<User> getUsers(UserRole role) throws DAOException;
 }

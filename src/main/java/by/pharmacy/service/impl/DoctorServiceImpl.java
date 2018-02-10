@@ -7,8 +7,8 @@ import by.pharmacy.dao.UserDAO;
 import by.pharmacy.dao.exception.DAOException;
 import by.pharmacy.entity.Drug;
 import by.pharmacy.entity.ProlongationRequestStatus;
-import by.pharmacy.entity.Role;
 import by.pharmacy.entity.User;
+import by.pharmacy.entity.UserRole;
 import by.pharmacy.service.DoctorService;
 import by.pharmacy.service.exception.ServiceException;
 
@@ -23,10 +23,10 @@ public class DoctorServiceImpl implements DoctorService {
         try {
             User doctor = userDAO.findUserByLogin(doctorLogin);
             User client = userDAO.findUserByLogin(clientLogin);
-            if (doctor.getRole() != Role.DOCTOR) {
+            if (doctor.getRole() != UserRole.DOCTOR) {
                 throw new ServiceException();
             }
-            if (client.getRole() != Role.CLIENT) {
+            if (client.getRole() != UserRole.CLIENT) {
                 throw new ServiceException();
             }
             if (dayCount <= 0) {
@@ -44,7 +44,7 @@ public class DoctorServiceImpl implements DoctorService {
         try {
             DAOFactory daoFactory = DAOFactory.getInstance();
             UserDAO userDAO = daoFactory.getUserDAO();
-            return userDAO.getUsers(Role.CLIENT);
+            return userDAO.getUsers(UserRole.CLIENT);
         } catch (DAOException e) {
             throw new ServiceException("Can't find", e);
         }

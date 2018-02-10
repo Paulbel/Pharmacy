@@ -3,8 +3,8 @@ package by.pharmacy.dao.impl;
 import by.pharmacy.dao.UserDAO;
 import by.pharmacy.dao.connectionpool.ConnectionPool;
 import by.pharmacy.dao.exception.DAOException;
-import by.pharmacy.entity.Role;
 import by.pharmacy.entity.User;
+import by.pharmacy.entity.UserRole;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -89,7 +89,7 @@ public class UserDAOImpl implements UserDAO {
 
 
     @Override
-    public void setRole(String login, Role role) throws DAOException {
+    public void setRole(String login, UserRole role) throws DAOException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         try {
@@ -115,9 +115,7 @@ public class UserDAOImpl implements UserDAO {
 
             ResultSet resultSet = statement.executeQuery();
             if(!resultSet.next()){
-                DAOException daoException = new DAOException("Wrong data");
-                logger.error("No such user",daoException);
-                throw daoException;
+                return null;
             }
             return createUserFromResultSet(resultSet);
         } catch (SQLException e) {
@@ -128,7 +126,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public List<User> getUsers(Role role) throws DAOException {
+    public List<User> getUsers(UserRole role) throws DAOException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         ResultSet set;
@@ -152,7 +150,7 @@ public class UserDAOImpl implements UserDAO {
         String name = resultSet.getString("user.name");
         String surname = resultSet.getString("user.surname");
         String login = resultSet.getString("user.login");
-        Role role = Role.valueOf(resultSet.getString("user.role").toUpperCase());
+        UserRole role = UserRole.valueOf(resultSet.getString("user.role").toUpperCase());
         String phone = resultSet.getString("user.phone");
         String email = resultSet.getString("user.email");
         User user = new User();

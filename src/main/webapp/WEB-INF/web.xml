@@ -16,11 +16,6 @@
         <servlet-name>FrontController</servlet-name>
         <url-pattern>/FrontController</url-pattern>
     </servlet-mapping>
-
-
-
-
-
     <filter>
 
         <filter-name>EncodingFilter</filter-name>

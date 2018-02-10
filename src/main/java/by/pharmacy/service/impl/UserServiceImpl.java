@@ -4,6 +4,7 @@ import by.pharmacy.dao.*;
 import by.pharmacy.dao.exception.DAOException;
 import by.pharmacy.entity.*;
 import by.pharmacy.service.UserService;
+import by.pharmacy.service.exception.AccessDeniedException;
 import by.pharmacy.service.exception.ServiceException;
 
 import java.util.List;
@@ -15,7 +16,11 @@ public class UserServiceImpl implements UserService {
         try {
             DAOFactory daoFactory = DAOFactory.getInstance();
             UserDAO userDAO = daoFactory.getUserDAO();
-            return userDAO.signIn(login, password);
+            User user = userDAO.signIn(login, password);
+            if (user == null) {
+                throw new AccessDeniedException("User with login " + login + " hasn't signed in yet");
+            }
+            return user;
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e);
         }

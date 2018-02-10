@@ -9,16 +9,16 @@ public class User implements Serializable {
     private String login;
     private String phoneNumber;
     private String email;
-    private Role role;
+    private UserRole role;
 
     public User() {
     }
 
-    public Role getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
 

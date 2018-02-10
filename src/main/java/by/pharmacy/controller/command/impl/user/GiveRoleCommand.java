@@ -2,7 +2,7 @@ package by.pharmacy.controller.command.impl.user;
 
 import by.pharmacy.controller.ControllerConstant;
 import by.pharmacy.controller.command.Command;
-import by.pharmacy.entity.Role;
+import by.pharmacy.entity.UserRole;
 import by.pharmacy.service.AdministratorService;
 import by.pharmacy.service.ServiceFactory;
 import by.pharmacy.service.exception.ServiceException;
@@ -20,7 +20,7 @@ public class GiveRoleCommand implements Command {
 
         String administratorLogin = (String) session.getAttribute(ControllerConstant.LOGIN_ATTRIBUTE);
         String userLogin = request.getParameter(ControllerConstant.LOGIN_ATTRIBUTE);
-        Role role = Role.valueOf(request.getParameter(ControllerConstant.ROLE_ATTRIBUTE));
+        UserRole role = UserRole.valueOf(request.getParameter(ControllerConstant.ROLE_ATTRIBUTE));
 
         ServiceFactory factory = ServiceFactory.getInstance();
         AdministratorService service = factory.getAdministratorService();

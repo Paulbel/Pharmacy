@@ -1,8 +1,8 @@
 package by.pharmacy.dao.impl;
 
 import by.pharmacy.BaseDAOTest;
-import by.pharmacy.entity.Role;
 import by.pharmacy.entity.User;
+import by.pharmacy.entity.UserRole;
 import org.junit.Test;
 
 import java.sql.Connection;
@@ -45,7 +45,7 @@ public class UserDAOImplTest extends BaseDAOTest {
             User user = new User();
 
             user.setName(name);
-            user.setRole(Role.valueOf(role.toUpperCase()));
+            user.setRole(UserRole.valueOf(role.toUpperCase()));
             user.setSurname(surname);
             //user.setPassword(password);
             user.setLogin(login);
@@ -69,8 +69,8 @@ public class UserDAOImplTest extends BaseDAOTest {
     public void testSetRole() throws Exception {
         UserDAOImpl sqlUserDAO = new UserDAOImpl();
         User expectedUser = users.get(0);
-        sqlUserDAO.setRole(expectedUser.getLogin(), Role.ADMIN);
-        expectedUser.setRole(Role.ADMIN);
+        sqlUserDAO.setRole(expectedUser.getLogin(), UserRole.ADMIN);
+        expectedUser.setRole(UserRole.ADMIN);
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_LOGIN)) {
             statement.setString(1, expectedUser.getLogin());
@@ -78,7 +78,7 @@ public class UserDAOImplTest extends BaseDAOTest {
 
             assertEquals(resultSet.next(), true);
 
-            Role role = Role.valueOf(resultSet.getString("user.role").toUpperCase());
+            UserRole role = UserRole.valueOf(resultSet.getString("user.role").toUpperCase());
 
             assertEquals(expectedUser.getRole(), role);
         }

@@ -13,7 +13,7 @@ public final class ControllerConstant {
     public static final String PREV_COMMAND_ATTRIBUTE = "prev_command";
     public static final String CURRENT_OPTION_ATTRIBUTE = "want_command";
     public static final String PROBLEM_DESCRIPTION = "problem_description";
-
+    public static final String WRONG_DATA = "wrong_data";
 
     public static final String DAY_COUNT_ATTRIBUTE = "day_count";
 

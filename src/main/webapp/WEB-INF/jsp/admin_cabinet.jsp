@@ -2,8 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page import="by.pharmacy.controller.ControllerConstant" %>
-<%@ page import="by.pharmacy.entity.Role" %>
-<%@ page import="by.pharmacy.entity.Language" %>
+<%@ page import="by.pharmacy.entity.UserRole" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 
@@ -86,20 +85,20 @@
             <td><c:out value="${item.role}"/></td>
             <td>
                 <c:choose>
-                    <c:when test="${item.role == Role.USER}">
+                    <c:when test="${item.role == UserRole.USER}">
                         <form action="FrontController" method="get">
                             <p>
                                 <input type="hidden" name="${ControllerConstant.COMMAND_ATTRIBUTE}" value="${ControllerConstant.GIVE_ROLE_COMMAND}">
                                 <input type="hidden" name="${ControllerConstant.LOGIN_ATTRIBUTE}" value="${item.login}">
                                 <select name="role">
-                                    <option value="${Role.DOCTOR}">Doctor</option>
-                                    <option value="${Role.PHARMACIST}">Pharmacist</option>
+                                    <option value="${UserRole.DOCTOR}">Doctor</option>
+                                    <option value="${UserRole.PHARMACIST}">Pharmacist</option>
                                 </select>
                                 <input type="submit" value="Change">
                             </p>
                         </form>
                     </c:when>
-                    <c:when test="${item.role == Role.PHARMACIST}">
+                    <c:when test="${item.role == UserRole.PHARMACIST}">
                         <form action="FrontController" method="get">
                             <p>
                                 <input type="hidden" name="${ControllerConstant.COMMAND_ATTRIBUTE}" value="${ControllerConstant.GIVE_ROLE_COMMAND}">

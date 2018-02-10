@@ -2,8 +2,8 @@ package by.pharmacy;
 
 import by.pharmacy.entity.Drug;
 import by.pharmacy.entity.Manufacturer;
-import by.pharmacy.entity.Role;
 import by.pharmacy.entity.User;
+import by.pharmacy.entity.UserRole;
 import org.junit.After;
 import org.junit.Before;
 
@@ -115,7 +115,7 @@ public class BaseDAOTest {
         user1.setSurname("Синельников");
         user1.setPhoneNumber("+375656381587");
         user1.setEmail("8o5vj4mdkd@gmail.com");
-        user1.setRole(Role.CLIENT);
+        user1.setRole(UserRole.CLIENT);
 
         User user2 = new User();
         user2.setLogin("loginxl5k8m24lx");
@@ -124,7 +124,7 @@ public class BaseDAOTest {
         user2.setSurname("Гапеенко");
         user2.setPhoneNumber("+375410634274");
         user2.setEmail("xl5k8m24lx@gmail.com");
-        user2.setRole(Role.CLIENT);
+        user2.setRole(UserRole.CLIENT);
 
         User user3 = new User();
         user3.setLogin("login4o47zru1qt");
@@ -133,7 +133,7 @@ public class BaseDAOTest {
         user3.setSurname("Артемьев");
         user3.setPhoneNumber("+375070676621");
         user3.setEmail("4o47zru1qt@gmail.com");
-        user3.setRole(Role.CLIENT);
+        user3.setRole(UserRole.CLIENT);
 
         users.add(user1);
         users.add(user2);

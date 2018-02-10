@@ -27,7 +27,7 @@ public class PharmacistServiceImpl implements PharmacistService {
             DAOFactory daoFactory = DAOFactory.getInstance();
             UserDAO userDAO = daoFactory.getUserDAO();
             User user = userDAO.findUserByLogin(pharmacistLogin);
-            if(!user.getRole().equals(Role.PHARMACIST)){
+            if (!user.getRole().equals(UserRole.PHARMACIST)) {
                 throw new ServiceException("User must be a pharmacist");
             }
             DrugDAO drugDAO = daoFactory.getDrugDAO();

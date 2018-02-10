@@ -109,6 +109,8 @@ public class OrderDAOImpl implements OrderDAO {
 
         } catch (SQLException e) {
             throw new DAOException("Can't connect to DB", e);
+        } finally {
+            connectionPool.closeConnection(connection);
         }
     }
 
@@ -176,6 +178,8 @@ public class OrderDAOImpl implements OrderDAO {
             count = resultSet.getInt("count");
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            connectionPool.closeConnection(connection);
         }
         return count;
     }
