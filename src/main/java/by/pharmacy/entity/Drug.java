@@ -1,14 +1,9 @@
 package by.pharmacy.entity;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
-@XmlRootElement(name = "drug")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Drug implements Serializable {
-    private static final long serialVersionUID = 4340011690482548403L;
+    private final static long serialVersionUID = 4340011690482548403L;
     private int id;
     private String name;
     private String composition;
@@ -20,12 +15,7 @@ public class Drug implements Serializable {
     private double price;
     private Manufacturer manufacturer;
 
-
     public Drug() {
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
     }
 
     public int getId() {
@@ -109,21 +99,6 @@ public class Drug implements Serializable {
         this.composition = composition;
     }
 
-    @Override
-    public String toString() {
-        return "Drug{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", composition='" + composition + '\'' +
-                ", number=" + number +
-                ", amount=" + amount +
-                ", dosage=" + dosage +
-                ", description='" + description + '\'' +
-                ", needPrescription=" + needPrescription +
-                ", price=" + price +
-                ", manufacturer=" + manufacturer +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -162,4 +137,19 @@ public class Drug implements Serializable {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "Drug{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", composition='" + composition + '\'' +
+                ", number=" + number +
+                ", amount=" + amount +
+                ", dosage=" + dosage +
+                ", description='" + description + '\'' +
+                ", needPrescription=" + needPrescription +
+                ", price=" + price +
+                ", manufacturer=" + manufacturer +
+                '}';
+    }
 }

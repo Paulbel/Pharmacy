@@ -64,7 +64,6 @@ public class User implements Serializable {
         this.email = email;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

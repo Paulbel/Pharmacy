@@ -2,9 +2,8 @@ package by.pharmacy.entity;
 
 import java.io.Serializable;
 
-public class Manufacturer implements Serializable{
-    private static final long serialVersionUID = 6414551082577559509L;
-
+public class Manufacturer implements Serializable {
+    private final static long serialVersionUID = 6414551082577559509L;
     private int id;
     private String name;
     private String phoneNumber;
@@ -42,8 +41,6 @@ public class Manufacturer implements Serializable{
     public void setAddress(String address) {
         this.address = address;
     }
-
-
 
     public int getId() {
         return id;

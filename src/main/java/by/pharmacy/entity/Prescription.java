@@ -1,15 +1,16 @@
 package by.pharmacy.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Prescription {
+public class Prescription implements Serializable {
+    private static final long serialVersionUID = -8430456027085929383L;
     private int id;
     private Date startDate;
     private Date endDate;
     private User client;
     private User doctor;
     private Drug drug;
-
 
     public int getId() {
         return id;
@@ -59,5 +60,41 @@ public class Prescription {
         this.drug = drug;
     }
 
-    //TODO hashCode ...
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Prescription that = (Prescription) o;
+
+        if (id != that.id) return false;
+        if (startDate != null ? !startDate.equals(that.startDate) : that.startDate != null) return false;
+        if (endDate != null ? !endDate.equals(that.endDate) : that.endDate != null) return false;
+        if (client != null ? !client.equals(that.client) : that.client != null) return false;
+        if (doctor != null ? !doctor.equals(that.doctor) : that.doctor != null) return false;
+        return drug != null ? drug.equals(that.drug) : that.drug == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
+        result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
+        result = 31 * result + (client != null ? client.hashCode() : 0);
+        result = 31 * result + (doctor != null ? doctor.hashCode() : 0);
+        result = 31 * result + (drug != null ? drug.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Prescription{" +
+                "id=" + id +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", client=" + client +
+                ", doctor=" + doctor +
+                ", drug=" + drug +
+                '}';
+    }
 }
