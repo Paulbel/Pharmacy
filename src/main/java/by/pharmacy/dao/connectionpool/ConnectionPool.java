@@ -54,6 +54,7 @@ public final class ConnectionPool {
 
     public void closeConnection(Connection connection) throws ConnectionPoolException {
         try {
+
             for (Connection c : this.connectionQueue) {
                 logger.debug("in connectionQueue");
                 String connectionState = c.isClosed() ? "is closed" : "isn't closed";

@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
         DAOFactory daoFactory = DAOFactory.getInstance();
         ManufacturerDAO manufacturerDAO = daoFactory.getManufacturerDAO();
         try {
-            return manufacturerDAO.getManufacturers(language, number, offset);
+            return manufacturerDAO.getManufacturerList(language, number, offset);
         } catch (DAOException e) {
             throw new ServiceException("Can't get manufacturers", e);
         }

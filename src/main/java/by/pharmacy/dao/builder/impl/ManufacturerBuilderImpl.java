@@ -30,7 +30,6 @@ public class ManufacturerBuilderImpl implements ManufacturerBuilder {
         String phoneNumber = resultSet.getString("manufacturer.phone_number");
 
         manufacturer.setId(id);
-
         manufacturer.setEmail(email);
         manufacturer.setPhoneNumber(phoneNumber);
     }
@@ -53,6 +52,14 @@ public class ManufacturerBuilderImpl implements ManufacturerBuilder {
         country.setName(countryName);
         country.setCode(countryCode);
         manufacturer.setCountry(country);
+    }
+
+    @Override
+    public void buildFullManufacturer() throws SQLException {
+        this.createManufacturer();
+        this.buildManufacturerInfo();
+        this.buildManufacturerDescription();
+        this.buildCountry();
     }
 }
 

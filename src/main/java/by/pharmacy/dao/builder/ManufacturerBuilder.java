@@ -13,5 +13,7 @@ public interface ManufacturerBuilder {
 
     void buildCountry() throws SQLException;
 
+    void buildFullManufacturer() throws SQLException;
+
     Manufacturer getManufacturer();
 }

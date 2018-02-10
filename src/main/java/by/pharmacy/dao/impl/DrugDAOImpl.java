@@ -4,7 +4,6 @@ import by.pharmacy.dao.DrugDAO;
 import by.pharmacy.dao.builder.DrugBuilder;
 import by.pharmacy.dao.builder.impl.DrugBuilderImpl;
 import by.pharmacy.dao.connectionpool.ConnectionPool;
-import by.pharmacy.dao.exception.ConnectionPoolException;
 import by.pharmacy.dao.exception.DAOException;
 import by.pharmacy.entity.Drug;
 import by.pharmacy.entity.DrugCriteria;
@@ -193,7 +192,7 @@ public class DrugDAOImpl implements DrugDAO {
         }
     }
 
-    private void addDrugUsingTransaction(Drug drug, Language language) throws SQLException, ConnectionPoolException {
+    private void addDrugUsingTransaction(Drug drug, Language language) throws SQLException, DAOException {
         Connection connection = connectionPool.getConnection();
 
         try (PreparedStatement addDrugStatement = connection.prepareStatement(ADD_DRUG, Statement.RETURN_GENERATED_KEYS);
@@ -221,13 +220,10 @@ public class DrugDAOImpl implements DrugDAO {
                 addDrugDescriptionStatement.setString(5, drug.getComposition());
                 addDrugDescriptionStatement.executeUpdate();
             } else {
-                SQLException e = new SQLException();
-                logger.error("Not able to add drug to db", e);
-                throw e;
+                throw new DAOException("Can't get auto incremented value from database");
             }
         } catch (SQLException e) {
             connection.rollback();
-            logger.error("Not able to add drug to db", e);
             throw new SQLException("Transaction failed", e);
         } finally {
             connection.setAutoCommit(true);
