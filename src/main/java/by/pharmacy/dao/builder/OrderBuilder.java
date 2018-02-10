@@ -14,5 +14,7 @@ public interface OrderBuilder {
 
     void buildOrderInfo() throws SQLException;
 
+    void buildFullOrder() throws SQLException;
+
     Order getOrder();
 }

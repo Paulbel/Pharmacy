@@ -52,6 +52,15 @@ public class OrderBuilderImpl implements OrderBuilder {
     }
 
     @Override
+    public void buildFullOrder() throws SQLException {
+        this.createOrder();
+        this.buildClient();
+        this.buildDrug();
+        this.buildOrderInfo();
+    }
+
+
+    @Override
     public Order getOrder() {
         return this.order;
     }

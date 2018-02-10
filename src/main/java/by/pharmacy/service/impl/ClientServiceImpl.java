@@ -47,7 +47,7 @@ public class ClientServiceImpl implements ClientService {
         try {
             DAOFactory daoFactory = DAOFactory.getInstance();
             OrderDAO orderDAO = daoFactory.getOrderDAO();
-            return orderDAO.getClientOrders(login, number, offset, language);
+            return orderDAO.getClientOrderList(login, number, offset, language);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
