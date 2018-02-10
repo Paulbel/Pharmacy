@@ -35,8 +35,8 @@ public class LanguageDAOImpl implements LanguageDAO {
             }
             return languageStringMap;
         } catch (SQLException e) {
-            logger.error("Not able to get drug list", e);
-            throw new DAOException("Cannot connect to database!", e);
+            logger.error("Not able to get languages from database", e);
+            throw new DAOException("An error has occurred in attempt of getting map of languages", e);
         } finally {
             connectionPool.closeConnection(connection);
         }
