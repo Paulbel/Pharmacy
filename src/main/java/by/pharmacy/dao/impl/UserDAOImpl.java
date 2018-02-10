@@ -16,6 +16,7 @@ import java.util.List;
 
 
 public class UserDAOImpl implements UserDAO {
+    private ConnectionPool connectionPool = ConnectionPool.getInstance();
     private final static Logger logger = Logger.getLogger(UserDAOImpl.class);
     private static final String GET_USERS = "SELECT * FROM user LIMIT ? OFFSET ?";
     private static final String GET_USERS_WITH_ROLE = "SELECT * FROM user WHERE user.role = ?";
@@ -27,7 +28,6 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List<User> getUserList(int number, int offset) throws DAOException {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         ResultSet set;
         try (PreparedStatement statement = connection.prepareStatement(GET_USERS)) {
@@ -49,7 +49,6 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void signUp(User user, String password) throws DAOException {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(ADD_USER)) {
             statement.setString(1, user.getLogin());
@@ -70,7 +69,6 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User findUserByLogin(String login) throws DAOException {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_LOGIN)) {
             statement.setString(1, login);
@@ -89,7 +87,6 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void setRole(String login, UserRole role) throws DAOException {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(CHANGE_ROLE_BY_LOGIN);
@@ -106,7 +103,6 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User signIn(String login, String password) throws DAOException {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(CHECK_PASSWORD)) {
             statement.setString(1, login);
@@ -127,7 +123,6 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List<User> getUserList(UserRole role) throws DAOException {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         ResultSet set;
         try (PreparedStatement statement = connection.prepareStatement(GET_USERS_WITH_ROLE)) {
