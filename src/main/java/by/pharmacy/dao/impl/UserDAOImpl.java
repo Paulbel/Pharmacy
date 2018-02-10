@@ -16,15 +16,15 @@ import java.util.List;
 
 
 public class UserDAOImpl implements UserDAO {
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
     private final static Logger logger = Logger.getLogger(UserDAOImpl.class);
-    private static final String GET_USERS = "SELECT * FROM user LIMIT ? OFFSET ?";
-    private static final String GET_USERS_WITH_ROLE = "SELECT * FROM user WHERE user.role = ?";
-    private static final String ADD_USER = "INSERT INTO user (login, name, surname, password, email, phone)" +
+    private final static String GET_USERS = "SELECT * FROM user LIMIT ? OFFSET ?";
+    private final static String GET_USERS_WITH_ROLE = "SELECT * FROM user WHERE user.role = ?";
+    private final static String ADD_USER = "INSERT INTO user (login, name, surname, password, email, phone)" +
             " VALUES (?, ?, ?, MD5(?), ?, ?);";
-    private static final String FIND_USER_BY_LOGIN = "SELECT * FROM user WHERE login = ?;";
-    private static final String CHANGE_ROLE_BY_LOGIN = "UPDATE user SET role =? WHERE login =?";
-    private static final String CHECK_PASSWORD = "SELECT * FROM user WHERE login = ? AND password = md5(?);";
+    private final static String FIND_USER_BY_LOGIN = "SELECT * FROM user WHERE login = ?;";
+    private final static String CHANGE_ROLE_BY_LOGIN = "UPDATE user SET role =? WHERE login =?";
+    private final static String CHECK_PASSWORD = "SELECT * FROM user WHERE login = ? AND password = md5(?);";
 
     @Override
     public List<User> getUserList(int number, int offset) throws DAOException {

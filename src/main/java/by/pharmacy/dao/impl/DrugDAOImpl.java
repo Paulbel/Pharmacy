@@ -17,8 +17,8 @@ import java.util.List;
 
 
 public class DrugDAOImpl implements DrugDAO {
-    private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static final Logger logger = Logger.getLogger(ConnectionPool.class);
+    private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private final static Logger logger = Logger.getLogger(ConnectionPool.class);
     private final static String REMOVE_DRUG = "DELETE FROM drug WHERE id = ?";
     private final static String GET_DRUG_INFO = "SELECT" +
             "  drug.id," +
@@ -147,9 +147,9 @@ public class DrugDAOImpl implements DrugDAO {
             "      country_translate.lan_name = drug_translate.lang_name" +
             " ORDER BY ?" +
             " LIMIT ? OFFSET ?;";
-    private static final String ADD_DRUG = "INSERT INTO drug (manufacturer_id, dosage, amount, price, number, need_prescription)" +
+    private final static String ADD_DRUG = "INSERT INTO drug (manufacturer_id, dosage, amount, price, number, need_prescription)" +
             " VALUES (?,?,?,?,?,?);";
-    private static final String ADD_DRUG_DESCRIPTION = "INSERT INTO drug_translate (drug_id, lang_name, name, description, composition) VALUES\n" +
+    private final static String ADD_DRUG_DESCRIPTION = "INSERT INTO drug_translate (drug_id, lang_name, name, description, composition) VALUES\n" +
             "  (?,?,?,?,?);";
 
     @Override
