@@ -15,5 +15,7 @@ public interface PrescriptionBuilder {
 
     void buildPrescriptionInfo() throws SQLException;
 
+    void buildFullPrescription() throws SQLException;
+
     Prescription getPrescription();
 }

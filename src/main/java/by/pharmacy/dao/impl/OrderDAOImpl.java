@@ -16,7 +16,7 @@ import java.util.List;
 public class OrderDAOImpl implements OrderDAO {
     private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
     private final static Logger logger = Logger.getLogger(ConnectionPool.class);
-    private static final String GET_ORDERS_LIST = "SELECT" +
+    private final static String GET_ORDERS_LIST = "SELECT" +
             "  user.login," +
             "  drug_translate.name," +
             "  drug.price," +
@@ -32,8 +32,8 @@ public class OrderDAOImpl implements OrderDAO {
             " WHERE" +
             " drug_translate.lang_name = ?" +
             " LIMIT ? OFFSET ?;";
-    private static final String ADD_ORDER = "INSERT INTO orders (client_login, drug_id, number, date) VALUES (?,?,?,?);";
-    private static final String FIND_CLIENT_ORDER_LIST = "SELECT" +
+    private final static String ADD_ORDER = "INSERT INTO orders (client_login, drug_id, number, date) VALUES (?,?,?,?);";
+    private final static String FIND_CLIENT_ORDER_LIST = "SELECT" +
             "  drug_translate.name," +
             "  drug.price," +
             "  orders.id," +
@@ -47,7 +47,7 @@ public class OrderDAOImpl implements OrderDAO {
             " WHERE" +
             "  user.login = ? AND drug_translate.lang_name = ?" +
             " LIMIT ? OFFSET ?;";
-    private static final String COUNT_CLIENT_ORDER = "SELECT" +
+    private final static String COUNT_CLIENT_ORDER = "SELECT" +
             "  COUNT(orders.id) AS 'count'" +
             " FROM orders" +
             "  INNER JOIN user ON orders.client_login = user.login" +
@@ -108,7 +108,6 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public List<Order> getOrderList(int number, int offset, Language language) throws DAOException {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         ResultSet resultSet = null;
         try (PreparedStatement statement = connection.prepareStatement(GET_ORDERS_LIST)) {
@@ -135,7 +134,6 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public int getOrderCount(String login, Language language) throws DAOException {
         Connection connection = connectionPool.getConnection();
-
         try (PreparedStatement statement = connection.prepareStatement(COUNT_CLIENT_ORDER)) {
             statement.setString(1, login);
             statement.setString(2, language.toString().toLowerCase());

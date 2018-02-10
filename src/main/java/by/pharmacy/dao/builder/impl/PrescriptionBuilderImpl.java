@@ -64,6 +64,15 @@ public class PrescriptionBuilderImpl implements PrescriptionBuilder {
         this.prescription.setId(prescriptionId);
     }
 
+    @Override
+    public void buildFullPrescription() throws SQLException {
+        this.createPrescription();
+        this.buildClient();
+        this.buildDoctor();
+        this.buildDrug();
+        this.buildPrescriptionInfo();
+    }
+
 
     @Override
     public Prescription getPrescription() {
