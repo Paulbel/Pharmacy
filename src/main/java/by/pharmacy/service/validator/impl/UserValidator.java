@@ -1,11 +1,9 @@
-package by.pharmacy.service.validator;
+package by.pharmacy.service.validator.impl;
 
 import by.pharmacy.entity.User;
+import by.pharmacy.service.validator.Validator;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-public class UserValidator {
+public class UserValidator extends Validator {
     private final static String NAME_REGEX = "[\\w\\dа-яА-Я]{1,20}";
     private final static String LOGIN_REGEX = "[\\w\\d]{4,20}";
     private final static String SURNAME_REGEX = "[\\w\\d]{4,20}";
@@ -13,19 +11,11 @@ public class UserValidator {
     private final static String PHONE_REGEX = "\\+?\\d{0,19}";
 
 
-    public static boolean validateUser(User user) {
+    public boolean validateUser(User user) {
         return checkParameter(user.getName(), NAME_REGEX) &&
                 checkParameter(user.getLogin(), LOGIN_REGEX) &&
                 checkParameter(user.getSurname(), SURNAME_REGEX) &&
                 checkParameter(user.getEmail(), EMAIL_REGEX) &&
                 checkParameter(user.getPhoneNumber(), PHONE_REGEX);
     }
-
-
-    private static boolean checkParameter(String parameter, String regex) {
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(parameter);
-        return matcher.matches();
-    }
-
 }

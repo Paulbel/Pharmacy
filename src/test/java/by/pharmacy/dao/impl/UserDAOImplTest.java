@@ -1,6 +1,6 @@
 package by.pharmacy.dao.impl;
 
-import by.pharmacy.BaseDAOTest;
+import by.pharmacy.dao.BaseDAOTest;
 import by.pharmacy.dao.DAOFactory;
 import by.pharmacy.dao.UserDAO;
 import by.pharmacy.dao.exception.DAOException;

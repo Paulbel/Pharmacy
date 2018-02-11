@@ -1,4 +1,4 @@
-package by.pharmacy;
+package by.pharmacy.dao;
 
 import by.pharmacy.entity.*;
 import org.junit.AfterClass;
