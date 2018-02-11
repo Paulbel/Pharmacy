@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class LanguageDAOImpl implements LanguageDAO {
     private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private final static Logger logger = Logger.getLogger(ConnectionPool.class);
+    private final static Logger logger = Logger.getLogger(LanguageDAOImpl.class);
     private final static String GET_LANGUAGES = "SELECT language_to_translate,language_name, name FROM language_translate WHERE language_name = ?;";
 
     @Override

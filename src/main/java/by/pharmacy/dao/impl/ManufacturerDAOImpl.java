@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ManufacturerDAOImpl implements ManufacturerDAO {
     private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private final static Logger logger = Logger.getLogger(ConnectionPool.class);
+    private final static Logger logger = Logger.getLogger(ManufacturerDAOImpl.class);
     private final static String GET_COUNT = "SELECT" +
             " COUNT(id) AS 'count'" +
             "FROM manufacturer " +

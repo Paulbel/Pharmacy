@@ -1,16 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://pharmacy.by/tags" prefix="m" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
 <head>
-    <meta charset="UTF-8" content="">
+    <meta charset="UTF-8" content="text/html">
     <title>Title</title>
-    <link href="../../css/style.css" rel="stylesheet">
+
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
-    <script type="text/javascript" src="../../js/jquery-3.2.1.js"></script>
-    <script src="../../js/bootstrap.min.js" type="text/javascript"></script>
+    <link href="../../css/style.css" rel="stylesheet">
+    <link href="../../css/table.css" rel="stylesheet">
 
 
     <fmt:setLocale value="${sessionScope.local}"/>
@@ -127,8 +129,6 @@
                     </li>
                 </c:otherwise>
             </c:choose>
-
-
             <c:choose>
                 <c:when test="${requestScope.prev_command eq 'get_manufacturer_list_enter_cabinet'}">
                     <li class="active">
@@ -145,7 +145,6 @@
                     </li>
                 </c:otherwise>
             </c:choose>
-
             <c:choose>
                 <c:when test="${requestScope.prev_command eq 'find_manufacturer_enter_cabinet'}">
                     <li class="active">
@@ -162,8 +161,6 @@
                     </li>
                 </c:otherwise>
             </c:choose>
-
-
             <c:choose>
                 <c:when test="${requestScope.prev_command eq 'add_manufacturer_enter_cabinet'}">
                     <li class="active">
@@ -180,7 +177,6 @@
                     </li>
                 </c:otherwise>
             </c:choose>
-
             <c:choose>
                 <c:when test="${requestScope.prev_command eq 'add_drug_enter_cabinet'}">
                     <li class="active">
@@ -211,14 +207,12 @@
                     </a>
                 </li>
             </c:if>
-
         </ul>
     </div>
-
-
     <div id="info">
         <c:if test="${requestScope.prev_command eq 'get_drug_list_enter_cabinet'}">
-            <table border="1" cellpadding="5" cellspacing="5">
+            <table>
+                <thead>
                 <tr>
                     <th>name</th>
                     <th>dosage</th>
@@ -227,11 +221,15 @@
                     <th>country</th>
                     <th>manufacturer</th>
                 </tr>
+                </thead>
+                <tbody>
                 <c:forEach var="item" items="${requestScope.drugs}">
                     <tr>
-                        <td><a href="FrontController?command=get_drug_enter_cabinet&drug_id=${item.id}"><c:out
-                                value="${item.name}"/></a>
-                        </td>
+                            <%--                        <td><a href="FrontController?command=get_drug_enter_cabinet&drug_id=${item.id}"><c:out
+                                                            value="${item.name}"/></a>
+                                                    </td>--%>
+
+                        <td><m:custom drug="${item}"/></td>
                         <td><c:out value="${item.dosage}"/></td>
                         <td><c:out value="${item.amount}"/></td>
                         <td><c:out value="${item.price}"/></td>
@@ -242,6 +240,7 @@
                         </td>
                     </tr>
                 </c:forEach>
+                </tbody>
             </table>
             <ul class="pagination">
 
@@ -342,40 +341,41 @@
 
 
         <c:if test="${requestScope.prev_command eq 'find_drug_enter_cabinet'}">
-            <form class="navbar-form navbar-left" action="FrontController" method="get">
-                <input type="hidden" name="command" value="find_drug_enter_cabinet"/>
-                <div class="form-group">
-                    <input id="find_drug_input" type="text" class="form-control" placeholder="Search" name="drug_name"/>
-                </div>
-                <button id="find_drug_button" class="btn btn-default" value="">Отправить</button>
-            </form>
-
-            <table border="1" cellpadding="5" cellspacing="5">
-                <tr>
-                    <th>id</th>
-                    <th>name</th>
-                    <th>dosage</th>
-                    <th>amount</th>
-                    <th>price</th>
-                    <th>manufacturer</th>
-                    <th>country</th>
-                </tr>
-
-                <c:forEach var="item" items="${requestScope.drugs}">
-
+            <%--            <form class="navbar-form navbar-left" action="FrontController" method="get">
+                            <input type="hidden" name="command" value="find_drug_enter_cabinet"/>--%>
+            <div class="form-group">
+                <input id="find_drug_input" type="text" class="form-control" placeholder="Search" name="drug_name"/>
+            </div>
+            <button id="find_drug_button" class="btn btn-default" value="">Отправить</button>
+            <%--</form>--%>
+            <div id="responseTable">
+                <table border="1" cellpadding="5" cellspacing="5">
                     <tr>
-                        <td><c:out value="${item.id}"/></td>
-                        <td><c:out value="${item.name}"/></td>
-                        <td><c:out value="${item.dosage}"/></td>
-                        <td><c:out value="${item.amount}"/></td>
-                        <td><c:out value="${item.price}"/></td>
-                        <td><a href="FrontController?command="><c:out value="${item.manufacturer.name}"/></a>
-                        </td>
-                        <td><a href="FrontController?command="><c:out value="${item.manufacturer.country}"/></a>
-                        </td>
+                        <th>id</th>
+                        <th>name</th>
+                        <th>dosage</th>
+                        <th>amount</th>
+                        <th>price</th>
+                        <th>manufacturer</th>
+                        <th>country</th>
                     </tr>
-                </c:forEach>
-            </table>
+
+                    <c:forEach var="item" items="${requestScope.drugs}">
+
+                        <tr>
+                            <td><c:out value="${item.id}"/></td>
+                            <td><c:out value="${item.name}"/></td>
+                            <td><c:out value="${item.dosage}"/></td>
+                            <td><c:out value="${item.amount}"/></td>
+                            <td><c:out value="${item.price}"/></td>
+                            <td><a href="FrontController?command="><c:out value="${item.manufacturer.name}"/></a>
+                            </td>
+                            <td><a href="FrontController?command="><c:out value="${item.manufacturer.country}"/></a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </div>
             <ul class="pagination">
                 <c:choose>
                     <c:when test="${requestScope.currentPage != 1}">
@@ -603,96 +603,153 @@
             </form>
         </c:if>
 
+
+        <c:if test="${requestScope.prev_command eq 'add_drug_enter_cabinet'}">
+            <%--        <form class="drug_form" action="FrontController" method="post">
+                        <input type="hidden" name="command" value="add_drug_enter_cabinet"/>
+                        <div class="form-row ">
+                            <label>name</label>
+                            <input name="drug_name"/>
+                        </div>
+                        <div class="form-row ">
+                            <label>composition</label>
+                            <input name="drug_composition"/>
+                        </div>
+                        <div class="form-row">
+                            <label>description</label>
+                            <input type="text" name="drug_description">
+
+                        </div>
+                        <div class="form-row ">
+                            <label>amount</label>
+                            <input name="drug_amount">
+                        </div>
+                        <div class="form-row">
+                            <label>dosage</label>
+                            <input type="text" name="drug_dosage">
+
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" name="need_prescription" value="true" checked>
+                            <label class="form-check-label">need prescription</label>
+                        </div>
+                        <div class="form-row ">
+                            <label>price</label>
+                            <input name="drug_price">
+                        </div>
+                        <div class="form-row ">
+                            <label>number</label>
+                            <input name="drug_number">
+                        </div>
+
+                        <select name="manufacturer_id">
+                            <option disabled>Choose manufacturer</option>
+                            <c:forEach var="item" items="${requestScope.manufacturer_list}">
+                                <option value="${item.id}"><c:out value="${item.name}"/></option>
+                            </c:forEach>
+                        </select>
+
+                        <input type="submit" value="Отправить">
+                    </form>--%>
+            <div class="signUp">
+                <div class="row main">
+                    <div class="main-login main-center">
+                        <form class="form-horizontal" method="post" action="#">
+
+                            <div class="form-group">
+                                <label for="name" class="cols-sm-2 control-label">Your Name</label>
+                                <div class="cols-sm-10">
+                                    <input type="text" class="form-control" name="name" id="name"
+                                           placeholder="Enter your Name"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="cols-sm-2 control-label">Your Email</label>
+                                <div class="cols-sm-10">
+                                    <input type="text" class="form-control" name="email" id="email"
+                                           placeholder="Enter your Email"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="username" class="cols-sm-2 control-label">Username</label>
+                                <div class="cols-sm-10">
+
+                                    <input type="text" class="form-control" name="username" id="username"
+                                           placeholder="Enter your Username"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password" class="cols-sm-2 control-label">Password</label>
+                                <div class="cols-sm-10">
+                                    <input type="password" class="form-control" name="password" id="password"
+                                           placeholder="Enter your Password"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
+                                <div class="cols-sm-10">
+                                    <input type="password" class="form-control" name="confirm" id="confirm"
+                                           placeholder="Confirm your Password"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group ">
+                                <button type="button" class="btn btn-primary btn-lg btn-block login-button">Register
+                                </button>
+                            </div>
+                            <div class="login-register">
+                                <a href="index.php">Login</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </c:if>
+
+
+        <c:if test="${requestScope.prev_command eq 'add_manufacturer_enter_cabinet' or requestScope.prev_command eq 'get_country_list_enter_cabinet'}">
+            <form class="drug_form" action="FrontController" method="post">
+                <input type="hidden" name="command" value="add_manufacturer_enter_cabinet"/>
+                <div class="form-row ">
+                    <label>name</label>
+                    <input name="manufacturer_name"/>
+                </div>
+                <div class="form-row ">
+                    <label>phone number</label>
+                    <input name="phone"/>
+                </div>
+
+
+                <div class="form-row ">
+                    <label>address</label>
+                    <input name="manufacturer_address"/>
+                </div>
+
+                <div class="form-row ">
+                    <label>email</label>
+                    <input name="email"/>
+                </div>
+
+                <select name="country_code">
+                    <option disabled>Choose manufacturer</option>
+                    <c:forEach var="item" items="${requestScope.country_list}">
+                        <option value="${item.code}"><c:out value="${item.name}"/>
+                            <c:out value="${item.code}"/></option>
+                    </c:forEach>
+                </select>
+
+                <input type="submit" value="Отправить">
+            </form>
+        </c:if>
     </div>
-
-
-    <c:if test="${requestScope.prev_command eq 'add_drug_enter_cabinet'}">
-        <form class="drug_form" action="FrontController" method="post">
-            <input type="hidden" name="command" value="add_drug_enter_cabinet"/>
-            <div class="form-row ">
-                <label>name</label>
-                <input name="drug_name"/>
-            </div>
-            <div class="form-row ">
-                <label>composition</label>
-                <input name="drug_composition"/>
-            </div>
-            <div class="form-row">
-                <label>description</label>
-                <input type="text" name="drug_description">
-
-            </div>
-            <div class="form-row ">
-                <label>amount</label>
-                <input name="drug_amount">
-            </div>
-            <div class="form-row">
-                <label>dosage</label>
-                <input type="text" name="drug_dosage">
-
-            </div>
-            <div class="form-check">
-                <input type="checkbox" name="need_prescription" value="true" checked>
-                <label class="form-check-label">need prescription</label>
-            </div>
-            <div class="form-row ">
-                <label>price</label>
-                <input name="drug_price">
-            </div>
-            <div class="form-row ">
-                <label>number</label>
-                <input name="drug_number">
-            </div>
-
-            <select name="manufacturer_id">
-                <option disabled>Choose manufacturer</option>
-                <c:forEach var="item" items="${requestScope.manufacturer_list}">
-                    <option value="${item.id}"><c:out value="${item.name}"/></option>
-                </c:forEach>
-            </select>
-
-            <input type="submit" value="Отправить">
-        </form>
-    </c:if>
-
-
-    <c:if test="${requestScope.prev_command eq 'add_manufacturer_enter_cabinet' or requestScope.prev_command eq 'get_country_list_enter_cabinet'}">
-        <form class="drug_form" action="FrontController" method="post">
-            <input type="hidden" name="command" value="add_manufacturer_enter_cabinet"/>
-            <div class="form-row ">
-                <label>name</label>
-                <input name="manufacturer_name"/>
-            </div>
-            <div class="form-row ">
-                <label>phone number</label>
-                <input name="phone"/>
-            </div>
-
-
-            <div class="form-row ">
-                <label>address</label>
-                <input name="manufacturer_address"/>
-            </div>
-
-            <div class="form-row ">
-                <label>email</label>
-                <input name="email"/>
-            </div>
-
-            <select name="country_code">
-                <option disabled>Choose manufacturer</option>
-                <c:forEach var="item" items="${requestScope.country_list}">
-                    <option value="${item.code}"><c:out value="${item.name}"/>
-                        <c:out value="${item.code}"/></option>
-                </c:forEach>
-            </select>
-
-            <input type="submit" value="Отправить">
-        </form>
-    </c:if>
-
 </div>
-
+<script type="text/javascript" src="../../js/jquery-3.2.1.js"></script>
+<script src="../../js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../../js/script.js" type="text/javascript"></script>
 </body>
 
 </html>

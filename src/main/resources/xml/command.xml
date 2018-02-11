@@ -111,6 +111,11 @@
             <com:class>by.pharmacy.controller.command.impl.user.GetUserListCommand</com:class>
         </com:command>
 
+        <com:command>
+            <com:name>get_drug_table</com:name>
+            <com:class>by.pharmacy.controller.command.impl.drug.GetDrugTableCommand</com:class>
+        </com:command>
+
     </com:atomic_commands>
     <com:macro_commands>
         <com:macro_command>
@@ -270,6 +275,15 @@
                 <com:command_name>get_drug_enter_cabinet</com:command_name>
             </com:command_list>
         </com:macro_command>
+
+        <com:macro_command>
+            <com:name>find_drug_get_table</com:name>
+            <com:command_list>
+                <com:command_name>find_drug</com:command_name>
+                <com:command_name>get_drug_table</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
     </com:macro_commands>
 </com:commands>
 

@@ -2,7 +2,12 @@ package by.pharmacy.dao;
 
 import by.pharmacy.dao.impl.*;
 
-
+/**
+ * Factory class for granting access to data access objects.
+ *
+ * @author Pavel Sinelnikau
+ * @since 1.0.0
+ */
 public class DAOFactory {
     private static final DAOFactory instance = new DAOFactory();
 

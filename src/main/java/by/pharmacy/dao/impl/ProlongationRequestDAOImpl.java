@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 public class ProlongationRequestDAOImpl implements ProlongationRequestDAO {
     private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private final static Logger logger = Logger.getLogger(ConnectionPool.class);
+    private final static Logger logger = Logger.getLogger(ProlongationRequestDAOImpl.class);
     private final static String ADD_REQUEST = "INSERT INTO prolongation_request (prescription_id, day_count) VALUES (?,?)";
     private final static String CHANGE_STATUS = "UPDATE prolongation_request SET status = ? WHERE id = ?";
 

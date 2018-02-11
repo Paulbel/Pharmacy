@@ -17,7 +17,7 @@ import java.util.List;
 
 public class DrugDAOImpl implements DrugDAO {
     private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private final static Logger logger = Logger.getLogger(ConnectionPool.class);
+    private final static Logger logger = Logger.getLogger(DrugDAOImpl.class);
     private final static String REMOVE_DRUG = "DELETE FROM drug WHERE id = ?";
     private final static String GET_DRUG_INFO = "SELECT" +
             "  drug.id," +

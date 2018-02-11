@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 public class PrescriptionDAOImpl implements PrescriptionDAO {
     private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private final static Logger logger = Logger.getLogger(ConnectionPool.class);
+    private final static Logger logger = Logger.getLogger(PrescriptionDAOImpl.class);
     private final static String ADD_PRESCRIPTION = "INSERT INTO prescription (client, doctor, drug, start_date, end_date, number) " +
             "VALUES (?,?,?,?,?,?)";
     private final static String GET_PRESCRIPTION_BY_ID = "SELECT prescription.id,client,doctor,drug,start_date,end_date,drug.id, prescription.number, drug_translate.name " +

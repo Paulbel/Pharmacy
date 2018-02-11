@@ -56,14 +56,12 @@ public class FrontController extends HttpServlet {
         }
     }
 
-    public String getFilePath() {
+    private String getFilePath() {
         URL fileURL = this.getClass().getClassLoader().getResource("xml/command.xml");
         String filePath = null;
 
         if (fileURL != null) {
             filePath = fileURL.getPath();
-            filePath = filePath.replaceAll("%5B", "[");
-            filePath = filePath.replaceAll("%5D", "]");
         }
 
         return filePath;

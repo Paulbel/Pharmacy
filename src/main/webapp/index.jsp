@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://pharmacy.by/tags" prefix="m" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 
@@ -13,6 +14,8 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/sign_up.css">
 
     <fmt:setLocale value="${sessionScope.local}"/>
     <fmt:setBundle basename="local" var = "loc"/>
@@ -34,130 +37,83 @@
     <fmt:message bundle="${loc}" key="local.language" var="language"/>
 </head>
 <body>
-
-
-<%--<div id="signInForm" class="modal">
-  <span onclick="document.getElementById('signInForm').style.display='none'"
-        class="close" title="Close Modal">&times;</span>
-
-    <form class="modal-content animate" action="FrontController" method="post">
-        <div class="container">
-            <input type="hidden" name="command" value="sign_in_enter_cabinet"/>
-
-            <label><b><c:out value="${login}"/></b></label>
-            <input type="text" name="login" value=""/>
-            <br/>
-
-            <label><b><c:out value="${password}"/></b></label>
-            <input type="password" name="password" value=""/>
-            <br/>
+<jsp:include page="navbar.jsp"/>
+<div class="signUp">
+    <div class="row main">
+        <div class="panel-heading">
+            <div class="panel-title text-center">
+                <h1 class="title">Company Name</h1>
+                <hr/>
+            </div>
         </div>
+        <div class="main-login main-center">
+            <form class="form-horizontal" method="post" action="#">
 
-        <div class="container">
+                <div class="form-group">
+                    <label for="name" class="cols-sm-2 control-label">Your Name</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="name" id="name"
+                                   placeholder="Enter your Name"/>
+                        </div>
+                    </div>
+                </div>
 
-            <input type="submit" value="<c:out value="${signin}"/>"/><br/>
-            <button type="reset" onclick="document.getElementById('signInForm').style.display='none'" class="cancelbtn">
-                <c:out value="${cancel}"/>
-            </button>
-        </div>
-    </form>
-</div>
+                <div class="form-group">
+                    <label for="email" class="cols-sm-2 control-label">Your Email</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="email" id="email"
+                                   placeholder="Enter your Email"/>
+                        </div>
+                    </div>
+                </div>
 
-<div id="registrationForm" class="modal">
-  <span onclick="document.getElementById('registrationForm').style.display='none'"
-        class="close" title="Close Modal">&times;</span>
+                <div class="form-group">
+                    <label for="username" class="cols-sm-2 control-label">Username</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="username" id="username"
+                                   placeholder="Enter your Username"/>
+                        </div>
+                    </div>
+                </div>
 
-    <form class="modal-content animate" action="FrontController" method="post">
-        <div class="container">
-            <input type="hidden" name="command" value="sign_up"/>
+                <div class="form-group">
+                    <label for="password" class="cols-sm-2 control-label">Password</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <input type="password" class="form-control" name="password" id="password"
+                                   placeholder="Enter your Password"/>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="form-group">
+                    <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <input type="password" class="form-control" name="confirm" id="confirm"
+                                   placeholder="Confirm your Password"/>
+                        </div>
+                    </div>
+                </div>
 
-            <label><b><c:out value="${name}"/></b></label>
-            <input type="text" name="name" value=""/>
-            <br/>
-            <label><b><c:out value="${surname}"/></b></label>
-            <input type="text" name="surname" value=""/>
-            <br/>
-
-            <label><b><c:out value="${login}"/></b></label>
-            <input type="text" name="login" value=""/>
-            <br/>
-
-            <label><b><c:out value="${password}"/></b></label>
-            <input type="password" name="password" value=""/>
-            <br/>
-
-            <label><b><c:out value="${repeat_password}"/></b></label>
-            <input type="password" name="repeatedPassword" value=""/>
-            <br/>
-
-            <label><b><c:out value="${phone}"/></b></label>
-            <input type="text" name="phone" value=""/>
-            <br/>
-
-            <label><b><c:out value="${email}"/></b></label>
-            <input type="text" name="email" value=""/>
-            <br/>
-        </div>
-
-        <div class="container">
-
-            <input type="submit" value="<c:out value="${signUp}"/>"/><br/>
-            <button type="reset" onclick="document.getElementById('registrationForm').style.display='none'" class="cancelbtn">
-                <c:out value="${cancel}"/>
-            </button>
-
-        </div>
-    </form>
-</div>
-
-
-
-
-<nav class="navbar navbar-default" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#"><c:out value="${company_name}"/></a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <c:if test="${not empty sessionScope.login}">
-                        <a>
-                            <c:out value="${sessionScope.name}"/>
-                            <c:out value="${sessionScope.surname}"/>
-                        </a>
-                    </c:if>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><c:out value="${cabinet}"/><b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <c:choose>
-                        <c:when test="${empty sessionScope.login}">
-                            <li>
-                                <a href="#" onclick="document.getElementById('signInForm').style.display='block'"><c:out value="${signin}" /></a>
-                                <a href="#" onclick="document.getElementById('registrationForm').style.display='block'"><c:out value="${signUp}"/></a>
-                            </li>
-                        </c:when>
-                        <c:otherwise>
-                            <li><a href="FrontController?command=sign_out"><c:out value="${signout}" /></a></li>
-                        </c:otherwise>
-                        </c:choose>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown"><c:out value="${language}" /><b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="FrontController?command=change_language&local=ru"><c:out value="${ru}"/></a></li>
-                        <li><a href="FrontController?command=change_language&local=en"><c:out value="${en}"/></a></li>
-                    </ul>
-                </li>
-
-            </ul>
+                <div class="form-group ">
+                    <button type="button" class="btn btn-primary btn-lg btn-block login-button">Register</button>
+                </div>
+                <div class="login-register">
+                    <a href="index.php">Login</a>
+                </div>
+            </form>
         </div>
     </div>
-</nav>--%>
-<jsp:include page="navbar.jsp"/>
+</div>
 
 </body>
 </html>

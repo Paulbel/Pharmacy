@@ -15,7 +15,7 @@ import java.util.List;
 
 public class OrderDAOImpl implements OrderDAO {
     private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private final static Logger logger = Logger.getLogger(ConnectionPool.class);
+    private final static Logger logger = Logger.getLogger(OrderDAOImpl.class);
     private final static String GET_ORDERS_LIST = "SELECT" +
             "  user.login," +
             "  drug_translate.name," +

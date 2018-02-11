@@ -16,7 +16,7 @@ import java.util.List;
 
 public class CountryDAOImpl implements CountryDAO {
     private final static ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private final static Logger logger = Logger.getLogger(ConnectionPool.class);
+    private final static Logger logger = Logger.getLogger(CountryDAOImpl.class);
     private final static String GET_COUNTRY_LIST_QUERY = "SELECT country_translate.country_code, name FROM country_translate WHERE lan_name = ?";
 
     @Override
