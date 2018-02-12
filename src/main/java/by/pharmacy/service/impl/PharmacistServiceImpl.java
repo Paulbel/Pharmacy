@@ -7,15 +7,25 @@ import by.pharmacy.dao.UserDAO;
 import by.pharmacy.dao.exception.DAOException;
 import by.pharmacy.entity.*;
 import by.pharmacy.service.PharmacistService;
+import by.pharmacy.service.exception.InvalidDataException;
 import by.pharmacy.service.exception.ServiceException;
+import by.pharmacy.service.validator.Validator;
+import by.pharmacy.service.validator.ValidatorFactory;
 
 public class PharmacistServiceImpl implements PharmacistService {
+    private final static DAOFactory daoFactory = DAOFactory.getInstance();
+
     @Override
     public void addDrug(Drug drug, Language language) throws ServiceException {
         try {
+            ValidatorFactory validatorFactory = ValidatorFactory.getInstance();
+            Validator validator = validatorFactory.getValidator(ValidatorFactory.EntityType.DRUG);
+            if (!validator.validate(drug)) {
+                throw new InvalidDataException("Invalid drug info");
+            }
             DAOFactory factory = DAOFactory.getInstance();
             DrugDAO drugDAO = factory.getDrugDAO();
-            drugDAO.addDrug(drug,language);
+            drugDAO.addDrug(drug, language);
         } catch (DAOException e) {
             throw new ServiceException("Can't add drug");
         }
@@ -24,14 +34,13 @@ public class PharmacistServiceImpl implements PharmacistService {
     @Override
     public void addDrugDescription(String pharmacistLogin, Drug drug, Language language) throws ServiceException {
         try {
-            DAOFactory daoFactory = DAOFactory.getInstance();
             UserDAO userDAO = daoFactory.getUserDAO();
             User user = userDAO.findUserByLogin(pharmacistLogin);
             if (!user.getRole().equals(UserRole.PHARMACIST)) {
                 throw new ServiceException("User must be a pharmacist");
             }
             DrugDAO drugDAO = daoFactory.getDrugDAO();
-            drugDAO.addDrugDescription(drug,language);
+            drugDAO.addDrugDescription(drug, language);
         } catch (DAOException e) {
             e.printStackTrace();
         }
@@ -40,9 +49,8 @@ public class PharmacistServiceImpl implements PharmacistService {
     @Override
     public void changeDrugDescription(Drug drug, Language language) throws ServiceException {
         try {
-            DAOFactory factory = DAOFactory.getInstance();
-            DrugDAO drugDAO = factory.getDrugDAO();
-            drugDAO.changeDrugDescription(drug,language);
+            DrugDAO drugDAO = daoFactory.getDrugDAO();
+            drugDAO.changeDrugDescription(drug, language);
         } catch (DAOException e) {
             throw new ServiceException("Can't change");
         }
@@ -51,8 +59,7 @@ public class PharmacistServiceImpl implements PharmacistService {
     @Override
     public void changeDrugInfo(Drug drug) throws ServiceException {
         try {
-            DAOFactory factory = DAOFactory.getInstance();
-            DrugDAO drugDAO = factory.getDrugDAO();
+            DrugDAO drugDAO = daoFactory.getDrugDAO();
             drugDAO.changeDrugInfo(drug);
         } catch (DAOException e) {
             throw new ServiceException("Can't change");
@@ -62,8 +69,7 @@ public class PharmacistServiceImpl implements PharmacistService {
     @Override
     public void addManufacturer(Manufacturer manufacturer, Language language) throws ServiceException {
         try {
-            DAOFactory factory = DAOFactory.getInstance();
-            ManufacturerDAO manufacturerDAO = factory.getManufacturerDAO();
+            ManufacturerDAO manufacturerDAO = daoFactory.getManufacturerDAO();
             manufacturerDAO.addManufacturer(manufacturer, language);
         } catch (DAOException e) {
             throw new ServiceException("Can't add");

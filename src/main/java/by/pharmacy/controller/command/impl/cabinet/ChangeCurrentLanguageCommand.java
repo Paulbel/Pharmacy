@@ -24,7 +24,7 @@ public class ChangeCurrentLanguageCommand implements Command {
         String query = request.getParameter("query");
         StringBuilder addressConstructor = new StringBuilder();
         addressConstructor.append("/FrontController");
-        if (query != null) {
+        if (query != "") {
             addressConstructor.append("?command=");
             addressConstructor.append(query);
         }

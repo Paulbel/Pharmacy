@@ -4,7 +4,6 @@ import by.pharmacy.controller.ControllerConstant;
 import by.pharmacy.controller.command.Command;
 import by.pharmacy.entity.User;
 import by.pharmacy.service.DoctorService;
-import by.pharmacy.service.ServiceFactory;
 import by.pharmacy.service.exception.ServiceException;
 
 import javax.servlet.ServletException;
@@ -16,7 +15,7 @@ import java.util.List;
 public class GetClientListCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServiceException, ServletException {
-        DoctorService doctorService = ServiceFactory.getInstance().getDoctorService();
+        DoctorService doctorService = serviceFactory.getDoctorService();
 
         List<User> list = doctorService.getClientList();
 
@@ -29,12 +28,12 @@ public class GetClientListCommand implements Command {
         int noOfRecords = list.size();
         int noOfPages = (int) Math.ceil(noOfRecords / recordsPerPage);
 
-        int fromIndex = recordsPerPage*(page-1);
-        int toIndex = recordsPerPage+fromIndex;
-        if(fromIndex+recordsPerPage>noOfRecords){
+        int fromIndex = recordsPerPage * (page - 1);
+        int toIndex = recordsPerPage + fromIndex;
+        if (fromIndex + recordsPerPage > noOfRecords) {
             toIndex = noOfRecords;
         }
-        List<User> subList = list.subList(fromIndex,toIndex);
+        List<User> subList = list.subList(fromIndex, toIndex);
         request.setAttribute("noOfPages", noOfPages);
         request.setAttribute("currentPage", page);
 

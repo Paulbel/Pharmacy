@@ -4,7 +4,6 @@ import by.pharmacy.controller.ControllerConstant;
 import by.pharmacy.controller.command.Command;
 import by.pharmacy.entity.Language;
 import by.pharmacy.entity.User;
-import by.pharmacy.service.ServiceFactory;
 import by.pharmacy.service.UserService;
 import by.pharmacy.service.exception.AccessDeniedException;
 import by.pharmacy.service.exception.ServiceException;
@@ -20,7 +19,6 @@ public class SignInCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
-            ServiceFactory serviceFactory = ServiceFactory.getInstance();
             UserService userService = serviceFactory.getUserService();
 
             String login = request.getParameter(ControllerConstant.LOGIN_ATTRIBUTE);

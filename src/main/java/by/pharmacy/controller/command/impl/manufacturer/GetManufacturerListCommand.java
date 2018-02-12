@@ -4,7 +4,6 @@ import by.pharmacy.controller.ControllerConstant;
 import by.pharmacy.controller.command.Command;
 import by.pharmacy.entity.Language;
 import by.pharmacy.entity.Manufacturer;
-import by.pharmacy.service.ServiceFactory;
 import by.pharmacy.service.UserService;
 import by.pharmacy.service.exception.ServiceException;
 
@@ -18,8 +17,7 @@ import java.util.List;
 public class GetManufacturerListCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServiceException, ServletException {
-        ServiceFactory factory = ServiceFactory.getInstance();
-        UserService userService = factory.getUserService();
+        UserService userService = serviceFactory.getUserService();
 
         HttpSession session = request.getSession();
         String languageName = (String) session.getAttribute(ControllerConstant.LOCAL_ATTRIBUTE);

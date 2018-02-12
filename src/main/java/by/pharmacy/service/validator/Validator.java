@@ -9,4 +9,14 @@ public abstract class Validator {
         Matcher matcher = pattern.matcher(parameter);
         return matcher.matches();
     }
+
+    public static boolean validateId(int id) {
+        return id > 0;
+    }
+
+    public static boolean paginationCheck(int number, int offset) {
+        return number > 0 && offset >= 0;
+    }
+
+    public abstract <T> boolean validate(T obj);
 }

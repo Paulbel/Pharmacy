@@ -19,11 +19,6 @@ import java.util.List;
 public class FindDrugCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServiceException, ServletException {
-        int page = 1;
-        int recordsPerPage = 30;
-        if (request.getParameter("page") != null) {
-            page = Integer.parseInt(request.getParameter("page"));
-        }
         ServiceFactory factory = ServiceFactory.getInstance();
         UserService userService = factory.getUserService();
 
@@ -34,22 +29,8 @@ public class FindDrugCommand implements Command {
         String name = request.getParameter(ControllerConstant.DRUG_NAME_ATTRIBUTE);
 
         List<Drug> list = userService.findDrug(name, language, DrugCriteria.NAME);
-        int noOfRecords = list.size();
-        int noOfPages = (int) Math.ceil(noOfRecords / recordsPerPage);
-
-        int fromIndex = recordsPerPage*(page-1);
-        int toIndex = recordsPerPage+fromIndex;
-        if(fromIndex+recordsPerPage>noOfRecords){
-            toIndex = noOfRecords;
-        }
-
-
-        List<Drug> subList = list.subList(fromIndex,toIndex);
-
 
         request.setAttribute(ControllerConstant.DRUG_NAME_ATTRIBUTE, name);
-        request.setAttribute(ControllerConstant.DRUGS_ATTRIBUTE, subList);
-        request.setAttribute("noOfPages", noOfPages);
-        request.setAttribute("currentPage", page);
+        request.setAttribute(ControllerConstant.DRUGS_ATTRIBUTE, list);
     }
 }

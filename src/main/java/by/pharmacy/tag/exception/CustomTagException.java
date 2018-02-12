@@ -1,4 +1,4 @@
-package by.pharmacy.tag;
+package by.pharmacy.tag.exception;
 
 public class CustomTagException extends RuntimeException {
     private static final long serialVersionUID = -6381794357141095843L;

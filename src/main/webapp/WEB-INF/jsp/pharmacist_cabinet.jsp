@@ -38,6 +38,12 @@
     <fmt:message bundle="${loc}" key="local.add_manufacturer" var="add_manufacturer"/>
     <fmt:message bundle="${loc}" key="local.manufacturers" var="manufacturers"/>
     <fmt:message bundle="${loc}" key="local.find_manufacturer" var="find_manufacturer"/>
+    <fmt:message bundle="${loc}" key="local.drug_name" var="drug_name"/>
+    <fmt:message bundle="${loc}" key="local.dosage" var="dosage"/>
+    <fmt:message bundle="${loc}" key="local.amount" var="amount"/>
+    <fmt:message bundle="${loc}" key="local.country" var="country"/>
+    <fmt:message bundle="${loc}" key="local.price" var="price"/>
+    <fmt:message bundle="${loc}" key="local.manufacturers" var="manufacturer"/>
 </head>
 <body>
 
@@ -76,12 +82,12 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="FrontController?command=change_language&local=ru&query=${requestScope.ControllerConstant.COMMAND_ATTRIBUTE}">
+                            <a href="FrontController?command=change_language&local=ru&query=${requestScope.prev_command}">
                                 <c:out value="${ru}"/>
                             </a>
                         </li>
                         <li>
-                            <a href="FrontController?command=change_language&local=en&query=${requestScope.ControllerConstant.COMMAND_ATTRIBUTE}">
+                            <a href="FrontController?command=change_language&local=en&query=${requestScope.prev_command}">
                                 <c:out value="${en}"/>
                             </a>
                         </li>
@@ -209,279 +215,37 @@
             </c:if>
         </ul>
     </div>
+
+
     <div id="info">
         <c:if test="${requestScope.prev_command eq 'get_drug_list_enter_cabinet'}">
-            <table>
-                <thead>
-                <tr>
-                    <th>name</th>
-                    <th>dosage</th>
-                    <th>amount</th>
-                    <th>price</th>
-                    <th>country</th>
-                    <th>manufacturer</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach var="item" items="${requestScope.drugs}">
-                    <tr>
-                            <%--                        <td><a href="FrontController?command=get_drug_enter_cabinet&drug_id=${item.id}"><c:out
-                                                            value="${item.name}"/></a>
-                                                    </td>--%>
-
-                        <td><m:custom drug="${item}"/></td>
-                        <td><c:out value="${item.dosage}"/></td>
-                        <td><c:out value="${item.amount}"/></td>
-                        <td><c:out value="${item.price}"/></td>
-                        <td><c:out value="${item.manufacturer.country.name}"/></td>
-                        <td>
-                            <a href="FrontController?command=get_manufacturer_enter_cabinet&manufacturer_id=${item.manufacturer.id}"><c:out
-                                    value="${item.manufacturer.name}"/></a>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-            <ul class="pagination">
-
-                <c:choose>
-                    <c:when test="${requestScope.currentPage != 1}">
-                        <li>
-                            <a href="FrontController?command=get_drug_list_enter_cabinet&page=${requestScope.currentPage - 1}">«</a>
-                        </li>
-                    </c:when>
-                    <c:otherwise>
-                        <li class="disabled"><a href="#">«</a></li>
-                    </c:otherwise>
-                </c:choose>
-                <c:forEach begin="1" end="${requestScope.noOfPages}" var="i">
-                    <c:choose>
-                        <c:when test="${requestScope.currentPage eq i}">
-                            <li class="active"><a href="#"><c:out value="${i}"/><span
-                                    class="sr-only">(current)</span></a>
-                            </li>
-                        </c:when>
-                        <c:otherwise>
-                            <li><a href="FrontController?command=get_drug_list_enter_cabinet&page=${i}"><c:out
-                                    value="${i}"/></a>
-                            </li>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-                <c:choose>
-                    <c:when test="${requestScope.currentPage lt requestScope.noOfPages}">
-                        <li>
-                            <a href="FrontController?command=get_drug_list_enter_cabinet&page=${requestScope.currentPage + 1}">»</a>
-                        </li>
-                    </c:when>
-                    <c:otherwise>
-                        <li class="disabled"><a href="#">»</a></li>
-                    </c:otherwise>
-                </c:choose>
-            </ul>
+            <jsp:include page="drug_table.jsp"/>
+            <m:pagination command="get_drug_list_enter_cabinet" currentPage="${requestScope.currentPage}"
+                          pageNumber="${requestScope.noOfPages}"/>
         </c:if>
 
         <c:if test="${requestScope.prev_command eq 'get_manufacturer_list_enter_cabinet'}">
-            <table border="1" cellpadding="5" cellspacing="5">
-                <tr>
-                    <th>name</th>
-                    <th>country</th>
-                    <th>phone</th>
-                    <th>address</th>
-                    <th>email</th>
-                </tr>
-                <c:forEach var="item" items="${requestScope.manufacturer_list}">
-                    <tr>
-                        <td><c:out value="${item.name}"/></td>
-                        <td><c:out value="${item.country.name}"/></td>
-                        <td><c:out value="${item.phoneNumber}"/></td>
-                        <td><c:out value="${item.address}"/></td>
-                        <td><c:out value="${item.email}"/></td>
-                    </tr>
-                </c:forEach>
-            </table>
-            <ul class="pagination">
 
-                <c:choose>
-                    <c:when test="${requestScope.currentPage != 1}">
-                        <li>
-                            <a href="FrontController?command=get_manufacturer_list_enter_cabinet&page=${requestScope.currentPage - 1}">«</a>
-                        </li>
-                    </c:when>
-                    <c:otherwise>
-                        <li class="disabled"><a href="#">«</a></li>
-                    </c:otherwise>
-                </c:choose>
-                <c:forEach begin="1" end="${requestScope.noOfPages}" var="i">
-                    <c:choose>
-                        <c:when test="${requestScope.currentPage eq i}">
-                            <li class="active"><a href="#"><c:out value="${i}"/><span
-                                    class="sr-only">(current)</span></a>
-                            </li>
-                        </c:when>
-                        <c:otherwise>
-                            <li><a href="FrontController?command=get_manufacturer_list_enter_cabinet&page=${i}"><c:out
-                                    value="${i}"/></a>
-                            </li>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-                <c:choose>
-                    <c:when test="${requestScope.currentPage lt requestScope.noOfPages}">
-                        <li>
-                            <a href="FrontController?command=get_manufacturer_enter_cabinet&page=${requestScope.currentPage + 1}">»</a>
-                        </li>
-                    </c:when>
-                    <c:otherwise>
-                        <li class="disabled"><a href="#">»</a></li>
-                    </c:otherwise>
-                </c:choose>
-            </ul>
+            <jsp:include page="manufacturer_table.jsp"/>
+            <m:pagination command="get_manufacturer_list_enter_cabinet" currentPage="${requestScope.currentPage}"
+                          pageNumber="${requestScope.noOfPages}"/>
         </c:if>
 
 
         <c:if test="${requestScope.prev_command eq 'find_drug_enter_cabinet'}">
-            <%--            <form class="navbar-form navbar-left" action="FrontController" method="get">
-                            <input type="hidden" name="command" value="find_drug_enter_cabinet"/>--%>
-            <div class="form-group">
-                <input id="find_drug_input" type="text" class="form-control" placeholder="Search" name="drug_name"/>
-            </div>
+            <input id="find_drug_input" type="text" class="form-control" placeholder="Search"/>
             <button id="find_drug_button" class="btn btn-default" value="">Отправить</button>
-            <%--</form>--%>
             <div id="responseTable">
-                <table border="1" cellpadding="5" cellspacing="5">
-                    <tr>
-                        <th>id</th>
-                        <th>name</th>
-                        <th>dosage</th>
-                        <th>amount</th>
-                        <th>price</th>
-                        <th>manufacturer</th>
-                        <th>country</th>
-                    </tr>
-
-                    <c:forEach var="item" items="${requestScope.drugs}">
-
-                        <tr>
-                            <td><c:out value="${item.id}"/></td>
-                            <td><c:out value="${item.name}"/></td>
-                            <td><c:out value="${item.dosage}"/></td>
-                            <td><c:out value="${item.amount}"/></td>
-                            <td><c:out value="${item.price}"/></td>
-                            <td><a href="FrontController?command="><c:out value="${item.manufacturer.name}"/></a>
-                            </td>
-                            <td><a href="FrontController?command="><c:out value="${item.manufacturer.country}"/></a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </table>
+                push the button
             </div>
-            <ul class="pagination">
-                <c:choose>
-                    <c:when test="${requestScope.currentPage != 1}">
-                        <li>
-                            <a href="FrontController?command=find_drug_enter_cabinet&page=${requestScope.currentPage - 1}&drug_name=${requestScope.drug_name}">«</a>
-                        </li>
-                    </c:when>
-                    <c:otherwise>
-                        <li class="disabled"><a href="#">«</a></li>
-                    </c:otherwise>
-                </c:choose>
-                <c:forEach begin="1" end="${requestScope.noOfPages}" var="i">
-                    <c:choose>
-                        <c:when test="${requestScope.currentPage eq i}">
-                            <li class="active"><a href="#"><c:out value="${i}"/><span
-                                    class="sr-only">(current)</span></a>
-                            </li>
-                        </c:when>
-                        <c:otherwise>
-                            <li>
-                                <a href="FrontController?command=find_drug_enter_cabinet&page=${i}&drug_name=${requestScope.drug_name}"><c:out
-                                        value="${i}"/></a>
-                            </li>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-                <c:choose>
-                    <c:when test="${requestScope.currentPage lt requestScope.noOfPages}">
-                        <li>
-                            <a href="FrontController?command=find_drug_enter_cabinet&page=${requestScope.currentPage + 1}&drug_name=${requestScope.drug_name}">»</a>
-                        </li>
-                    </c:when>
-                    <c:otherwise>
-                        <li class="disabled"><a href="#">»</a></li>
-                    </c:otherwise>
-                </c:choose>
-            </ul>
         </c:if>
 
         <c:if test="${requestScope.prev_command eq 'find_manufacturer_enter_cabinet'}">
-            <form class="navbar-form navbar-left" action="FrontController" method="get">
-                <input type="hidden" name="command" value="find_manufacturer_enter_cabinet"/>
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search" name="manufacturer_name">
-                </div>
-                <button type="submit" class="btn btn-default" value="">Отправить</button>
-            </form>
-
-
-            <table border="1" cellpadding="5" cellspacing="5">
-                <tr>
-                    <th>name</th>
-                    <th>country</th>
-                    <th>phone</th>
-                    <th>address</th>
-                    <th>email</th>
-                </tr>
-                <c:forEach var="item" items="${requestScope.manufacturer_list}">
-                    <tr>
-                        <td><c:out value="${item.name}"/></td>
-                        <td><c:out value="${item.country.name}"/></td>
-                        <td><c:out value="${item.phoneNumber}"/></td>
-                        <td><c:out value="${item.address}"/></td>
-                        <td><c:out value="${item.email}"/></td>
-                    </tr>
-                </c:forEach>
-            </table>
-
-
-            <ul class="pagination">
-                <c:choose>
-                    <c:when test="${requestScope.currentPage != 1}">
-                        <li>
-                            <a href="FrontController?command=find_manufacturer_enter_cabinet&page=${requestScope.currentPage - 1}&manufacturer_name=${requestScope.manufacturer_name}">«</a>
-                        </li>
-                    </c:when>
-                    <c:otherwise>
-                        <li class="disabled"><a href="#">«</a></li>
-                    </c:otherwise>
-                </c:choose>
-                <c:forEach begin="1" end="${requestScope.noOfPages}" var="i">
-                    <c:choose>
-                        <c:when test="${requestScope.currentPage eq i}">
-                            <li class="active"><a href="#"><c:out value="${i}"/><span
-                                    class="sr-only">(current)</span></a>
-                            </li>
-                        </c:when>
-                        <c:otherwise>
-                            <li>
-                                <a href="FrontController?command=find_manufacturer_enter_cabinet&page=${i}&manufacturer_name=${requestScope.manufacturer_name}"><c:out
-                                        value="${i}"/></a>
-                            </li>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-                <c:choose>
-                    <c:when test="${requestScope.currentPage lt requestScope.noOfPages}">
-                        <li>
-                            <a href="FrontController?command=find_manufacturer_enter_cabinet&page=${requestScope.currentPage + 1}&manufacturer_name=${requestScope.manufacturer_name}">»</a>
-                        </li>
-                    </c:when>
-                    <c:otherwise>
-                        <li class="disabled"><a href="#">»</a></li>
-                    </c:otherwise>
-                </c:choose>
-            </ul>
+            <input id="find_manufacturer_input" type="text" class="form-control" placeholder="Search">
+            <button id="find_manufacturer_button" type="submit" class="btn btn-default" value="">Отправить</button>
+            <div id="responseTable">
+                push the button
+            </div>
         </c:if>
 
         <c:if test="${requestScope.prev_command eq 'get_manufacturer_enter_cabinet'}">
@@ -651,62 +415,70 @@
 
                         <input type="submit" value="Отправить">
                     </form>--%>
-            <div class="signUp">
-                <div class="row main">
-                    <div class="main-login main-center">
-                        <form class="form-horizontal" method="post" action="#">
-
-                            <div class="form-group">
-                                <label for="name" class="cols-sm-2 control-label">Your Name</label>
-                                <div class="cols-sm-10">
-                                    <input type="text" class="form-control" name="name" id="name"
-                                           placeholder="Enter your Name"/>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="email" class="cols-sm-2 control-label">Your Email</label>
-                                <div class="cols-sm-10">
-                                    <input type="text" class="form-control" name="email" id="email"
-                                           placeholder="Enter your Email"/>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="username" class="cols-sm-2 control-label">Username</label>
-                                <div class="cols-sm-10">
-
-                                    <input type="text" class="form-control" name="username" id="username"
-                                           placeholder="Enter your Username"/>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="password" class="cols-sm-2 control-label">Password</label>
-                                <div class="cols-sm-10">
-                                    <input type="password" class="form-control" name="password" id="password"
-                                           placeholder="Enter your Password"/>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
-                                <div class="cols-sm-10">
-                                    <input type="password" class="form-control" name="confirm" id="confirm"
-                                           placeholder="Confirm your Password"/>
-                                </div>
-                            </div>
-
-                            <div class="form-group ">
-                                <button type="button" class="btn btn-primary btn-lg btn-block login-button">Register
-                                </button>
-                            </div>
-                            <div class="login-register">
-                                <a href="index.php">Login</a>
-                            </div>
-                        </form>
+            <div class="row main">
+                <form class="form-horizontal" method="post" action="#">
+                    <input type="hidden" name="command" value="add_drug_enter_cabinet"/>
+                    <div class="form-group">
+                        <label for="name" class="cols-sm-2 control-label">Your Name</label>
+                        <div class="cols-sm-10">
+                            <input type="text" class="form-control" name="name" id="name"
+                                   placeholder="Enter your Name"/>
+                        </div>
                     </div>
-                </div>
+
+                    <div class="form-group">
+                        <label for="email" class="cols-sm-2 control-label">Your Email</label>
+                        <div class="cols-sm-10">
+                            <input type="text" class="form-control" name="email" id="email"
+                                   placeholder="Enter your Email"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username" class="cols-sm-2 control-label">Username</label>
+                        <div class="cols-sm-10">
+
+                            <input type="text" class="form-control" name="username" id="username"
+                                   placeholder="Enter your Username"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="cols-sm-2 control-label">Password</label>
+                        <div class="cols-sm-10">
+                            <input type="password" class="form-control" name="password" id="password"
+                                   placeholder="Enter your Password"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
+                        <div class="cols-sm-10">
+                            <input type="password" class="form-control" name="confirm" id="confirm"
+                                   placeholder="Confirm your Password"/>
+                        </div>
+                    </div>
+
+
+                    <div id="responseSelect" class="cols-sm-10">
+                        push the button
+                    </div>
+                    <div class="form-group row">
+                        <input id="find_manufacturer_select_input" type="text" class="form-control"
+                               placeholder="Search">
+                        <button type="button" id="find_manufacturer_select_button" class="btn btn-default" value="">
+                            Отправить
+                        </button>
+                    </div>
+
+
+                    <div class="form-group ">
+                        <button type="button" class="btn btn-primary btn-lg btn-block login-button">Register
+                        </button>
+                    </div>
+
+                </form>
+
             </div>
         </c:if>
 
@@ -734,13 +506,6 @@
                     <input name="email"/>
                 </div>
 
-                <select name="country_code">
-                    <option disabled>Choose manufacturer</option>
-                    <c:forEach var="item" items="${requestScope.country_list}">
-                        <option value="${item.code}"><c:out value="${item.name}"/>
-                            <c:out value="${item.code}"/></option>
-                    </c:forEach>
-                </select>
 
                 <input type="submit" value="Отправить">
             </form>

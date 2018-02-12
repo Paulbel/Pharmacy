@@ -8,11 +8,21 @@
             <com:class>by.pharmacy.controller.command.impl.cabinet.ChangeCurrentLanguageCommand</com:class>
         </com:command>
 
+
+        <com:command>
+            <com:name>get_manufacturer_select</com:name>
+            <com:class>by.pharmacy.controller.command.impl.manufacturer.GetManufacturerSelectCommand</com:class>
+        </com:command>
+
         <com:command>
             <com:name>get_prescription</com:name>
             <com:class>by.pharmacy.controller.command.impl.prescription.GetPrescriptionCommand</com:class>
         </com:command>
 
+        <com:command>
+            <com:name>get_manufacturer_table</com:name>
+            <com:class>by.pharmacy.controller.command.impl.manufacturer.GetManufacturerTableCommand</com:class>
+        </com:command>
 
         <com:command>
             <com:name>get_order_list</com:name>
@@ -66,6 +76,8 @@
             <com:name>find_drug</com:name>
             <com:class>by.pharmacy.controller.command.impl.drug.FindDrugCommand</com:class>
         </com:command>
+
+
         <com:command>
             <com:name>get_drug</com:name>
             <com:class>by.pharmacy.controller.command.impl.drug.GetDrugCommand</com:class>
@@ -115,7 +127,10 @@
             <com:name>get_drug_table</com:name>
             <com:class>by.pharmacy.controller.command.impl.drug.GetDrugTableCommand</com:class>
         </com:command>
-
+        <com:command>
+            <com:name>get_user</com:name>
+            <com:class>by.pharmacy.controller.command.impl.user.GetUserCommand</com:class>
+        </com:command>
     </com:atomic_commands>
     <com:macro_commands>
         <com:macro_command>
@@ -163,6 +178,14 @@
             <com:name>get_user_list_enter_cabinet</com:name>
             <com:command_list>
                 <com:command_name>get_user_list</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>get_user_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>get_user</com:command_name>
                 <com:command_name>enter_cabinet</com:command_name>
             </com:command_list>
         </com:macro_command>
@@ -281,6 +304,22 @@
             <com:command_list>
                 <com:command_name>find_drug</com:command_name>
                 <com:command_name>get_drug_table</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>find_manufacturer_get_table</com:name>
+            <com:command_list>
+                <com:command_name>find_manufacturer</com:command_name>
+                <com:command_name>get_manufacturer_table</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>find_manufacturer_get_select</com:name>
+            <com:command_list>
+                <com:command_name>find_manufacturer</com:command_name>
+                <com:command_name>get_manufacturer_select</com:command_name>
             </com:command_list>
         </com:macro_command>
 

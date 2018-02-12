@@ -9,6 +9,7 @@ public final class ControllerConstant {
     public static final String EMAIL_ATTRIBUTE = "email";
     public static final String LOCAL_ATTRIBUTE = "local";
     public static final String USERS_ATTRIBUTE = "users";
+    public static final String USER_ATTRIBUTE = "user";
     public static final String COMMAND_ATTRIBUTE = "command";
     public static final String PREV_COMMAND_ATTRIBUTE = "prev_command";
     public static final String CURRENT_OPTION_ATTRIBUTE = "want_command";

@@ -12,13 +12,14 @@ import by.pharmacy.service.exception.ServiceException;
 import java.util.List;
 
 public class AdministratorServiceImpl implements AdministratorService {
+    private final static DAOFactory daoFactory = DAOFactory.getInstance();
+
     @Override
     public List<User> getUserList(String administratorLogin, int number, int offset) throws ServiceException {
         try {
-            DAOFactory daoFactory = DAOFactory.getInstance();
             UserDAO userDAO = daoFactory.getUserDAO();
-            User administrator =  userDAO.findUserByLogin(administratorLogin);
-            if (!administrator.getRole().equals(UserRole.ADMIN)) {
+            User administrator = userDAO.findUserByLogin(administratorLogin);
+            if (administrator.getRole() != (UserRole.ADMIN)) {
                 throw new AccessDeniedException("User must be an administrator");
             }
             return userDAO.getUserList(number, offset);
@@ -30,10 +31,9 @@ public class AdministratorServiceImpl implements AdministratorService {
     @Override
     public void setUserRole(String administratorLogin, String userLogin, UserRole role) throws ServiceException {
         try {
-            DAOFactory daoFactory = DAOFactory.getInstance();
             UserDAO userDAO = daoFactory.getUserDAO();
-            User administrator =  userDAO.findUserByLogin(administratorLogin);
-            if (!administrator.getRole().equals(UserRole.ADMIN)) {
+            User administrator = userDAO.findUserByLogin(administratorLogin);
+            if (administrator.getRole() != UserRole.ADMIN) {
                 throw new AccessDeniedException("User must be an administrator");
             }
             userDAO.setRole(userLogin, role);
@@ -41,4 +41,20 @@ public class AdministratorServiceImpl implements AdministratorService {
             throw new ServiceException(e.getMessage(), e);
         }
     }
+
+    @Override
+    public User getUser(String administratorLogin, String login) throws ServiceException {
+        try {
+            UserDAO userDAO = daoFactory.getUserDAO();
+            User admin = userDAO.findUserByLogin(administratorLogin);
+            if (admin.getRole() != UserRole.ADMIN) {
+                throw new AccessDeniedException("User must be an administrator");
+            }
+            return userDAO.findUserByLogin(login);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+
 }
