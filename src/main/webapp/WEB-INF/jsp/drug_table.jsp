@@ -15,6 +15,7 @@
 <fmt:message bundle="${loc}" key="local.country" var="country"/>
 <fmt:message bundle="${loc}" key="local.price" var="price"/>
 <fmt:message bundle="${loc}" key="local.manufacturers" var="manufacturer"/>
+<fmt:message bundle="${loc}" key="local.need_prescription" var="need_prescription"/>
 
 <table>
     <thead>
@@ -27,6 +28,7 @@
         <th><c:out value="${manufacturer}"/></th>
         <th><c:out value="${description}"/></th>
         <th><c:out value="${composition}"/></th>
+        <th><c:out value="${need_prescription}"/></th>
     </tr>
     </thead>
     <tbody>
@@ -41,6 +43,16 @@
                                     command="get_manufacturer_enter_cabinet&manufacturer_id=${item.manufacturer.id}"/></td>
             <td><c:out value="${item.description}"/></td>
             <td><c:out value="${item.composition}"/></td>
+            <td>
+                <c:choose>
+                    <c:when test="${item.needPrescription}">
+                        <span class="glyphicon glyphicon glyphicon-ok"></span>
+                    </c:when>
+                    <c:otherwise>
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </c:otherwise>
+                </c:choose>
+            </td>
         </tr>
     </c:forEach>
     </tbody>

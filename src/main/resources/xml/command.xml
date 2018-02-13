@@ -158,6 +158,11 @@
             <com:name>get_user</com:name>
             <com:class>by.pharmacy.controller.command.impl.user.GetUserCommand</com:class>
         </com:command>
+        <com:command>
+            <com:name>get_prescription_list</com:name>
+            <com:class>by.pharmacy.controller.command.impl.prescription.GetPrescriptionListCommand</com:class>
+        </com:command>
+
     </com:atomic_commands>
     <com:macro_commands>
         <com:macro_command>
@@ -397,6 +402,23 @@
                 <com:command_name>enter_cabinet</com:command_name>
             </com:command_list>
         </com:macro_command>
+
+        <com:macro_command>
+            <com:name>get_prescription_list_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>get_prescription_list</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>give_role_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>give_role</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
     </com:macro_commands>
 </com:commands>
 

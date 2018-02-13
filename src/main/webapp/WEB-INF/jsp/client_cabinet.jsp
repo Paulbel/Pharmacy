@@ -54,6 +54,10 @@
     <fmt:message bundle="${loc}" key="local.get_orders" var="get_orders"/>
     <fmt:message bundle="${loc}" key="local.create_order" var="create_order"/>
     <fmt:message bundle="${loc}" key="local.count" var="count"/>
+    <fmt:message bundle="${loc}" key="local.get_prescriptions" var="get_prescriptions"/>
+    <fmt:message bundle="${loc}" key="local.order_add_problem" var="order_problem"/>
+
+
 </head>
 <body>
 <jsp:include page="../../navbar.jsp"/>
@@ -149,6 +153,24 @@
                 </c:otherwise>
             </c:choose>
 
+            <c:choose>
+                <c:when test="${requestScope.prev_command eq 'get_prescription_list_enter_cabinet'}">
+                    <li class="active">
+                        <a href=#>
+                            <c:out value="${get_prescriptions}"/>
+                        </a>
+                    </li>
+                </c:when>
+                <c:otherwise>
+                    <li>
+                        <a href="FrontController?command=get_prescription_list_enter_cabinet">
+
+                            <c:out value="${get_prescriptions}"/>
+                        </a>
+                    </li>
+                </c:otherwise>
+            </c:choose>
+
             <c:if test="${requestScope.prev_command eq 'get_drug_enter_cabinet'}">
                 <li class="active">
                     <a href=#>
@@ -195,77 +217,20 @@
         </c:if>
 
         <c:if test="${requestScope.prev_command eq 'get_order_list_enter_cabinet'}">
-            <table border="1" cellpadding="5" cellspacing="5">
-                <tr>
-                    <th><c:out value="${drug_name}"/></th>
-                    <th><c:out value="${dosage}"/></th>
-                    <th><c:out value="${amount}"/></th>
-                </tr>
-                <c:forEach var="item" items="${requestScope.order_list}">
-                    <tr>
-                        <td><m:drugName drug="${item.drug}" command="get_drug_enter_cabinet"/></td>
-                        <td><c:out value="${item.number}"/></td>
-                        <td><c:out value="${item.date}"/></td>
-                    </tr>
-                </c:forEach>
-            </table>
-            <m:pagination command="get_order_list_enter_cabinet" currentPage="${requestScope.currentPage}"
-                          pageNumber="${requestScope.noOfPages}"/>
+            <jsp:include page="order_table.jsp"/>
         </c:if>
 
 
+        <c:if test="${requestScope.problem_description eq 'wrong_data'}">
+            <div class="row main">
+                <label class="cols-sm-10 control-label"><c:out value="${order_problem}"/></label>
+            </div>
+        </c:if>
+
         <c:if test="${requestScope.prev_command eq 'get_drug_enter_cabinet'}">
-            <%--        <form class="drug_form" action="FrontController" method="post">
-                        <input type="hidden" name="command" value="add_order_enter_cabinet"/>
-                        <input type="hidden" name="want_command" value="find_drug_enter_cabinet"/>
-                        <input type="hidden" name="drug_id" value="${requestScope.drug.id}"/>
-
-                        <div class="form-row ">
-                            <c:out value="${requestScope.drug.name}"/>
-                        </div>
-                        <div class="form-row ">
-                            <label>composition</label>
-                            <c:out value="${requestScope.drug.composition}"/>
-                        </div>
-                            &lt;%&ndash; <input type="text" name="login" value=""/>&ndash;%&gt;
-                        <div class="form-row">
-                            <label>description</label>
-                            <c:out value="${requestScope.drug.description}"/>
-                        </div>
-                        <div class="form-row ">
-                            <label>amount</label>
-                            <c:out value="${requestScope.drug.amount}"/>
-                        </div>
-                        <div class="form-row">
-                            <label>dosage</label>
-                            <c:out value="${requestScope.drug.dosage}"/>
-                        </div>
-
-                        <div class="form-check">
-                            <c:choose>
-                                <c:when test="${requestScope.drug.needPrescription eq true}">
-                                    <input type="checkbox" name="need_prescription" value="true" disabled checked>
-                                </c:when>
-                                <c:otherwise>
-                                    <input type="checkbox" name="need_prescription" value="true" disabled>
-                                </c:otherwise>
-                            </c:choose>
-                            <label class="form-check-label">need prescription</label>
-                        </div>
-                        <div class="form-row ">
-                            <label>price</label>
-                            <c:out value="${requestScope.drug.price}"/>
-                        </div>
-                        <div class="form-row ">
-                            <label>number</label>
-                            <input name="drug_number" value="${requestScope.drug.number}"/>
-                        </div>
-                        <input type="submit" value="Отправить">
-                    </form>--%>
-
-
             <div class="row main">
                 <form class="form-horizontal" method="post" action="FrontController">
+
                     <input type="hidden" name="command" value="add_order_enter_cabinet"/>
                     <input type="hidden" name="drug_id" value="${requestScope.drug.id}"/>
 
@@ -346,7 +311,9 @@
 
             </div>
         </c:if>
-
+        <c:if test="${requestScope.prev_command eq 'get_prescription_list_enter_cabinet'}">
+            <jsp:include page="prescription_table.jsp"/>
+        </c:if>
     </div>
 
 

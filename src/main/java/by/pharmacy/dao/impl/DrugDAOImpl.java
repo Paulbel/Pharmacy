@@ -151,6 +151,8 @@ public class DrugDAOImpl implements DrugDAO {
     private final static String ADD_DRUG_DESCRIPTION = "INSERT INTO drug_translate (drug_id, lang_name, name, description, composition) VALUES\n" +
             "  (?,?,?,?,?);";
 
+    private final static String CHANGE_DRUG_NUMBER = "UPDATE drug SET number = ? WHERE id = ?;";
+
     @Override
     public List<Drug> getDrugList(Language language, int number, int offset, DrugCriteria orderField) throws DAOException {
         Connection connection = connectionPool.getConnection();
@@ -312,6 +314,22 @@ public class DrugDAOImpl implements DrugDAO {
         } catch (SQLException e) {
             logger.error("Not able to change drug description", e);
             throw new DAOException("Can't add description", e);
+        } finally {
+            connectionPool.closeConnection(connection);
+        }
+    }
+
+    @Override
+    public void changeDrugNumber(int drugId, int number) throws DAOException {
+        Connection connection = connectionPool.getConnection();
+        try (PreparedStatement statement = connection.prepareStatement(CHANGE_DRUG_NUMBER)) {
+            statement.setInt(1, number);
+            statement.setInt(2, drugId);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Not able to change drug number in database", e);
+            throw new DAOException("An error has occurred in attempt of changing drug number", e);
         } finally {
             connectionPool.closeConnection(connection);
         }

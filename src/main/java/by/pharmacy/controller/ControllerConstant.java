@@ -42,6 +42,7 @@ public final class ControllerConstant {
     public static final String DRUG_NUMBER_ATTRIBUTE = "drug_number";
     public static final String LANGUAGES_ATTRIBUTE = "languages";
     public static final String COUNTRY_LIST_ATTRIBUTE = "country_list";
+    public static final String PRESCRIPTION_LIST_ATTRIBUTE = "prescription_list";
 
     public static final String ROLE_ATTRIBUTE = "role";
 
@@ -61,7 +62,6 @@ public final class ControllerConstant {
     public static final String CHANGE_LANGUAGE_COMMAND = "change_language";
     public static final String GET_LANGUAGE_AND_DRUGS_COMMAND = "get_language_drugs";
     public static final String GIVE_ROLE_COMMAND = "give_role";
-    public static final String EXCEPTION_MESSAGE = "exception_message";
 
 
     public static final String PHARMACIST_CABINET_URI = "WEB-INF/jsp/pharmacist_cabinet.jsp";

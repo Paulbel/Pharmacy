@@ -20,7 +20,7 @@ public class GiveRoleCommand implements Command {
 
         String administratorLogin = (String) session.getAttribute(ControllerConstant.LOGIN_ATTRIBUTE);
         String userLogin = request.getParameter(ControllerConstant.LOGIN_ATTRIBUTE);
-        UserRole role = UserRole.valueOf(request.getParameter(ControllerConstant.ROLE_ATTRIBUTE));
+        UserRole role = UserRole.valueOf(request.getParameter(ControllerConstant.ROLE_ATTRIBUTE).toUpperCase());
 
         ServiceFactory factory = ServiceFactory.getInstance();
         AdministratorService service = factory.getAdministratorService();

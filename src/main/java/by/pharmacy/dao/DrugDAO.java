@@ -123,4 +123,13 @@ public interface DrugDAO {
      */
     void changeDrugInfo(Drug drug) throws DAOException;
 
+    /**
+     * Changes number of drugs int data source.
+     *
+     * @param drugId id of drug for number changing.
+     * @param number number which will be set.
+     * @throws DAOException if something is wrong with getting information from data source.
+     */
+    void changeDrugNumber(int drugId, int number) throws DAOException;
+
 }

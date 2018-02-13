@@ -11,6 +11,19 @@ public class Prescription implements Serializable {
     private User client;
     private User doctor;
     private Drug drug;
+    private int number;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
 
     public int getId() {
         return id;

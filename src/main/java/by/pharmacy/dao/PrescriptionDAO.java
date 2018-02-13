@@ -4,7 +4,6 @@ import by.pharmacy.dao.exception.DAOException;
 import by.pharmacy.entity.Drug;
 import by.pharmacy.entity.Language;
 import by.pharmacy.entity.Prescription;
-import by.pharmacy.entity.User;
 
 import java.util.List;
 
@@ -38,14 +37,14 @@ public interface PrescriptionDAO {
     Prescription getPrescription(int prescriptionId, Language language) throws DAOException;
 
     /**
-     * Returns prescription list from data source with doctor or client user param.
+     * Returns prescription list of specified client from data source.
      *
-     * @param user     object of class {@link User} with {@link by.pharmacy.entity.UserRole}=CLIENT or DOCTOR.
-     * @param language object of class {@link Language} which represents locale of return value.
+     * @param clientLogin client login.
+     * @param language    object of class {@link Language} which represents locale of return value.
      * @return object of class {@link List} which has all {@link Prescription} of specified user param.
      * @throws DAOException if something is wrong with getting information from data source.
      */
-    List<Prescription> getPrescriptionList(User user, Language language) throws DAOException;
+    List<Prescription> getPrescriptionList(String clientLogin, Language language) throws DAOException;
 
     /**
      * Returns prescription list for specific drug from data source.
@@ -56,4 +55,22 @@ public interface PrescriptionDAO {
      * @throws DAOException if something is wrong with getting information from data source.
      */
     Prescription getPrescriptionForDrug(int drugId, String clientLogin) throws DAOException;
+
+
+    /**
+     * Changes number of drugs in prescription in data source.
+     *
+     * @param prescriptionId id of prescription.
+     * @param number         number of drugs that should be set.
+     * @throws DAOException if something is wrong with getting information from data source.
+     */
+    void changePrescriptionDrugNumber(int prescriptionId, int number) throws DAOException;
+
+    /**
+     * Removes prescription with id param from data source.
+     *
+     * @param prescriptionId id of prescription.
+     * @throws DAOException if something is wrong with getting information from data source.
+     */
+    void removePrescription(int prescriptionId) throws DAOException;
 }

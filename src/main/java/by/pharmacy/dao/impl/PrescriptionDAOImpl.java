@@ -8,7 +8,6 @@ import by.pharmacy.dao.exception.DAOException;
 import by.pharmacy.entity.Drug;
 import by.pharmacy.entity.Language;
 import by.pharmacy.entity.Prescription;
-import by.pharmacy.entity.User;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -27,16 +26,19 @@ public class PrescriptionDAOImpl implements PrescriptionDAO {
             "INNER JOIN drug_translate ON drug.id = drug_translate.drug_id " +
             "WHERE prescription.id = ? " +
             "AND drug_translate.lang_name = ?";
-    private final static String GET_PRESCRIPTION_OF_USER = "SELECT prescription.id,client,doctor,drug,start_date,end_date,drug.id, prescription.number, drug_translate.name " +
+    private final static String GET_PRESCRIPTION_OF_USER = "SELECT prescription.id,client,doctor,user.name,user.surname,user.email,user.phone,drug,start_date,end_date,drug.id, prescription.number, drug_translate.name " +
             "FROM prescription " +
+            "INNER JOIN user ON prescription.doctor = user.login " +
             "INNER JOIN drug ON prescription.drug = drug.id " +
             "INNER JOIN drug_translate ON drug.id = drug_translate.drug_id " +
             "WHERE drug_translate.lang_name = ? " +
-            "AND ? = ?";
+            "AND client = ?";
     private final static String GET_PRESCRIPTION_FOR_DRUG = "SELECT prescription.id,client,doctor,drug,start_date,end_date,drug.id, prescription.number " +
             "FROM prescription INNER JOIN drug ON prescription.drug = drug.id " +
             "WHERE  drug.id = ? " +
             "AND client = ?";
+    private final static String SET_DRUG_NUMBER = "UPDATE prescription SET number = ? WHERE id = ?";
+    private final static String REMOVE_PRESCRIPTION = "DELETE FROM prescription WHERE id = ?";
 
     @Override
     public void addPrescription(String doctorLogin, String clientLogin, Drug drug, int dayCount) throws DAOException {
@@ -82,15 +84,14 @@ public class PrescriptionDAOImpl implements PrescriptionDAO {
     }
 
     @Override
-    public List<Prescription> getPrescriptionList(User user, Language language) throws DAOException {
+    public List<Prescription> getPrescriptionList(String clientLogin, Language language) throws DAOException {
         Connection connection = connectionPool.getConnection();
         try {
             List<Prescription> prescriptionList = new ArrayList<>();
             PreparedStatement statement = connection.prepareStatement(GET_PRESCRIPTION_OF_USER);
 
             statement.setString(1, language.toString().toLowerCase());
-            statement.setString(2, user.getRole().toString().toLowerCase());
-            statement.setString(3, user.getLogin());
+            statement.setString(2, clientLogin);
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -127,6 +128,39 @@ public class PrescriptionDAOImpl implements PrescriptionDAO {
         } catch (SQLException e) {
             logger.error("Not able to get prescription", e);
             throw new DAOException("An error has occurred in attempt of getting specific prescription from database", e);
+        } finally {
+            connectionPool.closeConnection(connection);
+        }
+    }
+
+    @Override
+    public void changePrescriptionDrugNumber(int prescriptionId, int number) throws DAOException {
+        Connection connection = connectionPool.getConnection();
+
+        try (PreparedStatement statement = connection.prepareStatement(SET_DRUG_NUMBER)) {
+            statement.setInt(1, number);
+            statement.setInt(2, prescriptionId);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Not able to change prescription drug number", e);
+            throw new DAOException("An error has occurred in attempt of changing drug in prescription number", e);
+        } finally {
+            connectionPool.closeConnection(connection);
+        }
+    }
+
+    @Override
+    public void removePrescription(int prescriptionId) throws DAOException {
+        Connection connection = connectionPool.getConnection();
+
+        try (PreparedStatement statement = connection.prepareStatement(REMOVE_PRESCRIPTION)) {
+            statement.setInt(1, prescriptionId);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Not able to remove prescription from database", e);
+            throw new DAOException("An error has occurred in attempt of removing prescription from database", e);
         } finally {
             connectionPool.closeConnection(connection);
         }

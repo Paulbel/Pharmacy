@@ -23,6 +23,7 @@
 <fmt:message bundle="${loc}" key="local.main" var="main"/>
 
 
+
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -69,9 +70,13 @@
                         <a class="dropdown-toggle" data-toggle="dropdown"><c:out value="${language}"/><b
                                 class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="FrontController?command=change_language&local=ru"><c:out value="${ru}"/></a>
+                            <li>
+                                <a href="FrontController?command=change_language&local=ru&query=${requestScope.prev_command}"><c:out
+                                        value="${ru}"/></a>
                             </li>
-                            <li><a href="FrontController?command=change_language&local=en"><c:out value="${en}"/></a>
+                            <li>
+                                <a href="FrontController?command=change_language&local=en&query=${requestScope.prev_command}"><c:out
+                                        value="${en}"/></a>
                             </li>
                         </ul>
                     </li>

@@ -54,6 +54,10 @@
     <fmt:message bundle="${loc}" key="local.manufacturer_name" var="manufacturer_name"/>
     <fmt:message bundle="${loc}" key="local.address" var="address"/>
     <fmt:message bundle="${loc}" key="local.current" var="current"/>
+    <fmt:message bundle="${loc}" key="local.users" var="users"/>
+    <fmt:message bundle="${loc}" key="local.create_prescription" var="user_info"/>
+    <fmt:message bundle="${loc}" key="local.term" var="term"/>
+    <fmt:message bundle="${loc}" key="local.count" var="count"/>
 </head>
 <body>
 
@@ -66,14 +70,14 @@
                 <c:when test="${requestScope.prev_command eq 'get_client_list_enter_cabinet'}">
                     <li class="active">
                         <a href=#>
-                            <c:out value="${drugs}"/>
+                            <c:out value="${users}"/>
                         </a>
                     </li>
                 </c:when>
                 <c:otherwise>
                     <li>
                         <a href="FrontController?command=get_client_list_enter_cabinet">
-                            <c:out value="${drugs}"/>
+                            <c:out value="${users}"/>
                         </a>
                     </li>
                 </c:otherwise>
@@ -83,7 +87,7 @@
             <c:if test="${requestScope.prev_command eq 'get_client_enter_cabinet'}">
                 <li class="active">
                     <a href=#>
-                        get user
+                        <c:out value="${user_info}"/>
                     </a>
                 </li>
             </c:if>
@@ -100,11 +104,11 @@
                 <thead>
                 <tr>
 
-                    <th>login</th>
-                    <th>name</th>
-                    <th>surname</th>
-                    <th>email</th>
-                    <th>phone</th>
+                    <th><c:out value="${login}"/></th>
+                    <th><c:out value="${name}"/></th>
+                    <th><c:out value="${surname}"/></th>
+                    <th><c:out value="${email}"/></th>
+                    <th><c:out value="${phone}"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -138,18 +142,18 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="cols-sm-2 control-label">day count</label>
+                        <label class="cols-sm-2 control-label"><c:out value="${term}"/></label>
                         <div class="cols-sm-10">
                             <input type="text" class="form-control" name="day_count"
-                                   placeholder="${amount}"/>
+                                   placeholder="${term}"/>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="cols-sm-2 control-label"><c:out value="${amount}"/></label>
+                        <label class="cols-sm-2 control-label"><c:out value="${count}"/></label>
                         <div class="cols-sm-10">
                             <input type="text" class="form-control" name="drug_number"
-                                   placeholder="${amount}"/>
+                                   placeholder="${count}"/>
                         </div>
                     </div>
 
@@ -161,7 +165,7 @@
                             <div class="col-sm-6">
                                 <input id="find_drug_select_input" type="text"
                                        class="form-control"
-                                       placeholder="Search"/>
+                                       placeholder="${find_drug}"/>
                             </div>
                             <div class="col-sm-3">
                                 <button type="button" id="find_drug_select_button" class="btn btn-default"

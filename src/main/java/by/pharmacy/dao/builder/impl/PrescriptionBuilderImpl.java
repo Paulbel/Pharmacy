@@ -5,7 +5,6 @@ import by.pharmacy.entity.Drug;
 import by.pharmacy.entity.Prescription;
 import by.pharmacy.entity.User;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -27,41 +26,36 @@ public class PrescriptionBuilderImpl implements PrescriptionBuilder {
 
     @Override
     public void buildClient() throws SQLException {
-        String clientLogin = resultSet.getString("client");
         User client = new User();
-        client.setLogin(clientLogin);
+        client.setLogin(resultSet.getString("client"));
         this.prescription.setClient(client);
     }
 
     @Override
     public void buildDoctor() throws SQLException {
-        String doctorLogin = resultSet.getString("doctor");
         User doctor = new User();
-        doctor.setLogin(doctorLogin);
+        doctor.setLogin(resultSet.getString("doctor"));
+        doctor.setName(resultSet.getString("user.name"));
+        doctor.setSurname(resultSet.getString("user.surname"));
+        doctor.setEmail(resultSet.getString("user.email"));
+        doctor.setPhoneNumber(resultSet.getString("user.phone"));
         this.prescription.setDoctor(doctor);
     }
 
     @Override
     public void buildDrug() throws SQLException {
-
-        int number = resultSet.getInt("prescription.number");
-        int drugId = resultSet.getInt("drug.id");
-        String drugName = resultSet.getString("drug_translate.name");
         Drug drug = new Drug();
-        drug.setNumber(number);
-        drug.setId(drugId);
-        drug.setName(drugName);
+        drug.setId(resultSet.getInt("drug.id"));
+        drug.setName(resultSet.getString("drug_translate.name"));
         this.prescription.setDrug(drug);
     }
 
     @Override
     public void buildPrescriptionInfo() throws SQLException {
-        int prescriptionId = resultSet.getInt("prescription.id");
-        Date startDate = resultSet.getDate("start_date");
-        Date endDate = resultSet.getDate("end_date");
-        this.prescription.setStartDate(startDate);
-        this.prescription.setEndDate(endDate);
-        this.prescription.setId(prescriptionId);
+        this.prescription.setNumber(resultSet.getInt("prescription.number"));
+        this.prescription.setStartDate(resultSet.getDate("start_date"));
+        this.prescription.setEndDate(resultSet.getDate("end_date"));
+        this.prescription.setId(resultSet.getInt("prescription.id"));
     }
 
     @Override

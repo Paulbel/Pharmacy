@@ -10,30 +10,24 @@ import by.pharmacy.entity.Language;
 import by.pharmacy.entity.Order;
 import by.pharmacy.entity.Prescription;
 import by.pharmacy.service.ClientService;
+import by.pharmacy.service.exception.AccessDeniedException;
 import by.pharmacy.service.exception.ServiceException;
-import org.apache.log4j.Logger;
 
 import java.util.Date;
 import java.util.List;
 
 public class ClientServiceImpl implements ClientService {
-    private static final Logger logger = Logger.getLogger(ClientServiceImpl.class);
+    private static final DAOFactory daoFactory = DAOFactory.getInstance();
 
     @Override
     public void addOrder(Order order) throws ServiceException {
-        DAOFactory daoFactory = DAOFactory.getInstance();
         int drugId = order.getDrug().getId();
         DrugDAO drugDAO = daoFactory.getDrugDAO();
         String clientLogin = order.getClient().getLogin();
         try {
             Drug drug = drugDAO.getDrugInfo(drugId);
             if (drug.isNeedPrescription()) {
-                PrescriptionDAO prescriptionDAO = daoFactory.getPrescriptionDAO();
-                Prescription prescription = prescriptionDAO.getPrescriptionForDrug(drugId, clientLogin);
-                Date date = new Date();
-                if (prescription.getEndDate().before(date)) {
-                    System.out.println("pff");
-                }
+                changePrescription(drugId, clientLogin, order.getNumber());
             }
             OrderDAO orderDAO = daoFactory.getOrderDAO();
             orderDAO.addOrder(order);
@@ -42,10 +36,36 @@ public class ClientServiceImpl implements ClientService {
         }
     }
 
+    private void changePrescription(int drugId, String clientLogin, int number) throws ServiceException {
+        try {
+            PrescriptionDAO prescriptionDAO = daoFactory.getPrescriptionDAO();
+            Prescription prescription = prescriptionDAO.getPrescriptionForDrug(drugId, clientLogin);
+            if (prescription == null) {
+                throw new AccessDeniedException("User doesn't have suitable prescription");
+            }
+            Date date = new Date();
+            if (prescription.getEndDate().before(date)) {
+                throw new AccessDeniedException("User has expired prescription");
+            }
+
+            int nextNumber = prescription.getNumber() - number;
+            if (nextNumber < 0) {
+                throw new AccessDeniedException("Not enough drugs at stock");
+            } else if (nextNumber == 0) {
+                prescriptionDAO.removePrescription(prescription.getId());
+            } else {
+                prescriptionDAO.changePrescriptionDrugNumber(prescription.getId(), nextNumber);
+            }
+
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+
     @Override
     public List<Order> getOrderList(String login, int number, int offset, Language language) throws ServiceException {
         try {
-            DAOFactory daoFactory = DAOFactory.getInstance();
             OrderDAO orderDAO = daoFactory.getOrderDAO();
             return orderDAO.getClientOrderList(login, number, offset, language);
         } catch (DAOException e) {
@@ -56,11 +76,22 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public int getOrderCount(String login, Language language) throws ServiceException {
         try {
-            DAOFactory daoFactory = DAOFactory.getInstance();
             OrderDAO orderDAO = daoFactory.getOrderDAO();
             return orderDAO.getOrderCount(login, language);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public List<Prescription> getPrescriptionList(String login, Language language) throws ServiceException {
+        try {
+            PrescriptionDAO prescriptionDAO = daoFactory.getPrescriptionDAO();
+            return prescriptionDAO.getPrescriptionList(login, language);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+
 }

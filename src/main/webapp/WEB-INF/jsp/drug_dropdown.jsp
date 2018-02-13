@@ -9,7 +9,10 @@
 <select name="drug_id" class="form-control">
     <option disabled>Choose manufacturer</option>
     <c:forEach var="item" items="${requestScope.drugs}">
-        <option value="${item.id}"><c:out value="${item.name}"/></option>
+        <c:if test="${item.needPrescription}">
+            <option value="${item.id}"><c:out value="${item.name}"/></option>
+        </c:if>
     </c:forEach>
+
 </select>
 
