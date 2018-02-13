@@ -1,0 +1,478 @@
+@font-face {
+    font-family: Old_Style;
+    src: url(../fonts/Old_Style.ttf);
+}
+
+.modal {
+    color: #ffff;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+
+}
+
+.modal-content {
+    background-color: #6d84b4;;
+    margin: 10% auto;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.form_row {
+    text-align: left;
+    display: flex;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    background-color: white;
+    justify-content: space-between;
+    margin: 10px;
+    padding-right: 10px;
+    color: #3b5998;
+}
+
+.form_row input {
+    padding: 10px;
+    width: 40%;
+    border: 0;
+}
+
+.form_row label {
+    margin-top: 8px;
+    margin-left: 8px;
+}
+
+.email {
+    display: block;
+    width: 100%;
+    margin: 10px;
+}
+
+.email > .form_row {
+    display: inline-flex;
+    margin: 0 10px 0 0;
+    width: 80%;
+}
+
+.email > .control {
+    display: inline-block;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    /* background-color: white; */
+    font-weight: bold;
+}
+
+.email > .control:hover {
+    background-color: grey;
+    color: white;
+    cursor: pointer;
+}
+
+@keyframes animation {
+    from {
+        background-color: #3b5998
+    }
+    to {
+        background-color: white;
+    }
+}
+
+span.close_modal_btn {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
+}
+
+span.close_modal_btn:hover {
+    color: red;
+    cursor: pointer;
+}
+
+ul {
+    display: block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul:after {
+    display: block;
+    clear: both;
+    float: none;
+}
+
+ul.menu > li {
+    float: left;
+    position: relative;
+}
+
+ul.menu > li > a {
+    display: block;
+    padding: 5px;
+    color: black;
+    /* background-color: white; */
+    text-decoration: none;
+}
+
+ul.submenu {
+    display: none;
+    position: absolute;
+    width: 100px;
+    /*    top: 37px;*/
+    left: 0;
+}
+
+ul.submenu > li {
+    display: block;
+}
+
+ul.submenu > li > a {
+    display: block;
+    padding: 10px;
+    color: white;
+
+    text-decoration: none;
+}
+
+ul.submenu > li > a:hover {
+
+    text-decoration: underline;
+}
+
+ul.menu > li:hover > ul.submenu {
+    display: block;
+}
+
+@media only screen and (max-width: 400px) {
+    button {
+        /*background-color: #4CAF50;*/
+        background-color: #3b5998;
+        color: white;
+        padding: 10px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .cancelbtn {
+        padding: 10px 20px;
+        /*background-color: #f44336;*/
+    }
+
+    .cancelbtn, .signupbtn {
+        float: left;
+        width: 50%;
+    }
+
+    .menu_part {
+        display: flex;
+    }
+
+    .text {
+        display: none;
+    }
+
+    #shade {
+        margin: 0;
+        background-color: #3b5998;
+        width: 100%;
+        left: 0;
+        top: 0;
+        display: flex;
+        justify-content: space-between;
+        color: white;
+        flex-direction: row-reverse;
+    }
+
+    #shade a {
+        background-color: #3b5998;
+    }
+
+    .drug_form {
+        max-height: 400px;
+        min-height: 100px;
+        padding-top: 10px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        margin: 10px 0 5px 0;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .info {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin: 0 15px;
+    }
+
+    .header {
+        box-shadow: 0 0 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    .navigation {
+        margin: 10px;
+        width: 100%;
+        box-shadow: 0 0 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: flex-start;
+    }
+
+    .forward {
+        flex-direction: column-reverse;
+    }
+
+    .reverse {
+        flex-direction: column;
+    }
+
+    .image {
+        box-shadow: 0 0 1px rgba(59, 89, 152, 1);
+        max-width: 100%;
+        border-radius: 2px;
+    }
+
+    .drug_form h1 {
+        font-size: 20px;
+        margin: 0;
+
+    }
+
+    .drug_form a {
+        font-size: 10px;
+        display: block;
+
+    }
+
+    .menu_button {
+        box-shadow: 0 0 3px rgba(0, 0, 0, 1);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 50px;
+        padding: 5px;
+    }
+
+    #name {
+        display: none;
+    }
+
+    #firm_name {
+        display: none;
+    }
+
+    .modal-content {
+        width: 95%;
+    }
+
+    #shade .menu_button {
+        box-shadow: 1px 0 0 rgba(255, 255, 255, 0.7);
+    }
+
+}
+
+@media only screen and (min-width: 401px) {
+    .menu_part {
+        display: flex;
+    }
+
+    #firm_name {
+        font-family: Old_Style, serif;
+    }
+
+    .text {
+
+        overflow: auto;
+
+        padding: 5px;
+        text-overflow: ellipsis;
+    }
+
+    .drug_form {
+        overflow: hidden;
+        border-radius: 6px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        margin: 30px 5% 10px 5%;
+        padding: 20px;
+        background-color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 200px;
+        min-height: 200px;
+    }
+
+    .drug_form h1 {
+        font-size: 25px;
+        margin: 0;
+
+    }
+
+    .info {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 48%;
+    }
+
+    .header {
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+        width: 100%;
+        text-align: center;
+
+    }
+
+    .navigation {
+        padding-top: 10px;
+        height: 50px;
+        width: 100%;
+        box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: flex-start;
+
+    }
+
+    .image {
+        max-width: 48%;
+        height: auto;
+        width: 100%;
+        border-radius: 2px;
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+    }
+
+    .menu_button {
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 70px;
+        padding: 5px;
+        border-radius: 2px;
+    }
+
+    #shade {
+        margin: 0;
+        background-color: #3b5998;
+        width: 100%;
+        left: 0;
+        top: 0;
+        display: flex;
+        justify-content: space-between;
+        color: white;
+
+    }
+
+    .modal-content {
+        width: 80%;
+    }
+
+    #shade a {
+        background-color: #3b5998
+    }
+
+    #shade h1 {
+        font-size: 30px;
+        margin: 10px;
+    }
+
+    button {
+
+        background-color: #3b5998;
+
+        color: white;
+        padding: 12px 20px;
+        margin: 8px 0;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .cancelbtn {
+        padding: 12px 20px;
+        /*background-color: #f44336;*/
+    }
+
+    .cancelbtn, .signupbtn {
+        float: left;
+        width: 50%;
+    }
+
+    #shade .menu_button {
+        box-shadow: -1px 0 0 rgba(255, 255, 255, 0.5);
+        width: 40px;
+    }
+
+}
+
+@media only screen and (min-width: 768px) {
+    .menu_part {
+        display: flex;
+    }
+
+    .drug_form {
+        border-radius: 6px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        margin: 30px 20% 10px 20%;
+        padding: 20px;
+        background-color: white;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        height: 380px;
+        min-height: 350px;
+    }
+
+    .modal-content {
+        width: 70%;
+    }
+
+    .text {
+        overflow: unset;
+        padding: 5px;
+        text-overflow: ellipsis;
+    }
+
+}
+
+#shade a :hover {
+    animation-name: animation;
+    animation-duration: 4s;
+}
+
+body {
+    margin: 0;
+}
+
+#shade img {
+    width: 100%;
+}
+
+.modal {
+    display: none;
+}
