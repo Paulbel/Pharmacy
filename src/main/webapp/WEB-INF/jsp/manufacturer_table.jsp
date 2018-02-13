@@ -6,14 +6,18 @@
 <fmt:setLocale value="${sessionScope.local}"/>
 <fmt:setBundle basename="local" var="loc"/>
 
-
+<fmt:message bundle="${loc}" key="local.address" var="address"/>
+<fmt:message bundle="${loc}" key="local.email" var="email"/>
+<fmt:message bundle="${loc}" key="local.phone" var="phone"/>
+<fmt:message bundle="${loc}" key="local.country" var="country"/>
+<fmt:message bundle="${loc}" key="local.manufacturer_name" var="manufacturer_name"/>
 <table>
     <tr>
-        <th>name</th>
-        <th>country</th>
-        <th>phone</th>
-        <th>address</th>
-        <th>email</th>
+        <th><c:out value="${manufacturer_name}"/></th>
+        <th><c:out value="${country}"/></th>
+        <th><c:out value="${phone}"/></th>
+        <th><c:out value="${address}"/></th>
+        <th><c:out value="${email}"/></th>
     </tr>
     <c:forEach var="item" items="${requestScope.manufacturer_list}">
         <tr>

@@ -12,12 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class GetClientListCommand implements Command {
+public class FindUserCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServiceException, ServletException {
         DoctorService doctorService = serviceFactory.getDoctorService();
-        List<User> list = doctorService.getClientList();
 
-        request.setAttribute(ControllerConstant.USERS_ATTRIBUTE, list);
+        String name = request.getParameter(ControllerConstant.NAME_ATTRIBUTE);
+
+        List<User> list = doctorService.findUser(name);
+
+        request.setAttribute(ControllerConstant.MANUFACTURER_NAME_ATTRIBUTE, name);
+        request.setAttribute(ControllerConstant.MANUFACTURER_LIST_ATTRIBUTE, list);
     }
 }

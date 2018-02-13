@@ -12,4 +12,8 @@ public interface DoctorService {
     List<User> getClientList() throws ServiceException;
 
     void changeProlongationRequestStatus(String idString, String doctorLogin, String statusString) throws ServiceException;
+
+    User getClient(String doctorLogin, String clientLogin) throws ServiceException;
+
+    List<User> findUser(String namePart) throws ServiceException;
 }

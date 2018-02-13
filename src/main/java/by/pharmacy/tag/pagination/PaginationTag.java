@@ -45,7 +45,7 @@ public class PaginationTag extends VisualisationTag {
             } else {
                 out.print(DISABLED_LI);
             }
-
+            out.print(getBody());
             return SKIP_BODY;
         } catch (IOException e) {
             throw new CustomTagException(e);
@@ -61,6 +61,7 @@ public class PaginationTag extends VisualisationTag {
             } else {
                 out.print(DISABLED_LI);
             }
+
             out.print(String.format(RIGHT_ARROW, command, currentPage + 1));
             out.print(CLOSE_TAG);
             return EVAL_PAGE;

@@ -23,6 +23,5 @@ public class GetUserCommand implements Command {
         User user = administratorService.getUser(adminLogin, login);
 
         request.setAttribute(ControllerConstant.USER_ATTRIBUTE, user);
-
     }
 }

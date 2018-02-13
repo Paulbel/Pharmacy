@@ -23,7 +23,7 @@ public class EnterCabinetCommand implements Command {
         pageMap.put(UserRole.PHARMACIST, ControllerConstant.PHARMACIST_CABINET_URI);
         pageMap.put(UserRole.DOCTOR, ControllerConstant.DOCTOR_CABINET_URI);
         pageMap.put(UserRole.CLIENT, ControllerConstant.CLIENT_CABINET_URI);
-        pageMap.put(UserRole.USER, ControllerConstant.MAIN_PAGE_URI);
+        pageMap.put(UserRole.USER, ControllerConstant.REGISTRATION_URI);
     }
 
     @Override

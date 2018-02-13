@@ -9,15 +9,19 @@ import by.pharmacy.service.exception.ServiceException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
-public class GetClientListCommand implements Command {
+public class GetClientCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServiceException, ServletException {
         DoctorService doctorService = serviceFactory.getDoctorService();
-        List<User> list = doctorService.getClientList();
+        HttpSession session = request.getSession();
 
-        request.setAttribute(ControllerConstant.USERS_ATTRIBUTE, list);
+        String login = request.getParameter(ControllerConstant.LOGIN_ATTRIBUTE);
+        String doctorLogin = (String) session.getAttribute(ControllerConstant.LOGIN_ATTRIBUTE);
+        User user = doctorService.getClient(doctorLogin, login);
+
+        request.setAttribute(ControllerConstant.USER_ATTRIBUTE, user);
     }
 }

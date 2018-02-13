@@ -55,6 +55,22 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
+
+    <tag>
+        <name>userLogin</name>
+        <tag-class>by.pharmacy.tag.entity.user.impl.UserLoginTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>user</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>command</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
     <tag>
         <name>pagination</name>
         <tag-class>by.pharmacy.tag.pagination.PaginationTag</tag-class>

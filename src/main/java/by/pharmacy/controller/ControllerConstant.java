@@ -48,13 +48,6 @@ public final class ControllerConstant {
     public static final String MAIN_PAGE_URI = "index.jsp";
 
 
-    public static final String ENTER_CABINET_COMMAND = "enter_cabinet";
-    public static final String FIND_DRUG_COMMAND = "find_drug";
-    public static final String SHOW_USERS_COMMAND = "show_users";
-    public static final String SIGN_UP_COMMAND = "sign_up";
-    public static final String ADD_DRUG_COMMAND = "add_drug";
-    public static final String GET_DRUGS_COMMAND = "show_all_drugs";
-    public static final String GET_DRUG_COMMAND = "get_drug";
     public static final String GET_COUNTRY_LIST_COMMAND = "get_country_list";
     public static final String SIGN_IN_COMMAND = "sign_in";
     public static final String SIGN_OUT_COMMAND = "sign_out";
@@ -71,13 +64,13 @@ public final class ControllerConstant {
     public static final String EXCEPTION_MESSAGE = "exception_message";
 
 
-
-
     public static final String PHARMACIST_CABINET_URI = "WEB-INF/jsp/pharmacist_cabinet.jsp";
     public static final String ADMIN_CABINET_URI = "WEB-INF/jsp/admin_cabinet.jsp";
     public static final String CLIENT_CABINET_URI = "WEB-INF/jsp/client_cabinet.jsp";
     public static final String DOCTOR_CABINET_URI = "WEB-INF/jsp/doctor_cabinet.jsp";
     public static final String PROBLEM_URI = "WEB-INF/jsp/problem_accured.jsp";
+    public static final String REGISTRATION_URI = "WEB-INF/jsp/registration.jsp";
+    public static final String SIGN_IN_URI = "WEB-INF/jsp/sign_in.jsp";
     public static final String DEFAULT_LANGUAGE = "en";
 
     private ControllerConstant() {

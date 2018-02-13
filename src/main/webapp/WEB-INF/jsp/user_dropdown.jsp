@@ -6,10 +6,10 @@
 <fmt:setLocale value="${sessionScope.local}"/>
 <fmt:setBundle basename="local" var="loc"/>
 
-<select name="manufacturer_id" class="form-control">
+<select name="login" class="form-control">
     <option disabled>Choose manufacturer</option>
-    <c:forEach var="item" items="${requestScope.manufacturer_list}">
-        <option value="${item.id}"><c:out value="${item.name}"/></option>
+    <c:forEach var="item" items="${requestScope.user_list}">
+        <option value="${item.login}"><c:out value="${item.name}"/> <c:out value="${item.surname}"/></option>
     </c:forEach>
 </select>
 

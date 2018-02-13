@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://pharmacy.by/tags" prefix="m" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -10,6 +10,8 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
     <title>Title</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
@@ -17,8 +19,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/sign_up.css">
 
+    <title>Аптека</title>
+    <link rel="shortcut icon" href="img/ico.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="css/index_style.css">
+
+
     <fmt:setLocale value="${sessionScope.local}"/>
-    <fmt:setBundle basename="local" var = "loc"/>
+    <fmt:setBundle basename="local" var="loc"/>
     <fmt:message bundle="${loc}" key="local.signIn" var="signin"/>
     <fmt:message bundle="${loc}" key="local.registration" var="registration"/>
     <fmt:message bundle="${loc}" key="local.signOut" var="signout"/>
@@ -38,7 +45,79 @@
 </head>
 <body>
 <jsp:include page="navbar.jsp"/>
-<div class="signUp">
+
+<div id="main_container">
+    <div class="drug_form forward">
+        <div class="info">
+            <div class="header"><h1>Препараты</h1></div>
+            <div class="text">
+                В этом разделе вы можете найти препараты, информацию о них(производитель, цена и т.д.). В нашем каталоге
+                представлены наиболее современные препараты отечсественной и зарубежной медицины
+
+            </div>
+
+            <div class="navigation">
+                <c:if test="${not empty sessionScope.login}">
+                    <div class="menu_button">
+                        <img src="img/search.svg">
+                        <a href="FrontController?command=enter_cabinet&want_command=find_drug_enter_cabinet">Поиск</a>
+                    </div>
+                    <div class="menu_button">
+                        <img src="img/cart.svg">
+                        <a href="FrontController?command=get_drug_list_enter_cabinet">Каталог</a>
+                    </div>
+                </c:if>
+            </div>
+
+        </div>
+
+        <img class="image" src="img/drug.jpg"/>
+
+    </div>
+
+
+    <div class="drug_form reverse">
+        <img class="image" src="img/manufacturer.jpg"/>
+        <div class="info">
+            <div class="header"><h1>Производители препаратов</h1></div>
+            <div class="text">
+                В этом разделе вы можете найти производителей препаратов и информацию о них
+            </div>
+            <div class="navigation">
+                <c:if test="${not empty sessionScope.login}">
+                    <div class="menu_button">
+                        <img src="img/search.svg">
+                        <a href="FrontController?command=enter_cabinet&want_command=find_manufacturer_enter_cabinet">Поиск</a>
+                    </div>
+                    <div class="menu_button">
+                        <img src="img/cart.svg">
+                        <a href="FrontController?command=get_manufacturer_list_enter_cabinet">Каталог</a>
+                    </div>
+                </c:if>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="drug_form forward">
+        <div class="info">
+            <div class="header"><h1>Витамины</h1></div>
+            <div class="text">
+                Скоро мы добавим раздел витамины
+            </div>
+            <div class="navigation">
+            </div>
+        </div>
+
+        <img class="image" src="img/drug.jpg"/>
+
+    </div>
+
+
+</div>
+
+<%--<div class="signUp">
     <div class="row main">
         <div class="panel-heading">
             <div class="panel-title text-center">
@@ -113,7 +192,7 @@
             </form>
         </div>
     </div>
-</div>
+</div>--%>
 
 </body>
 </html>

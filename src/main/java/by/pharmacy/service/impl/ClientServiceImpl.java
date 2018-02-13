@@ -31,8 +31,8 @@ public class ClientServiceImpl implements ClientService {
                 PrescriptionDAO prescriptionDAO = daoFactory.getPrescriptionDAO();
                 Prescription prescription = prescriptionDAO.getPrescriptionForDrug(drugId, clientLogin);
                 Date date = new Date();
-                if (prescription.getEndDate().after(date)) {
-                    System.out.println("cannot");
+                if (prescription.getEndDate().before(date)) {
+                    System.out.println("pff");
                 }
             }
             OrderDAO orderDAO = daoFactory.getOrderDAO();

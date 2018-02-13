@@ -28,7 +28,6 @@ public class AddOrderCommand implements Command {
         int drugNumber = Integer.valueOf(request.getParameter(ControllerConstant.DRUG_NUMBER_ATTRIBUTE));
         Order order = new Order();
         User client = new User();
-//id,number,client,
         order.setNumber(drugNumber);
         client.setLogin(clientLogin);
         order.setClient(client);

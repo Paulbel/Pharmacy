@@ -25,6 +25,8 @@ public class UserDAOImpl implements UserDAO {
     private final static String FIND_USER_BY_LOGIN = "SELECT * FROM user WHERE login = ?;";
     private final static String CHANGE_ROLE_BY_LOGIN = "UPDATE user SET role =? WHERE login =?";
     private final static String CHECK_PASSWORD = "SELECT * FROM user WHERE login = ? AND password = md5(?);";
+    private final static String FIND_USER = "SELECT * FROM user WHERE name LIKE ? OR surname LIKE ?";
+
 
     @Override
     public List<User> getUserList(int number, int offset) throws DAOException {
@@ -124,10 +126,30 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public List<User> getUserList(UserRole role) throws DAOException {
         Connection connection = connectionPool.getConnection();
-        ResultSet set;
+
         try (PreparedStatement statement = connection.prepareStatement(GET_USERS_WITH_ROLE)) {
             statement.setString(1, role.toString().toLowerCase());
-            set = statement.executeQuery();
+            ResultSet set = statement.executeQuery();
+            List<User> userList = new ArrayList<>();
+            while (set.next()) {
+                userList.add(createUserFromResultSet(set));
+            }
+            return userList;
+        } catch (SQLException e) {
+            logger.error("Not able to get user list", e);
+            throw new DAOException("An error has occurred in attempt getting user list", e);
+        } finally {
+            connectionPool.closeConnection(connection);
+        }
+    }
+
+    @Override
+    public List<User> findUser(String namePart) throws DAOException {
+        Connection connection = connectionPool.getConnection();
+        try (PreparedStatement statement = connection.prepareStatement(FIND_USER)) {
+            statement.setString(1, "%" + namePart + "%");
+            statement.setString(2, "%" + namePart + "%");
+            ResultSet set = statement.executeQuery();
             List<User> userList = new ArrayList<>();
             while (set.next()) {
                 userList.add(createUserFromResultSet(set));

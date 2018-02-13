@@ -21,5 +21,21 @@ window.addEventListener("load", () => {
             $("#responseSelect").html($(responseXml));
             console.log(responseXml);
         });
+    });
+
+    let userSelectInput = document.getElementById('find_user_select_input');
+    $("#find_user_select_button").on("click", () => {
+        $.get("FrontController?command=find_user_get_select&user_name=" + userSelectInput.value, function (responseXml) {
+            $("#responseUserSelect").html($(responseXml));
+            console.log(responseXml);
+        });
+    });
+    let drugSelectInput = document.getElementById('find_drug_select_input');
+    $("#find_drug_select_button").on("click", () => {
+        $.get("FrontController?command=find_drug_get_select&drug_name=" + drugSelectInput.value, function (responseXml) {
+            $("#responseDrugSelect").html($(responseXml));
+            console.log(responseXml);
+        });
     })
+
 });

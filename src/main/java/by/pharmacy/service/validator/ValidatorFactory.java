@@ -8,7 +8,7 @@ import java.util.Map;
 
 public final class ValidatorFactory {
     public final static ValidatorFactory instance = new ValidatorFactory();
-    private final static Map<EntityType, Validator> validatorMap = new HashMap<>();
+    private final Map<EntityType, Validator> validatorMap = new HashMap<>();
 
     private ValidatorFactory() {
         validatorMap.put(EntityType.DRUG, new DrugValidator());

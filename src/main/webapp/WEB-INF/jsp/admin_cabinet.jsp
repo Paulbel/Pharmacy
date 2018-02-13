@@ -86,18 +86,29 @@
 
         <c:if test="${requestScope.prev_command eq 'get_user_list_enter_cabinet'}">
             <table border="1">
+                <thead>
                 <tr>
+
+                    <th>login</th>
                     <th>name</th>
                     <th>surname</th>
                     <th>role</th>
-                    <th>set role</th>
+                    <th>email</th>
+                    <th>phone</th>
                 </tr>
+                </thead>
+                <tbody>
                 <c:forEach items="${requestScope.users}" var="item">
 
                     <tr>
-
+                        <td><m:userLogin user="${item}"
+                                         command="get_user_enter_cabinet&login=${item.login}"/></td>
                         <td><c:out value="${item.name}"/></td>
                         <td><c:out value="${item.surname}"/></td>
+
+                        <td><c:out value="${item.role}"/></td>
+                        <td><c:out value="${item.email}"/></td>
+                        <td><c:out value="${item.phoneNumber}"/></td>
                             <%--              <td><c:out value="${item.role}"/></td>--%>
                             <%--                 <td>
                                                  <c:choose>
@@ -146,12 +157,42 @@
                                                  </c:choose>
                                              </td>--%>
                     </tr>
+
                 </c:forEach>
+                </tbody>
             </table>
         </c:if>
 
         <c:if test="${requestScope.prev_command eq 'get_user_enter_cabinet'}">
-            <c:out value="${requestScope.user.login}"/>
+            <form action="FrontController" method="post">
+                <input type="hidden" name="user_id" value="${requestScope.user.login}"/>
+                <div class="row">
+                    <div class="col-md-6">Login:</div>
+                    <div class="col-md-6"><c:out value="${requestScope.user.login}"/></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">.col-md-1</div>
+                    <div class="col-md-6">.col-md-1</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">.col-md-1</div>
+                    <div class="col-md-6">.col-md-1</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">.col-md-1</div>
+                    <div class="col-md-6">.col-md-1</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">.col-md-1</div>
+                    <div class="col-md-6">.col-md-1</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">.col-md-1</div>
+                    <div class="col-md-6">.col-md-1</div>
+                </div>
+                <input type="submit" value="smth"/>
+
+            </form>
         </c:if>
     </div>
 </div>

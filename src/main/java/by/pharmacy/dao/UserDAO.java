@@ -64,8 +64,18 @@ public interface UserDAO {
      * Returns list of users with specific role.
      *
      * @param role role of users.
-     * @return object of {@link List} class which has {@link User}.
+     * @return object of {@link List} class which has {@link User} objects.
      * @throws DAOException if something is wrong with getting information from data source.
      */
     List<User> getUserList(UserRole role) throws DAOException;
+
+
+    /**
+     * Returns list of users with name or surname that have namePart param.
+     *
+     * @param namePart part of name or surname
+     * @return object of {@link List} class which has {@link User} objects.
+     * @throws DAOException if something is wrong with getting information from data source.
+     */
+    List<User> findUser(String namePart) throws DAOException;
 }

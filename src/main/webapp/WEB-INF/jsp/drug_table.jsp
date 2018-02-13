@@ -10,6 +10,8 @@
 <fmt:message bundle="${loc}" key="local.drug_name" var="drug_name"/>
 <fmt:message bundle="${loc}" key="local.dosage" var="dosage"/>
 <fmt:message bundle="${loc}" key="local.amount" var="amount"/>
+<fmt:message bundle="${loc}" key="local.description" var="description"/>
+<fmt:message bundle="${loc}" key="local.composition" var="composition"/>
 <fmt:message bundle="${loc}" key="local.country" var="country"/>
 <fmt:message bundle="${loc}" key="local.price" var="price"/>
 <fmt:message bundle="${loc}" key="local.manufacturers" var="manufacturer"/>
@@ -23,6 +25,8 @@
         <th><c:out value="${price}"/></th>
         <th><c:out value="${country}"/></th>
         <th><c:out value="${manufacturer}"/></th>
+        <th><c:out value="${description}"/></th>
+        <th><c:out value="${composition}"/></th>
     </tr>
     </thead>
     <tbody>
@@ -35,6 +39,8 @@
             <td><m:drugCountry drug="${item}"/></td>
             <td><m:drugManufacturer drug="${item}"
                                     command="get_manufacturer_enter_cabinet&manufacturer_id=${item.manufacturer.id}"/></td>
+            <td><c:out value="${item.description}"/></td>
+            <td><c:out value="${item.composition}"/></td>
         </tr>
     </c:forEach>
     </tbody>

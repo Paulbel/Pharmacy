@@ -9,7 +9,6 @@ public class User implements Serializable {
     private String login;
     private String phoneNumber;
     private String email;
-    private String password;
     private UserRole role;
 
     public User() {

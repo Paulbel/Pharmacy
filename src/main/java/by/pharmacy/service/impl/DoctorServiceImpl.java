@@ -10,15 +10,16 @@ import by.pharmacy.entity.ProlongationRequestStatus;
 import by.pharmacy.entity.User;
 import by.pharmacy.entity.UserRole;
 import by.pharmacy.service.DoctorService;
+import by.pharmacy.service.exception.AccessDeniedException;
 import by.pharmacy.service.exception.ServiceException;
 
 import java.util.List;
 
 public class DoctorServiceImpl implements DoctorService {
+    private DAOFactory daoFactory = DAOFactory.getInstance();
 
     @Override
     public void addPrescription(String doctorLogin, String clientLogin, Drug drug, int dayCount) throws ServiceException {
-        DAOFactory daoFactory = DAOFactory.getInstance();
         UserDAO userDAO = daoFactory.getUserDAO();
         try {
             User doctor = userDAO.findUserByLogin(doctorLogin);
@@ -35,7 +36,7 @@ public class DoctorServiceImpl implements DoctorService {
             PrescriptionDAO prescriptionDAO = daoFactory.getPrescriptionDAO();
             prescriptionDAO.addPrescription(doctorLogin, clientLogin, drug, dayCount);
         } catch (DAOException e) {
-            e.printStackTrace();
+            throw new ServiceException(e);
         }
     }
 
@@ -53,11 +54,39 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public void changeProlongationRequestStatus(String idString, String doctorLogin, String statusString) throws ServiceException {
         try {
-            DAOFactory daoFactory = DAOFactory.getInstance();
             ProlongationRequestDAO prolongationRequestDAO = daoFactory.getProlongationRequestDAO();
             ProlongationRequestStatus status = ProlongationRequestStatus.valueOf(statusString);
             long prolongationRequestId = Long.valueOf(idString);
             prolongationRequestDAO.changeProlongationRequestStatus(prolongationRequestId, status);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public User getClient(String doctorLogin, String clientLogin) throws ServiceException {
+        UserDAO userDAO = daoFactory.getUserDAO();
+        try {
+            User doctor = userDAO.findUserByLogin(doctorLogin);
+            if (doctor.getRole() != UserRole.DOCTOR) {
+                throw new AccessDeniedException("User must be a doctor");
+            }
+            User client = userDAO.findUserByLogin(clientLogin);
+
+            if (client.getRole() != UserRole.CLIENT) {
+                throw new ServiceException("Can't get info, cause user is not a client");
+            }
+            return userDAO.findUserByLogin(clientLogin);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<User> findUser(String namePart) throws ServiceException {
+        UserDAO userDAO = daoFactory.getUserDAO();
+        try {
+            return userDAO.findUser(namePart);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

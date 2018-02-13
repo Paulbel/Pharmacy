@@ -8,7 +8,25 @@
             <com:class>by.pharmacy.controller.command.impl.cabinet.ChangeCurrentLanguageCommand</com:class>
         </com:command>
 
+        <com:command>
+            <com:name>get_sign_in_page</com:name>
+            <com:class>by.pharmacy.controller.command.impl.cabinet.GetSignInPageCommand</com:class>
+        </com:command>
 
+        <com:command>
+            <com:name>get_registration_page</com:name>
+            <com:class>by.pharmacy.controller.command.impl.cabinet.GetRegistrationPageCommand</com:class>
+        </com:command>
+
+        <com:command>
+            <com:name>get_main_page</com:name>
+            <com:class>by.pharmacy.controller.command.impl.cabinet.GetMainPageCommand</com:class>
+        </com:command>
+
+        <com:command>
+            <com:name>get_user_select</com:name>
+            <com:class>by.pharmacy.controller.command.impl.user.GetUserSelectCommand</com:class>
+        </com:command>
         <com:command>
             <com:name>get_manufacturer_select</com:name>
             <com:class>by.pharmacy.controller.command.impl.manufacturer.GetManufacturerSelectCommand</com:class>
@@ -87,6 +105,11 @@
             <com:class>by.pharmacy.controller.command.impl.drug.GetDrugListCommand</com:class>
         </com:command>
         <com:command>
+            <com:name>get_drug_select</com:name>
+            <com:class>by.pharmacy.controller.command.impl.drug.GetDrugSelectCommand</com:class>
+        </com:command>
+
+        <com:command>
             <com:name>get_language_map</com:name>
             <com:class>by.pharmacy.controller.command.impl.language.GetLanguageMapCommand</com:class>
         </com:command>
@@ -121,6 +144,10 @@
         <com:command>
             <com:name>get_user_list</com:name>
             <com:class>by.pharmacy.controller.command.impl.user.GetUserListCommand</com:class>
+        </com:command>
+        <com:command>
+            <com:name>get_client</com:name>
+            <com:class>by.pharmacy.controller.command.impl.user.GetClientCommand</com:class>
         </com:command>
 
         <com:command>
@@ -219,7 +246,6 @@
             <com:name>add_drug_enter_cabinet</com:name>
             <com:command_list>
                 <com:command_name>add_drug</com:command_name>
-                <com:command_name>get_manufacturer_list</com:command_name>
                 <com:command_name>enter_cabinet</com:command_name>
             </com:command_list>
         </com:macro_command>
@@ -323,6 +349,54 @@
             </com:command_list>
         </com:macro_command>
 
+        <com:macro_command>
+            <com:name>get_client_list_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>get_client_list</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>get_client_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>get_client</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+
+        <com:macro_command>
+            <com:name>find_user_get_select</com:name>
+            <com:command_list>
+                <com:command_name>find_user</com:command_name>
+                <com:command_name>get_user_select</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>add_prescription_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>add_prescription</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>find_drug_get_select</com:name>
+            <com:command_list>
+                <com:command_name>find_drug</com:command_name>
+                <com:command_name>get_drug_select</com:command_name>
+            </com:command_list>
+        </com:macro_command>
+
+        <com:macro_command>
+            <com:name>sign_up_enter_cabinet</com:name>
+            <com:command_list>
+                <com:command_name>sign_up</com:command_name>
+                <com:command_name>enter_cabinet</com:command_name>
+            </com:command_list>
+        </com:macro_command>
     </com:macro_commands>
 </com:commands>
 
